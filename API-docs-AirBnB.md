@@ -50,7 +50,7 @@ Returns the information about the current user that is logged in.
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: /api/user/personalInfo/:id
+  * URL: /api/user/:id
   * Body: none
 
 * Successful Response when there is a logged in user
