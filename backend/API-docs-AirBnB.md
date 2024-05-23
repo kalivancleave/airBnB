@@ -1,8 +1,9 @@
-# `<name of application here>`
+# Kali's AirBnB
 
 ## Database Schema Design
 
-`<insert database schema design here>`
+![alt text](airBnB.png)
+last updated: 05/22/2024
 
 ## API Documentation
 
@@ -287,7 +288,7 @@ Returns all the spots owned (created) by the current user.
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: /api/spots/:userId
+  * URL: /api/spots/:ownerId
   * Body: none
 
 * Successful Response
@@ -327,7 +328,7 @@ Returns the details of a spot specified by its id.
 * Require Authentication: false
 * Request
   * Method: GET
-  * URL: /api/spots/:spotId
+  * URL: /api/spots/:id
   * Body: none
 
 * Successful Response
@@ -392,7 +393,7 @@ Creates and returns a new spot.
 * Require Authentication: true
 * Request
   * Method: POST
-  * URL: /api/spots/create
+  * URL: /api/spots
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -466,7 +467,7 @@ Create and return a new image for a spot specified by id.
 * Require proper authorization: Spot must belong to the current user
 * Request
   * Method: POST
-  * URL: /api/image/:spotId
+  * URL: /api/images/:spotId
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -1317,7 +1318,7 @@ Delete an existing image for a Spot.
 * Require proper authorization: Spot must belong to the current user
 * Request
   * Method: DELETE
-  * URL: /api/image/:spotId/:id ??by selecting the spotId and the image Id that will only delete one image at a time??
+  * URL: /api/image/:spotId/:id
   * Body: none
 
 * Successful Response
