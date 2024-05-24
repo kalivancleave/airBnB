@@ -3,7 +3,7 @@
 ## Database Schema Design
 
 ![alt text](airBnB.png)
-last updated: 05/22/2024
+last updated: 05/23/2024
 
 ## API Documentation
 
