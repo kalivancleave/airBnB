@@ -5,7 +5,28 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Spot extends Model {
     static associate(models) {
-      // define association here
+      //one-to-many (users to spots) - ASSOCIATION 2
+      Spot.belongsTo(models.User, {
+        foreignKey: 'ownerId'
+      });
+
+      //one-to-many (spots to bookings) - ASSOCIATION 4
+      Spot.hasMany(models.Booking, {
+        foreignKey: 'spotId',
+        onDelete: 'CASCADE'
+      });
+
+      //one-to-many (spots to spotImages) - ASSOCIATION 5
+      Spot.hasMany(models.SpotImage, {
+        foreignKey: 'spotId',
+        onDelete: 'CASCADE'
+      });
+
+      //one-to-many (spots to reviews) - ASSOCIATION 6
+      Spot.hasMany(models.Review, {
+        foreignKey: 'spotId',
+        onDelete: 'CASCADE'
+      });
     }
   }
   Spot.init({

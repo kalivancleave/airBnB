@@ -6,7 +6,23 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
-      // define association here
+      //one-to-many (users to bookings) - ASSOCIATION 1
+      User.hasMany(models.Booking, {
+        foreignKey: 'userId',
+        onDelete: 'CASCADE'
+      });
+
+      //one-to-many (users to spots) - ASSOCIATION 2
+      User.hasMany(models.Spot, {
+        foreignKey: 'ownerId',
+        onDelete: 'CASCADE'
+      });
+
+      //one-to-many (users to reviews) - ASSOCIATION 3
+      User.hasMany(models.Review, {
+        foreignKey: 'userId',
+        onDelete: 'CASCADE'
+      });
     }
   }
   User.init({

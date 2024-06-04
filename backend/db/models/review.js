@@ -5,7 +5,21 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Review extends Model {
     static associate(models) {
-      // define association here
+      //one-to-many (users to reviews) - ASSOCIATION 3
+      Review.belongsTo(models.User, {
+        foreignKey: 'userId'
+      });
+
+      //one-to-many (spots to reviews) - ASSOCIATION 6
+      Review.belongsTo(models.Spot, {
+        foreignKey: 'spotId'
+      });
+
+      //one-to-many (reviews to reviewImages) - ASSOCIATION 7
+      Review.hasMany(models.ReviewImage, {
+        foreignKey: 'reviewId',
+        onDelete: 'CASCADE'
+      });
     }
   }
   Review.init({

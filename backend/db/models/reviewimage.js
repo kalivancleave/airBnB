@@ -5,7 +5,10 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class ReviewImage extends Model {
     static associate(models) {
-      // define association here
+      //one-to-many (reviews to reviewImages) - ASSOCIATION 7
+      ReviewImage.belongsTo(models.Review, {
+        foreignKey: 'reviewId'
+      });
     }
   }
   ReviewImage.init({

@@ -5,10 +5,15 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Booking extends Model {
     static associate(models) {
-      //one-to-many (users to bookings)
+      //one-to-many (users to bookings) - ASSOCIATION 1
       Booking.belongsTo(models.User, {
         foreignKey: 'userId'
-      })
+      });
+
+      //one-to-many (spots to bookings) - ASSOCIATION 4
+      Booking.belongsTo(models.Spot, {
+        foreignKey: 'spotId'
+      });
     }
   }
   Booking.init({
