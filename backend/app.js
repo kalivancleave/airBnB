@@ -14,9 +14,9 @@ const { ValidationError } = require('sequelize');
 const routes = require('./routes');
 const app = express();
 
-app.use(morgan('dev'));
-app.use(cookieParser());
-app.use(express.json());
+app.use(morgan('dev')); //logs and prints things to terminal
+app.use(cookieParser()); //access csrf tokens and jwts
+app.use(express.json()); //read json request bodies
 
 // Security Middleware
 if (!isProduction) {
