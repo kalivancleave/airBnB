@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
+const spotsRouter = require('./spots.js'); //create a link to spots.js
 const { restoreUser, requireAuth } = require("../../utils/auth.js");
 
 // Connect restoreUser middleware to the API router
@@ -16,6 +17,7 @@ router.use('/session', sessionRouter);
 router.use('/users', usersRouter);
 
 //add new routes here (spots, reviews, etc.)
+//router.use('/spots', spotsRouter) - make a spots.js file in routes/api folder
 
 //testing that only logged in users can hit this route (requireAuth middleware)
 router.get('/test', requireAuth, (req, res, next) => {
