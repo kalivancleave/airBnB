@@ -7,6 +7,8 @@ const { User } = require('../../db/models');
 
 const router = express.Router();
 
+
+//login
 router.post('/', async (req, res, next) => {
   try {
     //destructure credential and password from the req.body
@@ -45,6 +47,16 @@ router.post('/', async (req, res, next) => {
       user: safeUser
     });
     
+  } catch (error) {
+    next(error)
+  }
+});
+
+//logout
+router.delete('/', async(req, res, next) => {
+  try {
+    res.clearCookie('token');
+    return res.json({ message: 'success' });
   } catch (error) {
     next(error)
   }
