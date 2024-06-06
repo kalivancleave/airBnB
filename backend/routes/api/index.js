@@ -17,7 +17,7 @@ router.use('/session', sessionRouter);
 router.use('/users', usersRouter);
 
 //add new routes here (spots, reviews, etc.)
-//router.use('/spots', spotsRouter) - make a spots.js file in routes/api folder
+router.use('/spots', spotsRouter);
 
 //testing that only logged in users can hit this route (requireAuth middleware)
 router.get('/test', requireAuth, (req, res, next) => {
