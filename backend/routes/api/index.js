@@ -30,6 +30,17 @@ router.get('/test', requireAuth, (req, res, next) => {
   }
 });
 
+router.get('/', (req, res, next) => {
+  try {
+    res.json({
+      message: ':)'
+    })
+    
+  } catch (error) {
+    next(error)
+  }
+})
+
 router.post('/test', (req, res, next) => {
   try {
     res.json({requestBody: req.body});
