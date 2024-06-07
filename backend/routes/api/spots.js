@@ -173,6 +173,86 @@ router.get('/current', requireAuth, async (req, res, next) => {
   } catch (error) {
     next(error)
   }
+});
+
+//get details of a spot from the spot ID
+router.get('/:spotId', async(req, res, next) => {
+  try {
+    //find the spot id
+    const spotId = req.params.spotId
+
+    //find the spot by that id (join spot images table & owner table)
+    const spot = await Spot.findByPk(spotId)
+
+    //404 - no spot exists
+    if(!spot){
+      res.status(404),
+      res.json({
+        message: "Spot couldn't be found"
+      })
+    }
+
+    //find spotImages with that spotId
+    const spotImages = await SpotImage.findAll({
+      where: {
+        spotId: spotId
+      },
+      attributes: ['id', 'url', 'preview']
+    })
+
+    //find review info with that spotId
+    const reviews = await Review.findAll({
+      where: {
+        spotId: spotId,
+      }
+    });
+
+    //find the sum of all stars
+    let sumOfStars = 0;
+    for (let i = 0; i < reviews.length; i++){
+      let review = reviews[i]
+      let starRating = review.stars
+      sumOfStars += starRating
+    }
+    
+    //find the average of all the stars from the review table
+    const averageRating = sumOfStars/reviews.length
+
+    //find the owner with that spotId
+    const owner = await User.findOne({
+      where: {
+        id: spot.ownerId
+      },
+      attributes: ['id', 'firstName', 'lastName']
+    });
+
+    //spot exists - add requested elements
+    const updatedSpot = {
+      id: spot.id,
+      ownerId: spot.ownerId,
+      address: spot.address,
+      city: spot.city,
+      state: spot.state,
+      country: spot.country,
+      lat: spot.lat,
+      lng: spot.lng,
+      name: spot.name,
+      description: spot.description,
+      price: spot.price,
+      createdAt: spot.createdAt,
+      updatedAt: spot.updatedAt,
+      numReviews: reviews.length,
+      avgStarRating: averageRating,
+      SpotImages: spotImages,
+      Owner: owner
+    }
+
+    //return requested result
+    res.json(updatedSpot)
+    
+  } catch (error) {
+    next(error)
+  }
 })
 
 module.exports = router;

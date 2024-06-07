@@ -13,20 +13,29 @@ if (process.env.NODE_ENV === 'production') {
 const spotImages = [
   {
     spotId: 1,
-    url: 'imageurl1.com'
-  },
-  {
-    spotId: 1,
-    url: 'imageurl2.com'
-  },
-  {
-    spotId: 1,
-    url: 'imageurl3.com'
+    url: 'imageurl1.com',
+    preview: true
   },
   {
     spotId: 2,
-    url: 'imageurl4.com'
-  }
+    url: 'imageurl2.com',
+    preview: true
+  },
+  {
+    spotId: 1,
+    url: 'imageurl3.com',
+    preview: false
+  },
+  {
+    spotId: 3,
+    url: 'imageurl4.com',
+    preview: true
+  },
+  {
+    spotId: 4,
+    url: 'imageurl5.com',
+    preview: false
+  },
 ]
 
 /** @type {import('sequelize-cli').Migration} */
