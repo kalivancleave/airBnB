@@ -351,7 +351,7 @@ router.post('/:spotId/images', requireAuth, async(req, res,next) => {
 
     //make sure user owns the spot before posting a photo
     if(spot.ownerId !== userId){
-      res.json({
+      return res.json({
         //userId: userId, (debugging)
         //spotOwnerId: spot.ownerId, (debugging)
         message: "You must own this spot to post a photo."
@@ -404,7 +404,7 @@ router.put('/:spotId', requireAuth, validateSpot, async(req, res, next) => {
 
     //check that logged in user owns the spot
     if(spot.ownerId !== userId){
-      res.json({
+      return res.json({
         //userId: userId, //(debugging)
         //spotOwnerId: spot.ownerId, //(debugging)
         message: "You must own this spot to make edits."
@@ -431,6 +431,49 @@ router.put('/:spotId', requireAuth, validateSpot, async(req, res, next) => {
 
     //return requested result
     res.json(updatedSpot)
+    
+  } catch (error) {
+    next(error)
+  }
+});
+
+//delete a spot
+router.delete('/:spotId', requireAuth, async(req, res, next) => {
+  try {
+    //find spot id
+    const spotId = req.params.spotId;
+
+    //find spot by id
+    const spotToDestroy = await Spot.findByPk(spotId);
+
+    //find logged in user id
+    const userId = req.user.id;
+
+    //404 - no spot found
+    if(!spotToDestroy){
+      res.status(404),
+      res.json({
+        message: "Spot couldn't be found"
+      })
+    };
+
+    //make sure logged in user is owner of spot
+    if(spotToDestroy.ownerId !== userId){
+      return res.json({
+        //userId: userId, //(debugging)
+        //spotOwnerId: spot.ownerId, //(debugging)
+        message: "You must own this spot to delete."
+      })
+    };
+
+    //spot found && user is owner
+    //destroy spot
+    await spotToDestroy.destroy();
+
+    //return requested result
+    res.json({
+      message: "Successfully deleted"
+    });
     
   } catch (error) {
     next(error)
