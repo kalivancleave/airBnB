@@ -6,7 +6,48 @@ const bcrypt = require('bcryptjs');
 const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth');
 const { Spot, SpotImage, Review, User } = require('../../db/models');
 
+const {check} = require('express-validator');
+const {handleValidationErrors} = require('../../utils/validation');
+
 const router = express.Router();
+
+//validate spot info
+const validateSpot = [
+  check('address')
+    .exists({checkFalsy: true})
+    .withMessage('Street address is required'),
+  check('city')
+    .exists({checkFalsy: true})
+    .withMessage('City is required'),
+  check('state')
+    .exists({checkFalsy: true})
+    .withMessage('State is required'),
+  check('country')
+    .exists({checkFalsy: true})
+    .withMessage('Country is required'),
+  check('lat')
+    .isFloat({
+      min: -90,
+      max: 90
+    })
+    .withMessage('Latitude must be within -90 and 90'),
+  check('lng')
+    .isFloat({
+      min: -180,
+      max: 180
+    })
+    .withMessage('Longitude must be within -180 and 180'),
+  check('name')
+    .isLength({max: 50})
+    .withMessage('Name must be less than 50 characters'),
+  check('description')
+    .exists({checkFalsy: true})
+    .withMessage('Description is required'),
+  check('price')
+    .isFloat({min: 0})
+    .withMessage('Price per day must be a positive number'),
+  handleValidationErrors
+];
 
 //get all spots
 router.get('/', async(req, res, next) => {
@@ -249,6 +290,38 @@ router.get('/:spotId', async(req, res, next) => {
 
     //return requested result
     res.json(updatedSpot)
+    
+  } catch (error) {
+    next(error)
+  }
+});
+
+//create a spot
+router.post('/', requireAuth, validateSpot, async(req, res, next) => {
+  try {
+    //find the id of the logged in user
+    const userId = req.user.id;
+
+    //destructure from body
+    const {address, city, state, country, lat, lng, name, description, price} = req.body
+
+    //create a new spot
+    const newSpot = await Spot.create({
+      ownerId: userId,
+      address,
+      city,
+      state,
+      country,
+      lat,
+      lng,
+      name,
+      description,
+      price
+    });
+
+    //return requested response
+    res.status(201),
+    res.json(newSpot)
     
   } catch (error) {
     next(error)
