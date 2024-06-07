@@ -326,6 +326,59 @@ router.post('/', requireAuth, validateSpot, async(req, res, next) => {
   } catch (error) {
     next(error)
   }
+});
+
+//add an image to a spot based on the spot's ID
+router.post('/:spotId/images', requireAuth, async(req, res,next) => {
+  try {
+    //find current logged in user Id
+    const userId = req.user.id;
+
+    //find spot id
+    const spotId = req.params.spotId;
+
+    
+    //find spot by id
+    const spot = await Spot.findByPk(spotId);
+    
+    //404 - no spot
+    if(!spot){
+      res.status(404),
+      res.json({
+        message: "Spot couldn't be found"
+      })
+    }
+
+    //make sure user owns the spot before posting a photo
+    if(spot.ownerId !== userId){
+      res.json({
+        //userId: userId, (debugging)
+        //spotOwnerId: spot.ownerId, (debugging)
+        message: "You must own this spot to post a photo."
+      })
+    }
+    
+    //spot found
+    //destructure req.body
+    const {url, preview} = req.body;
+
+    //create new image
+    const newImage = await SpotImage.create({
+      spotId: spotId,
+      url,
+      preview
+    })
+
+    //return requested response
+    res.json({
+      id: newImage.id,
+      url: newImage.url,
+      preview: newImage.preview
+    });
+    
+  } catch (error) {
+    next(error)
+  }
 })
 
 module.exports = router;
