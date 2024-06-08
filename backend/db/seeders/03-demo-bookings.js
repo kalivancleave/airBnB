@@ -35,6 +35,12 @@ const bookings = [
     startDate: '2024-03-02',
     endDate: '2024-04-01'
   },
+  {
+    spotId: 3,
+    userId: 4,
+    startDate: '2024-03-02',
+    endDate: '2024-04-01'
+  }
 ]
 
 /** @type {import('sequelize-cli').Migration} */
