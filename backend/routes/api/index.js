@@ -5,6 +5,7 @@ const spotsRouter = require('./spots.js'); //create a link to spots.js
 const reviewsRouter = require('./reviews.js'); //create a link to reviews.js
 const bookingsRouter = require('./bookings.js'); //create a link to bookings.js
 const spotImagesRouter = require('./spot-images.js'); //create a link to spot-images.js
+const reviewImagesRouter = require('./review-images.js'); //create a link to review-images.js
 const { restoreUser, requireAuth } = require("../../utils/auth.js");
 
 // Connect restoreUser middleware to the API router
@@ -27,6 +28,8 @@ router.use('/reviews', reviewsRouter);
 router.use('/bookings', bookingsRouter);
 
 router.use('/spot-images', spotImagesRouter);
+
+router.use('/review-images', reviewImagesRouter);
 
 //testing that only logged in users can hit this route (requireAuth middleware)
 router.get('/test', requireAuth, (req, res, next) => {
