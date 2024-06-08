@@ -32,23 +32,10 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     startDate: {
-      type: DataTypes.DATE,
-      validate: {
-        isAfter: '2024-01-01'
-      }
+      type: DataTypes.DATE
     },
     endDate: {
-      type: DataTypes.DATE,
-      validate: {
-        //cannot end before the date it starts
-        dateCheck(value) {
-          //this may be wrong. There was a homework on checking/comparing dates.
-          //this is just brainstorming to get thoughts onto paper
-          if (this.startDate > value){
-            throw new Error("End date must occur after start date.")
-          }
-        }
-      }
+      type: DataTypes.DATE
     }
   }, {
     sequelize,

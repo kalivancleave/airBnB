@@ -58,7 +58,7 @@ const validateReview = [
     })
     .withMessage('Stars must be an integer from 1 to 5'),
   handleValidationErrors
-]
+];
 
 //get all spots
 router.get('/', async(req, res, next) => {
@@ -597,6 +597,111 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async(req, res, nex
     res.status(201)
     res.json(newReview)
 
+  } catch (error) {
+    next(error)
+  }
+});
+
+router.post('/:spotId/bookings', requireAuth, async(req, res, next) => {
+  try {
+    //find spot id
+    const spotId = req.params.spotId;
+
+    //find spot by id
+    const spot = await Spot.findByPk(spotId);
+
+    //404 - no spot found
+    if(!spot){
+      res.status(404)
+      return res.json({
+        message: "Spot couldn't be found"
+      })
+    };
+    
+    //spot found
+    //find all bookings for that spot id before adding another booking
+    const bookings = await Booking.findAll({
+      where: {
+        spotId: spotId
+      }
+    });
+
+    //SPOT MUST NOT BELONG TO CURRENT USER
+    if(spot.ownerId !== req.user.id){
+      
+      //destructure from req.body
+      const {startDate, endDate} = req.body;
+      
+      //check and make sure no booking conflict
+      let minAllowedDate = new Date("2018-01-01")
+      let newBookingStartDate = new Date(startDate).getTime();
+      let newBookingEndDate = new Date(endDate).getTime();
+
+      //validate end date is after start date
+      if(newBookingEndDate < newBookingStartDate){
+        res.status(400)
+        res.json({
+          message: "Bad Request",
+          errors: {
+            endDate: "endDate cannot be on or before startDate"
+          }
+        })
+      } else if (newBookingStartDate < minAllowedDate){
+        res.status(400)
+        res.json({
+          message: "Bad Request",
+          errors: {
+            startDate: "startDate cannot be in the past"
+          }
+        })
+      }
+      
+      //iterate through all bookings
+      for (let i = 0; i < bookings.length; i++) {
+        let booking = bookings[i];
+
+        //checking requested dates v. all other booked dates
+        let date1 = new Date(booking.startDate).getTime();
+        let date2 = new Date(booking.endDate).getTime();
+
+        //errors if overlap
+        if(newBookingEndDate > date1 && newBookingEndDate < date2){
+          res.status(403)
+          res.json({
+            message: 'Sorry, this spot is already booked for the specified dates',
+          errors: {
+            endDate: 'End date conflicts with an existing booking'
+          }
+        })
+        } else if(newBookingStartDate > date1 && newBookingStartDate < date2){
+          res.status(403)
+           res.json({
+            message: 'Sorry, this spot is already booked for the specified dates',
+            errors: {
+              startDate: 'Start date conflicts with an existing booking'
+            }
+          })
+        }; 
+      };
+    
+    //request passes all checks
+    //create a booking request
+    let newBooking = await Booking.create({
+      spotId: spotId,
+      userId: req.user.id,
+      startDate,
+      endDate
+    });
+
+    //return requested reponse
+    res.status(201)
+    res.json(newBooking)
+    };
+
+    res.json({
+      message: 'You own this space. You cannot make a reservation'
+    })
+    
   } catch (error) {
     next(error)
   }
