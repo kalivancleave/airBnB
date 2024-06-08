@@ -187,7 +187,10 @@ router.put('/:bookingId', requireAuth, async(req, res, next) => {
   } catch (error) {
     next(error)
   }
-})
+});
+
+//delete a booking
+router.delete('/:bookingId', requireAuth, )
 
 
 

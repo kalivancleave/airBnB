@@ -706,7 +706,7 @@ router.post('/:spotId/bookings', requireAuth, async(req, res, next) => {
   } catch (error) {
     next(error)
   }
-})
+});
 
 //edit a spot
 router.put('/:spotId', requireAuth, validateSpot, async(req, res, next) => {
