@@ -1,9 +1,6 @@
 const express = require('express');
 
-const { Op } = require('sequelize');
-const bcrypt = require('bcryptjs');
-
-const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth');
+const { requireAuth } = require('../../utils/auth');
 const { Spot, SpotImage, Review, User } = require('../../db/models');
 
 const {check} = require('express-validator');
