@@ -46,6 +46,20 @@ const validateSpot = [
   handleValidationErrors
 ];
 
+//validate review info
+const validateReview = [
+  check('review')
+    .exists({checkFalsy: true})
+    .withMessage('Review text is required'),
+  check('stars')
+    .isFloat({
+      min: 1,
+      max: 5
+    })
+    .withMessage('Stars must be an integer from 1 to 5'),
+  handleValidationErrors
+]
+
 //get all spots
 router.get('/', async(req, res, next) => {
   try {
@@ -396,7 +410,7 @@ router.post('/', requireAuth, validateSpot, async(req, res, next) => {
 });
 
 //add an image to a spot based on the spot's ID
-router.post('/:spotId/images', requireAuth, async(req, res,next) => {
+router.post('/:spotId/images', requireAuth, async(req, res, next) => {
   try {
     //find current logged in user Id
     const userId = req.user.id;
@@ -448,6 +462,59 @@ router.post('/:spotId/images', requireAuth, async(req, res,next) => {
     next(error)
   }
 });
+
+//create a review for a spot based on the spot's ID
+router.post('/:spotId/reviews', requireAuth, validateReview, async(req, res, next) => {
+  try {
+    //find spot id
+    const spotId = req.params.spotId;
+
+    //find spot by ID
+    const spot = await Spot.findByPk(spotId);
+
+    //404 - no spot found
+    if(!spot){
+      res.status(404),
+      res.json({
+        message: "Spot couldn't be found"
+      })
+    }
+
+    //search reviews: if review.id, user.id, and spot.id throw error
+    const userReviewsCheck = await Review.findOne({
+      where: {
+        userId: req.user.id,
+        spotId: spotId
+      }
+    });
+
+    if(userReviewsCheck){
+      res.status(500)
+      return res.json({
+        message: "User already has a review for this spot"
+      })
+    };
+    
+    //spot found
+    //descructure from req.body
+    const {review, stars} = req.body;
+
+    //create a new review
+    const newReview = await Review.create({
+      userId: req.user.id,
+      spotId: spotId,
+      review,
+      stars
+    });
+
+    //return requested result
+    res.status(201)
+    res.json(newReview)
+
+  } catch (error) {
+    next(error)
+  }
+})
 
 //edit a spot
 router.put('/:spotId', requireAuth, validateSpot, async(req, res, next) => {
