@@ -637,8 +637,8 @@ router.post('/:spotId/bookings', requireAuth, async(req, res, next) => {
       let newBookingStartDate = new Date(startDate).getTime();
       let newBookingEndDate = new Date(endDate).getTime();
 
-      //validate end date is after start date
-      if(newBookingEndDate < newBookingStartDate){
+      //400 - bad requests
+      if(newBookingEndDate <= newBookingStartDate){
         res.status(400)
         res.json({
           message: "Bad Request",
@@ -656,6 +656,7 @@ router.post('/:spotId/bookings', requireAuth, async(req, res, next) => {
         })
       }
       
+      //403 - booking conflict
       //iterate through all bookings
       for (let i = 0; i < bookings.length; i++) {
         let booking = bookings[i];
@@ -665,7 +666,7 @@ router.post('/:spotId/bookings', requireAuth, async(req, res, next) => {
         let date2 = new Date(booking.endDate).getTime();
 
         //errors if overlap
-        if(newBookingEndDate > date1 && newBookingEndDate < date2){
+        if(newBookingEndDate >= date1 && newBookingEndDate <= date2){
           res.status(403)
           res.json({
             message: 'Sorry, this spot is already booked for the specified dates',
@@ -673,7 +674,7 @@ router.post('/:spotId/bookings', requireAuth, async(req, res, next) => {
             endDate: 'End date conflicts with an existing booking'
           }
         })
-        } else if(newBookingStartDate > date1 && newBookingStartDate < date2){
+        } else if(newBookingStartDate >= date1 && newBookingStartDate <= date2){
           res.status(403)
            res.json({
             message: 'Sorry, this spot is already booked for the specified dates',
