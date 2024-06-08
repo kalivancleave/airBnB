@@ -1,7 +1,7 @@
 const express = require('express');
 
 const { requireAuth } = require('../../utils/auth');
-const { Spot, SpotImage, Review, User, ReviewImage } = require('../../db/models');
+const { Spot, SpotImage, Review, User, ReviewImage, Booking } = require('../../db/models');
 
 const {check} = require('express-validator');
 const {handleValidationErrors} = require('../../utils/validation');
@@ -376,6 +376,92 @@ router.get('/:spotId/reviews', async(req, res, next) => {
     next(error)
   }
 });
+
+//get bookings for spot from spot Id
+router.get('/:spotId/bookings', requireAuth, async(req, res, next) => {
+  try {
+    //find spot id
+    const spotId = req.params.spotId;
+    
+    //find spot by id
+    const spot = await Spot.findByPk(spotId)
+    
+    //404 - no spot found
+    if(!spot){
+      res.status(404)
+      return res.json({
+        message: "Spot couldn't be found"
+      })
+    };
+    
+    //spot found
+    //find all bookings based on spotId
+    const bookings = await Booking.findAll({
+      where: {
+        spotId: spotId
+      }
+    })
+    
+    //iterate through each booking
+    let nonOwnerBookings = [];
+    let ownerBookings = [];
+    for (let i = 0; i < bookings.length; i++) {
+      let booking = bookings[i];   
+
+      if (booking.userId !== req.user.id){
+
+        const nonOwnerBookingInfo = {
+          //bookingUserId: booking.userId, //debugging
+          //loggedInUserId: req.user.id, //debugging
+          spotId: booking.spotId,
+          startDate: booking.startDate,
+          endDate: booking.endDate
+        }
+        
+        nonOwnerBookings.push(nonOwnerBookingInfo);
+
+      } 
+
+      const user = await User.findOne({
+        where: {
+          id: booking.userId
+        },
+        attributes: ['id', 'firstName', 'lastName']
+      });
+
+      const ownerBookingInfo = {
+        //bookingUserId: booking.userId, //debugging
+        //loggedInUserId: req.user.id, //debugging
+        User: user,
+        id: booking.id,
+        spotId: booking.spotId,
+        userId: booking.userId,
+        startDate: booking.startDate,
+        endDate: booking.endDate,
+        createdAt: booking.createdAt,
+        updatedAt: booking.updatedAt
+      }
+
+      ownerBookings.push(ownerBookingInfo);    
+    };
+
+    //if user.id is spot.OwnerID
+    if(spot.ownerId === req.user.id){
+      //Response for OWNER
+      res.json({
+        Bookings: ownerBookings
+      });
+    } else {
+      //Response for NON OWNER
+      res.json({
+        Bookings: nonOwnerBookings
+      });   
+    };
+    
+  } catch (error) {
+    next(error)
+  }
+})
 
 //create a spot
 router.post('/', requireAuth, validateSpot, async(req, res, next) => {

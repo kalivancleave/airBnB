@@ -26,7 +26,7 @@ const validateReview = [
 router.get('/current', requireAuth, async(req, res, next) => {
   try {
     //find the current user id
-    const userId = req.user.id;
+    const userId = 4;
 
     //get all reviews where user.id === reviews.userId
     const reviews = await Review.findAll({
