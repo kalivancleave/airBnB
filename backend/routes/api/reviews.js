@@ -111,6 +111,68 @@ router.get('/current', requireAuth, async(req, res, next) => {
   }
 });
 
+router.post('/:reviewId/images', requireAuth, async(req, res, next) => {
+  try {
+    //find review id
+    const reviewId = req.params.reviewId;
+
+    //find review by id
+    const review = await Review.findByPk(reviewId);
+
+    //404 - no review found
+    if(!review){
+      res.status(404)
+      res.json({
+        message: "Review couldn't be found"
+      })
+    };
+
+    //check if user id matches review id owner
+    if(review.userId !== req.user.id){
+      return res.json({
+        message: 'You must own this review to post a photo.'
+      })
+    }
+
+    //check review image.length (over 10 images throw error)
+    const reviewImages = await ReviewImage.findAll({
+      where: {
+        reviewId: review.id
+      }
+    });
+
+    if(reviewImages.length >= 10){
+      res.status(403)
+      return res.json({
+        message: "Maximum number of images for this resource was reached"
+      })
+    };
+
+    //all of the checks pass
+    //destructure from req.body
+    const {url} = req.body;
+
+    //create new review image
+    const newImage = await ReviewImage.create({
+      reviewId: reviewId,
+      url
+    });
+
+    let newImageURL = newImage.url;
+    let newImageId = newImage.id;
+
+    //return requested response
+    res.status(201)
+    res.json({
+      id: newImageId,
+      url: newImageURL
+    });
+    
+  } catch (error) {
+    next(error)
+  }
+});
+
 
 
 
