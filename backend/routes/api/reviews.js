@@ -8,6 +8,20 @@ const {handleValidationErrors} = require('../../utils/validation');
 
 const router = express.Router();
 
+//validate review info
+const validateReview = [
+  check('review')
+    .exists({checkFalsy: true})
+    .withMessage('Review text is required'),
+  check('stars')
+    .isFloat({
+      min: 1,
+      max: 5
+    })
+    .withMessage('Stars must be an integer from 1 to 5'),
+  handleValidationErrors
+]
+
 //get all reviews of current user
 router.get('/current', requireAuth, async(req, res, next) => {
   try {
@@ -167,6 +181,49 @@ router.post('/:reviewId/images', requireAuth, async(req, res, next) => {
       id: newImageId,
       url: newImageURL
     });
+    
+  } catch (error) {
+    next(error)
+  }
+});
+
+router.put('/:id', requireAuth, validateReview, async(req, res, next) => {
+  try {
+    //find review id
+    const reviewId = req.params.id;
+
+    //find review by id
+    const reviewToUpdate = await Review.findByPk(reviewId);
+
+    //404 - no review found
+    if(!reviewToUpdate){
+      res.status(404)
+      return res.json({
+        message: "Review couldn't be found"
+      })
+    };
+
+    //review found
+    //check user owns review
+    if(reviewToUpdate.userId !== req.user.id){
+      return res.json({
+        message: 'You must own this review to make edits.'
+      })
+    }
+
+    //passes all tests - descructure from req.body
+    const {review, stars} = req.body;
+
+    //review.update
+    let updatedReview = await reviewToUpdate.update({
+      userId: req.user.id,
+      spotId: reviewToUpdate.SpotId,
+      review,
+      stars
+    })
+
+    //return requested response
+    res.json(updatedReview);
     
   } catch (error) {
     next(error)
