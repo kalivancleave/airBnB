@@ -3,7 +3,7 @@ const express = require('express');
 const { requireAuth } = require('../../utils/auth');
 const { Spot, SpotImage, Review, User, ReviewImage, Booking } = require('../../db/models');
 
-const {check} = require('express-validator');
+const {check, matchedData} = require('express-validator');
 const {handleValidationErrors} = require('../../utils/validation');
 
 const router = express.Router();
@@ -104,7 +104,8 @@ const validateQuery = [
 //get all spots
 router.get('/', validateQuery, async(req, res, next) => {
   try {
-
+    const data = matchedData(req, {includeOptionals: true})
+    
     //pagination
     let {page, size} = req.query;
 
@@ -155,10 +156,77 @@ router.get('/', validateQuery, async(req, res, next) => {
       offset: (page - 1) * size,
       limit: size
     });
-    
+
+    //define all data options - maxPrice minPrice maxLng minLng maxLat minLat
+    const minPrice = data.minPrice
+    const maxPrice = data.maxPrice
+    const minLng = data.minLng
+    const maxLng = data.maxLng
+    const minLat = data.minLat
+    const maxLat = data.maxLat
+
+    //filter spots
+    let filteredSpots = []
+    for (let j = 0; j < spots.length; j++){
+      let approvedSpot = spots[j]
+
+      //set all conditions to a true (if one fails a check then turn false)
+      let minPriceCheck = true;
+      let maxPriceCheck = true;
+      let minLngCheck = true;
+      let maxLngCheck = true;
+      let minLatCheck = true;
+      let maxLatCheck = true;
+
+      if(minPrice !== undefined && approvedSpot.price < minPrice){
+        minPriceCheck = false
+      };
+
+      if(maxPrice !== undefined && approvedSpot.price > maxPrice){
+        maxPriceCheck = false
+      };
+          
+      if(minLng !== undefined && approvedSpot.lng < minLng){
+        minLngCheck = false
+      };
+      
+      if(maxLng !== undefined && approvedSpot.lng > maxLng){
+        maxLngCheck = false
+      };
+      
+      if(minLat !== undefined && approvedSpot.lat < minLat){
+        minLatCheck = false
+      };
+      
+      if(maxLat !== undefined && approvedSpot.lat > maxLat){
+        maxLatCheck = false
+      };
+                  
+      
+      //at the end of all the checks if all conditions are true push to filtered spot
+      if(minPriceCheck === true &&
+         maxPriceCheck === true &&
+         minLngCheck === true &&
+         maxLngCheck === true &&
+         minLatCheck === true &&
+         maxLatCheck === true){
+          filteredSpots.push(approvedSpot)
+         } 
+      
+      //reset tests
+      minPriceCheck = true;
+      maxPriceCheck = true;
+      minLngCheck = true;
+      maxLngCheck = true;
+      minLatCheck = true;
+      maxLatCheck = true;
+    }
+    res.json(filteredSpots)
+
+    //iterate through the useable spots
     //for each spot
-    for (let i = 0; i < spots.length; i++){
-      const spot = spots[i]
+    for (let i = 0; i < filteredSpots.length; i++){
+      const spot = filteredSpots[i]
       
       //find all reviews with that spotId
       const reviews = await Review.findAll({

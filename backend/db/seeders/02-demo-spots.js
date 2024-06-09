@@ -17,6 +17,8 @@ const spots = [
     city: 'First City',
     state: 'First',
     country: 'USA',
+    lat: 45.25478,
+    lng: -122.463587,
     name: 'The First Spot',
     description: 'A wonderful place to stay.',
     price: 50.00
@@ -27,6 +29,8 @@ const spots = [
     city: 'Second City',
     state: 'Second',
     country: 'USA',
+    lat: 85.25478,
+    lng: -100.463587,
     name: 'The Second Spot',
     description: 'Another wonderful place to stay.',
     price: 70.00
@@ -37,6 +41,8 @@ const spots = [
     city: 'Third City',
     state: 'Third',
     country: 'USA',
+    lat: -23.25478,
+    lng: 56.463587,
     name: 'The Third Spot',
     description: 'A third option for a wonderful place to stay.',
     price: 2.00
