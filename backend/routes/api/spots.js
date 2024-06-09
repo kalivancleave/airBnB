@@ -158,13 +158,13 @@ router.get('/', validateQuery, async(req, res, next) => {
     });
 
     //define all data options - maxPrice minPrice maxLng minLng maxLat minLat
-    const minPrice = data.minPrice
-    const maxPrice = data.maxPrice
-    const minLng = data.minLng
-    const maxLng = data.maxLng
-    const minLat = data.minLat
-    const maxLat = data.maxLat
-
+    const minPrice = parseInt(data.minPrice)
+    const maxPrice = parseInt(data.maxPrice)
+    const minLng = parseInt(data.minLng)
+    const maxLng = parseInt(data.maxLng)
+    const minLat = parseInt(data.minLat)
+    const maxLat = parseInt(data.maxLat)
+    
     //filter spots
     let filteredSpots = []
     for (let j = 0; j < spots.length; j++){
@@ -221,7 +221,6 @@ router.get('/', validateQuery, async(req, res, next) => {
       minLatCheck = true;
       maxLatCheck = true;
     }
-    res.json(filteredSpots)
 
     //iterate through the useable spots
     //for each spot
