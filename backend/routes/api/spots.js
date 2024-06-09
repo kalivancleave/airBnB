@@ -64,10 +64,21 @@ const validateReview = [
 router.get('/', async(req, res, next) => {
   try {
 
+    //pagination
+    let {page, size} = req.query;
+
+    page = parseInt(page);
+    size = parseInt(size);
+
+    if(isNaN(page) || page <= 0) page = 1;
+    if(isNaN(size) || size <= 0) size = 20;
+
     let updatedSpots = [];
     
     //find all spots
     const spots = await Spot.findAll({
+      offset: (page - 1) * size,
+      limit: size
     });
     
     //for each spot
@@ -127,9 +138,12 @@ router.get('/', async(req, res, next) => {
 
       updatedSpots.push(payload);
     }
+
     //return requested result
     res.json({
-      Spots: updatedSpots
+      Spots: updatedSpots,
+      page,
+      size
     });
     
   } catch (error) {
