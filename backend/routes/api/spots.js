@@ -60,8 +60,49 @@ const validateReview = [
   handleValidationErrors
 ];
 
+//validate query info
+const validateQuery = [
+  check('maxLat')
+    .optional()
+    .isFloat({
+      max: 90
+    })
+    .withMessage('Maximum latitude is invalid'),
+  check('minLat')
+    .optional()
+    .isFloat({
+      min: -90
+    })
+    .withMessage('Minimum latitude is invalid'),
+  check('minLng')
+    .optional()
+    .isFloat({
+      min: -180
+    })
+    .withMessage('Minimum longitude is invalid'),
+  check('maxLng')
+    .optional()
+    .isFloat({
+      max: 180
+    })
+    .withMessage('Maximum longitude is invalid'),
+  check('minPrice')
+    .optional()
+    .isFloat({
+      min: 0
+    })
+    .withMessage('Minimum price must be greater than or equal to 0'),
+  check('maxPrice')
+    .optional()
+    .isFloat({
+      min: 0
+    })
+    .withMessage('Maximum price must be greater than or equal to 0'),
+  handleValidationErrors  
+]
+
 //get all spots
-router.get('/', async(req, res, next) => {
+router.get('/', validateQuery, async(req, res, next) => {
   try {
 
     //pagination
@@ -70,8 +111,42 @@ router.get('/', async(req, res, next) => {
     page = parseInt(page);
     size = parseInt(size);
 
-    if(isNaN(page) || page <= 0) page = 1;
-    if(isNaN(size) || size <= 0) size = 20;
+    //validation errors if page and size are invalid numbers
+    //this stops page and size from being forced in the query && 
+    //allows for default values to be used if one is omitted
+    if(page <= 0){
+      res.status(400)
+      return res.json({
+        message: "Bad Request",
+        errors: {
+          page: 'Page must be greater than or equal to 1'
+        }
+      })
+    }
+    
+    if(size <= 0){
+      res.status(400)
+      return res.json({
+        message: "Bad Request",
+        errors: {
+          size: 'Size must be between 1 and 20'
+        }
+      })
+    } 
+    
+    if(size && size > 20){
+      res.status(400)
+      return res.json({
+        message: "Bad Request",
+        errors: {
+          size: 'Size must be between 1 and 20'
+        }
+      })
+    };
+
+    
+    if(isNaN(page)) page = 1;
+    if(isNaN(size)) size = 20;    
 
     let updatedSpots = [];
     
