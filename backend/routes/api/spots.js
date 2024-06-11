@@ -674,10 +674,11 @@ router.post('/:spotId/images', requireAuth, async(req, res, next) => {
 
     //make sure user owns the spot before posting a photo
     if(spot.ownerId !== userId){
+      res.status(403)
       return res.json({
         //userId: userId, (debugging)
         //spotOwnerId: spot.ownerId, (debugging)
-        message: "You must own this spot to post a photo."
+        message: "Forbidden"
       })
     }
     
@@ -855,8 +856,9 @@ router.post('/:spotId/bookings', requireAuth, async(req, res, next) => {
     res.json(newBooking)
     };
 
+    res.status(403)
     res.json({
-      message: 'You own this space. You cannot make a reservation'
+      message: 'Forbidden'
     })
     
   } catch (error) {
@@ -886,10 +888,11 @@ router.put('/:spotId', requireAuth, validateSpot, async(req, res, next) => {
 
     //check that logged in user owns the spot
     if(spot.ownerId !== userId){
+      res.status(403)
       return res.json({
         //userId: userId, //(debugging)
         //spotOwnerId: spot.ownerId, //(debugging)
-        message: "You must own this spot to make edits."
+        message: "Forbidden"
       })
     }
 
@@ -941,10 +944,11 @@ router.delete('/:spotId', requireAuth, async(req, res, next) => {
 
     //make sure logged in user is owner of spot
     if(spotToDestroy.ownerId !== userId){
+      res.status(403)
       return res.json({
         //userId: userId, //(debugging)
         //spotOwnerId: spot.ownerId, //(debugging)
-        message: "You must own this spot to delete."
+        message: "Forbidden"
       })
     };
 

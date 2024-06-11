@@ -143,8 +143,9 @@ router.post('/:reviewId/images', requireAuth, async(req, res, next) => {
 
     //check if user id matches review id owner
     if(review.userId !== req.user.id){
+      res.status(403)
       return res.json({
-        message: 'You must own this review to post a photo.'
+        message: 'Forbidden'
       })
     }
 
@@ -187,10 +188,10 @@ router.post('/:reviewId/images', requireAuth, async(req, res, next) => {
   }
 });
 
-router.put('/:id', requireAuth, validateReview, async(req, res, next) => {
+router.put('/:reviewId', requireAuth, validateReview, async(req, res, next) => {
   try {
     //find review id
-    const reviewId = req.params.id;
+    const reviewId = req.params.reviewId;
 
     //find review by id
     const reviewToUpdate = await Review.findByPk(reviewId);
@@ -206,8 +207,9 @@ router.put('/:id', requireAuth, validateReview, async(req, res, next) => {
     //review found
     //check user owns review
     if(reviewToUpdate.userId !== req.user.id){
+      res.status(403)
       return res.json({
-        message: 'You must own this review to make edits.'
+        message: 'Forbidden'
       })
     }
 
@@ -230,10 +232,10 @@ router.put('/:id', requireAuth, validateReview, async(req, res, next) => {
   }
 });
 
-router.delete('/:id', requireAuth, async(req, res, next) => {
+router.delete('/:reviewId', requireAuth, async(req, res, next) => {
   try {
     //find review id
-    const reviewId = req.params.id;
+    const reviewId = req.params.reviewId;
 
     //find review by id
     const review = await Review.findByPk(reviewId);
@@ -248,8 +250,9 @@ router.delete('/:id', requireAuth, async(req, res, next) => {
 
     //confirm that review user id is current user id
     if(review.userId !== req.user.id){
+      res.status(403)
       return res.json({
-        message: "You must own this review to delete it."
+        message: "Forbidden"
       })
     };
     

@@ -180,8 +180,9 @@ router.put('/:bookingId', requireAuth, async(req, res, next) => {
       res.json(updatedBooking);
     }
 
+    res.status(403)
     res.json({
-      message: "You are not authorized to edit this booking"
+      message: "Forbidden"
     });
 
   } catch (error) {
@@ -214,6 +215,7 @@ router.delete('/:bookingId', requireAuth, async(req, res, next) => {
     });
 
     if(booking.userId !== req.user.id && spot.ownerId !== req.user.id){
+      res.status(403)
       return res.json({
         message: "You are not authorized to delete this booking."
       })
