@@ -26,7 +26,7 @@ const validateReview = [
 router.get('/current', requireAuth, async(req, res, next) => {
   try {
     //find the current user id
-    const userId = 4;
+    const userId = req.user.id;
 
     //get all reviews where user.id === reviews.userId
     const reviews = await Review.findAll({
@@ -70,9 +70,14 @@ router.get('/current', requireAuth, async(req, res, next) => {
       const previewImage = await SpotImage.findOne({
         where: {
           spotId: spot.id
-        },
-        attributes: ['url']
+        }
       });
+
+      let updatedSpotPreviewImage = "No preview image found"
+
+      if(previewImage){
+        updatedSpotPreviewImage = previewImage.url
+      }
 
 
       //add previewImage to spot
@@ -87,7 +92,7 @@ router.get('/current', requireAuth, async(req, res, next) => {
         lng: spot.lng,
         name: spot.name,
         price: spot.price,
-        previewImage: previewImage.url
+        previewImage: updatedSpotPreviewImage
       }
 
       //add review images
@@ -96,7 +101,13 @@ router.get('/current', requireAuth, async(req, res, next) => {
           reviewId: review.id
         },
         attributes: ['id', 'url']
-      })
+      });
+
+      let updatedSpotReviewImages = images
+
+      if(!images){
+        updatedSpotReviewImages = "No review images found"
+      }
       
       const payload = {
         id: review.id,
@@ -108,7 +119,7 @@ router.get('/current', requireAuth, async(req, res, next) => {
         updatedAt: review.updatedAt,
         User: user,
         Spot: updatedSpot,
-        ReviewImages: images
+        ReviewImages: updatedSpotReviewImages
       }
 
       //add updated reviews to array

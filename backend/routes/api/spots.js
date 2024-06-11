@@ -577,7 +577,6 @@ router.get('/:spotId/bookings', requireAuth, async(req, res, next) => {
         nonOwnerBookings.push(nonOwnerBookingInfo);
 
       } 
-
       const user = await User.findOne({
         where: {
           id: booking.userId
@@ -607,12 +606,12 @@ router.get('/:spotId/bookings', requireAuth, async(req, res, next) => {
       res.json({
         Bookings: ownerBookings
       });
-    } else {
-      //Response for NON OWNER
-      res.json({
-        Bookings: nonOwnerBookings
-      });   
-    };
+    }
+
+    //Response for NON OWNER
+    res.json({
+      Bookings: nonOwnerBookings
+    });   
     
   } catch (error) {
     next(error)
@@ -797,7 +796,7 @@ router.post('/:spotId/bookings', requireAuth, async(req, res, next) => {
       //400 - bad requests
       if(newBookingEndDate <= newBookingStartDate){
         res.status(400)
-        res.json({
+        return res.json({
           message: "Bad Request",
           errors: {
             endDate: "endDate cannot be on or before startDate"
@@ -805,7 +804,7 @@ router.post('/:spotId/bookings', requireAuth, async(req, res, next) => {
         })
       } else if (newBookingStartDate < minAllowedDate){
         res.status(400)
-        res.json({
+        return res.json({
           message: "Bad Request",
           errors: {
             startDate: "startDate cannot be in the past"
@@ -825,7 +824,7 @@ router.post('/:spotId/bookings', requireAuth, async(req, res, next) => {
         //errors if overlap
         if(newBookingEndDate >= date1 && newBookingEndDate <= date2){
           res.status(403)
-          res.json({
+          return res.json({
             message: 'Sorry, this spot is already booked for the specified dates',
           errors: {
             endDate: 'End date conflicts with an existing booking'
@@ -833,7 +832,7 @@ router.post('/:spotId/bookings', requireAuth, async(req, res, next) => {
         })
         } else if(newBookingStartDate >= date1 && newBookingStartDate <= date2){
           res.status(403)
-           res.json({
+          return res.json({
             message: 'Sorry, this spot is already booked for the specified dates',
             errors: {
               startDate: 'Start date conflicts with an existing booking'

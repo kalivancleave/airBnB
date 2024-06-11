@@ -51,6 +51,11 @@ router.get('/current', requireAuth, async(req, res, next) => {
           spotId: booking.spotId
         }
       });
+
+      let updatedSpotImage = "No spot images found"
+      if(spotImage){
+        updatedSpotImage = spotImage.url
+      };
       
       const spotPayload = {
         id: spot.id,
@@ -63,7 +68,7 @@ router.get('/current', requireAuth, async(req, res, next) => {
         lng: spot.lng,
         name: spot.name,
         price: spot.price,
-        previewImage: spotImage.url
+        previewImage: updatedSpotImage
       }
 
       const fullBookingInfo = {
