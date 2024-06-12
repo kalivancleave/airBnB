@@ -866,7 +866,7 @@ router.post('/:spotId/bookings', requireAuth, async(req, res, next) => {
 });
 
 //edit a spot
-router.put('/:spotId', requireAuth, validateSpot, async(req, res, next) => {
+router.put('/:spotId', requireAuth, async(req, res, next) => {
   try {
     //find the spot id
     const spotId = req.params.spotId;
@@ -899,18 +899,175 @@ router.put('/:spotId', requireAuth, validateSpot, async(req, res, next) => {
     //descturcutre from req.body
     const {address, city, state, country, lat, lng, name, description, price} = req.body;
 
+    let addressUpdate;
+    let cityUpdate;
+    let stateUpdate;
+    let countryUpdate;
+    let latUpdate;
+    let lngUpdate;
+    let nameUpdate;
+    let descriptionUpdate;
+    let priceUpdate;
+
+    //items found OR not found in req.body
+    if(address){
+      addressUpdate = address
+    } else {
+      addressUpdate = spot.address
+    };
+
+    if(city){
+      cityUpdate = city
+    } else {
+      cityUpdate = spot.city
+    };
+
+    if(state){
+      stateUpdate = state
+    } else {
+      stateUpdate = spot.state
+    };
+
+    if(country){
+      countryUpdate = country
+    } else {
+      countryUpdate = spot.country
+    };
+
+    if(lat){
+      latUpdate = lat
+    } else {
+      latUpdate = spot.lat
+    };
+
+    if(lng){
+      lngUpdate = lng
+    } else {
+      lngUpdate = spot.lng
+    };
+
+    if(name){
+      nameUpdate = name
+    } else {
+      nameUpdate = spot.name
+    };
+
+    if(description){
+      descriptionUpdate = description
+    } else {
+      descriptionUpdate = spot.description
+    };
+
+    if(price){
+      priceUpdate = price
+    } else {
+      priceUpdate = spot.price
+    };
+
+    //validation errors
+    if(addressUpdate === undefined){
+      res.status(400)
+      return res.json({
+        message: "Bad Request",
+        errors: {
+          address: "Street address is required"
+        }
+      })
+    };
+
+    if(cityUpdate === undefined){
+      res.status(400)
+      return res.json({
+        message: "Bad Request",
+        errors: {
+          city: "City is required"
+        }
+      })
+    };
+
+    if(stateUpdate === undefined){
+      res.status(400)
+      return res.json({
+        message: "Bad Request",
+        errors: {
+          state: "State is required"
+        }
+      })
+    };
+
+    if(countryUpdate === undefined){
+      res.status(400)
+      return res.json({
+        message: "Bad Request",
+        errors: {
+          country: "Country is required"
+        }
+      })
+    };
+
+    if(latUpdate !== undefined && lat < -90 || latUpdate !== undefined && lat > 90){
+      res.status(400)
+      return res.json({
+        message: "Bad Request",
+        errors: {
+          lat: "Latitude must be within -90 and 90"
+        }
+      })
+    };
+
+    if(lngUpdate !== undefined && lng < -180 || lngUpdate !== undefined && lng > 180){
+      res.status(400)
+      return res.json({
+        message: "Bad Request",
+        errors: {
+          lng: "Longitude must be within -180 and 180"
+        }
+      })
+    };
+    
+
+    if(nameUpdate !== undefined && nameUpdate.split("").length >= 50){
+      res.status(400)
+      return res.json({
+        message: "Bad Request",
+        errors: {
+          name: "Name must be less than 50 characters"
+        }
+      })
+    };
+
+    if(descriptionUpdate === undefined){
+      res.status(400)
+      return res.json({
+        message: "Bad Request",
+        errors: {
+          description: "Description is required"
+        }
+      })
+    };
+
+    if(priceUpdate !== undefined && price < 0){
+      res.status(400)
+      return res.json({
+        message: "Bad Request",
+        errors: {
+          price: "Price per day must be a positive number"
+        }
+      })
+    };
+
     //spot.update
     const updatedSpot = await spot.update({
       ownerId: userId,
-      address,
-      city,
-      state,
-      country,
-      lat,
-      lng,
-      name,
-      description,
-      price
+      address: addressUpdate,
+      city: cityUpdate,
+      state: stateUpdate,
+      country: countryUpdate,
+      lat: latUpdate,
+      lng: lngUpdate,
+      name: nameUpdate,
+      description: descriptionUpdate,
+      price: priceUpdate
     });
 
     //return requested result

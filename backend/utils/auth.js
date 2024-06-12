@@ -60,7 +60,7 @@ const restoreUser = (req, res, next) => {
   });
 };
 
-//require auth
+//require auth 401 - Auth required
 // If there is no current user, return an error
 const requireAuth = function (req, _res, next) {
   if (req.user) return next();
@@ -72,5 +72,16 @@ const requireAuth = function (req, _res, next) {
   return next(err);
 }
 
+//require auth 401 - Unauthorized
+const unauthorized = function (req, _res, next) {
+  if (req.user) return next();
 
-module.exports = { setTokenCookie, restoreUser, requireAuth };
+  const err = new Error('Unauthorized');
+  err.title = 'Unauthorized';
+  err.errors = { message: 'Unauthorized' };
+  err.status = 401;
+  return next(err);
+}
+
+
+module.exports = { setTokenCookie, restoreUser, requireAuth, unauthorized };
