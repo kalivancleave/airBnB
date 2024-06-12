@@ -387,7 +387,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
 router.get('/:spotId', async(req, res, next) => {
   try {
     //find the spot id
-    const spotId = req.params.spotId
+    const spotId = parseInt(req.params.spotId)
 
     //find the spot by that id (join spot images table & owner table)
     const spot = await Spot.findByPk(spotId)
@@ -416,15 +416,15 @@ router.get('/:spotId', async(req, res, next) => {
     });
 
     //find the sum of all stars
-    let sumOfStars = 0;
-    for (let i = 0; i < reviews.length; i++){
-      let review = reviews[i]
-      let starRating = review.stars
-      sumOfStars += starRating
-    }
+    let sumOfStars = await Review.sum("stars", {
+      where: {
+        spotId: spotId
+      }
+    });
     
     //find the average of all the stars from the review table
     const averageRating = sumOfStars/reviews.length
+  
 
     //find the owner with that spotId
     const owner = await User.findOne({

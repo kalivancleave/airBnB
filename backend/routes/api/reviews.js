@@ -199,6 +199,7 @@ router.post('/:reviewId/images', requireAuth, async(req, res, next) => {
   }
 });
 
+//edit a review
 router.put('/:reviewId', requireAuth, validateReview, async(req, res, next) => {
   try {
     //find review id
@@ -227,13 +228,27 @@ router.put('/:reviewId', requireAuth, validateReview, async(req, res, next) => {
     //passes all tests - descructure from req.body
     const {review, stars} = req.body;
 
+                  //TRYING TO MAKE IT SO STARS AND REVIEW DON'T HAVE TO BE 
+                  //IN REQ.BODY BUT THERE IS A VALIDATION FORCING THEM TO BE 
+                  //IN THE BODY (options could remove)
+                    // let reviewResult = reviewToUpdate.review;
+                    // let starsResult = reviewToUpdate.stars;
+
+                    // if(review){
+                    //   reviewResult = review
+                    // };
+
+                    // if(stars){
+                    //   starsResult = stars
+                    // };
+
     //review.update
     let updatedReview = await reviewToUpdate.update({
       userId: req.user.id,
       spotId: reviewToUpdate.SpotId,
       review,
       stars
-    })
+    });
 
     //return requested response
     res.json(updatedReview);
