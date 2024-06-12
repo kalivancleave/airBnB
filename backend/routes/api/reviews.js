@@ -200,7 +200,7 @@ router.post('/:reviewId/images', requireAuth, async(req, res, next) => {
 });
 
 //edit a review
-router.put('/:reviewId', requireAuth, validateReview, async(req, res, next) => {
+router.put('/:reviewId', requireAuth, async(req, res, next) => {
   try {
     //find review id
     const reviewId = req.params.reviewId;
@@ -228,26 +228,49 @@ router.put('/:reviewId', requireAuth, validateReview, async(req, res, next) => {
     //passes all tests - descructure from req.body
     const {review, stars} = req.body;
 
-                  //TRYING TO MAKE IT SO STARS AND REVIEW DON'T HAVE TO BE 
-                  //IN REQ.BODY BUT THERE IS A VALIDATION FORCING THEM TO BE 
-                  //IN THE BODY (options could remove)
-                    // let reviewResult = reviewToUpdate.review;
-                    // let starsResult = reviewToUpdate.stars;
+    let reviewResult;
+    let starsResult;
 
-                    // if(review){
-                    //   reviewResult = review
-                    // };
+    //if items exist in req.body OR not
+    if(review){
+      reviewResult = review
+    } else {
+      reviewResult = reviewToUpdate.review
+    };
 
-                    // if(stars){
-                    //   starsResult = stars
-                    // };
+    if(stars){
+      starsResult = stars
+    } else {
+      starsResult = reviewToUpdate.stars
+    };
+
+    //validation errors
+    if(reviewResult === undefined){
+      res.status(400)
+      return res.json({
+        message: "Bad Request",
+        errors: {
+          review: "Review text is required"
+        }
+      })
+    };
+
+    if(typeof(starsResult) !== "number" || starsResult < 1 || starsResult > 5){
+      res.status(400)
+      return res.json({
+        message: "Bad Request",
+        errors: {
+          stars: "Stars must be an integer from 1 to 5"
+        }
+      })
+    }
 
     //review.update
     let updatedReview = await reviewToUpdate.update({
       userId: req.user.id,
       spotId: reviewToUpdate.SpotId,
-      review,
-      stars
+      review: reviewResult,
+      stars: starsResult
     });
 
     //return requested response
