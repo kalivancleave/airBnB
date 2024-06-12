@@ -116,6 +116,22 @@ router.put('/:bookingId', requireAuth, async(req, res, next) => {
     if(booking.userId === req.user.id){
       //booking found - descructure from req.body
       const {startDate, endDate} = req.body
+      let startDateUpdate;
+      let endDateUpdate;
+
+      //if start date is OR is not entered in req.body
+      if(startDate){
+        startDateUpdate = startDate
+      } else {
+        startDateUpdate = booking.startDate
+      };
+
+      //if end date is OR is not entered in req.body
+      if(endDate){
+        endDateUpdate = endDate
+      } else {
+        endDateUpdate = booking.endDate
+      };
   
       //important dates
       const minAllowedDate = new Date("2018-01-01");
@@ -177,8 +193,8 @@ router.put('/:bookingId', requireAuth, async(req, res, next) => {
         id: booking.id,
         spotId: booking.spotId,
         userId: booking.userId,
-        startDate,
-        endDate
+        startDate: startDateUpdate,
+        endDate: endDateUpdate
       });
   
       //return requested response
