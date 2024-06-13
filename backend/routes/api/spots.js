@@ -38,6 +38,7 @@ const validateSpot = [
     .exists({checkFalsy: true})
     .isString()
     .isLength({
+      min: 1,
       max: 49
     })
     .withMessage('Name must be less than 50 characters'),
@@ -264,8 +265,8 @@ router.get('/', validateQuery, async(req, res, next) => {
         city: spot.city,
         state: spot.state,
         country: spot.country,
-        lat: spot.lat,
-        lng: spot.lng,
+        lat: parseInt(spot.lat),
+        lng: parseInt(spot.lng),
         name: spot.name,
         description: spot.description,
         price: spot.price,
@@ -285,6 +286,7 @@ router.get('/', validateQuery, async(req, res, next) => {
       updatedSpots.push(payload);
     }
 
+  
     //return requested result
     res.json({
       Spots: updatedSpots,
