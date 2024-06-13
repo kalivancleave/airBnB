@@ -259,20 +259,20 @@ router.get('/', validateQuery, async(req, res, next) => {
       });
 
       const payload = {
-      id: spot.id,
-      ownerId: spot.ownerId,
+      id: parseInt(spot.id),
+      ownerId: parseInt(spot.ownerId),
         address: spot.address,
         city: spot.city,
         state: spot.state,
         country: spot.country,
-        lat: parseInt(spot.lat),
-        lng: parseInt(spot.lng),
+        lat: parseFloat(spot.lat),
+        lng: parseFloat(spot.lng),
         name: spot.name,
         description: spot.description,
-        price: parseInt(spot.price),
+        price: parseFloat(spot.price),
         createdAt: spot.createdAt,
         updatedAt: spot.updatedAt,
-        avgRating: averageRating || 'No reviews found',
+        avgRating: parseFloat(averageRating) || 'No reviews found',
         previewImage: previewImage
       }
 
@@ -400,8 +400,8 @@ router.get('/:spotId', async(req, res, next) => {
 
     //404 - no spot exists
     if(!spot){
-      res.status(404),
-      res.json({
+      res.status(404)
+      return res.json({
         message: "Spot couldn't be found"
       })
     }
@@ -442,21 +442,21 @@ router.get('/:spotId', async(req, res, next) => {
 
     //spot exists - add requested elements
     const updatedSpot = {
-      id: spot.id,
-      ownerId: spot.ownerId,
+      id: parseInt(spot.id),
+      ownerId: parseInt(spot.ownerId),
       address: spot.address,
       city: spot.city,
       state: spot.state,
       country: spot.country,
-      lat: spot.lat,
-      lng: spot.lng,
+      lat: parseFloat(spot.lat),
+      lng: parseFloat(spot.lng),
       name: spot.name,
       description: spot.description,
-      price: spot.price,
+      price: parseFloat(spot.price),
       createdAt: spot.createdAt,
       updatedAt: spot.updatedAt,
-      numReviews: reviews.length,
-      avgStarRating: averageRating,
+      numReviews: parseInt(reviews.length),
+      avgStarRating: parseFloat(averageRating),
       SpotImages: spotImages,
       Owner: owner
     }
@@ -635,16 +635,16 @@ router.post('/', requireAuth, validateSpot, async(req, res, next) => {
 
     //create a new spot
     const newSpot = await Spot.create({
-      ownerId: userId,
+      ownerId: parseInt(userId),
       address,
       city,
       state,
       country,
-      lat,
-      lng,
+      lat: parseFloat(lat),
+      lng: parseFloat(lng),
       name,
       description,
-      price
+      price: parseFloat(price)
     });
 
     //return requested response
@@ -701,7 +701,7 @@ router.post('/:spotId/images', requireAuth, async(req, res, next) => {
     //return requested response
     res.status(201),
     res.json({
-      id: newImage.id,
+      id: parseInt(newImage.id),
       url: newImage.url,
       preview: newImage.preview
     });
@@ -749,8 +749,8 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async(req, res, nex
 
     //create a new review
     const newReview = await Review.create({
-      userId: req.user.id,
-      spotId: spotId,
+      userId: parseInt(req.user.id),
+      spotId: parseInt(spotId),
       review,
       stars
     });
@@ -872,7 +872,8 @@ router.post('/:spotId/bookings', requireAuth, async(req, res, next) => {
 });
 
 //edit a spot
-router.put('/:spotId', requireAuth, async(req, res, next) => {
+  //REMOVE VALDATE SPOT AND THE REQ.BODY DOES NOT HAVE TO CONTAIN ALL ITEMS FOR UPDATING
+router.put('/:spotId', requireAuth, validateSpot, async(req, res, next) => {
   try {
     //find the spot id
     const spotId = req.params.spotId;
@@ -1064,16 +1065,16 @@ router.put('/:spotId', requireAuth, async(req, res, next) => {
 
     //spot.update
     const updatedSpot = await spot.update({
-      ownerId: userId,
+      ownerId: parseInt(userId),
       address: addressUpdate,
       city: cityUpdate,
       state: stateUpdate,
       country: countryUpdate,
-      lat: latUpdate,
-      lng: lngUpdate,
+      lat: parseFloat(latUpdate),
+      lng: parseFloat(lngUpdate),
       name: nameUpdate,
       description: descriptionUpdate,
-      price: priceUpdate
+      price: parseFloat(priceUpdate)
     });
 
     //return requested result

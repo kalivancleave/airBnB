@@ -125,7 +125,7 @@ router.get('/current', requireAuth, async(req, res, next) => {
 router.post('/:reviewId/images', requireAuth, async(req, res, next) => {
   try {
     //find review id
-    const reviewId = req.params.reviewId;
+    const reviewId = req.params.reviewId; //reviewImage
 
     //find review by id
     const review = await Review.findByPk(reviewId);
@@ -133,7 +133,7 @@ router.post('/:reviewId/images', requireAuth, async(req, res, next) => {
     //404 - no review found
     if(!review){
       res.status(404)
-      res.json({
+      return res.json({
         message: "Review couldn't be found"
       })
     };
