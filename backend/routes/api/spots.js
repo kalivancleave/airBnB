@@ -885,8 +885,8 @@ router.put('/:spotId', requireAuth, async(req, res, next) => {
 
     //404 - no spot found
     if(!spot){
-      res.status(404),
-      res.json({
+      res.status(404)
+      return res.json({
         message: "Spot couldn't be found"
       })
     }
@@ -1098,8 +1098,8 @@ router.delete('/:spotId', requireAuth, async(req, res, next) => {
 
     //404 - no spot found
     if(!spotToDestroy){
-      res.status(404),
-      res.json({
+      res.status(404)
+      return res.json({
         message: "Spot couldn't be found"
       })
     };
