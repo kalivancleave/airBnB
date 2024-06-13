@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { requireAuth } = require('../../utils/auth');
+const { requireAuth, unauthorized } = require('../../utils/auth');
 const { Spot, SpotImage, Review, User, ReviewImage, Booking } = require('../../db/models');
 
 const {check, matchedData} = require('express-validator');
@@ -657,7 +657,7 @@ router.post('/', requireAuth, validateSpot, async(req, res, next) => {
 });
 
 //add an image to a spot based on the spot's ID
-router.post('/:spotId/images', requireAuth, async(req, res, next) => {
+router.post('/:spotId/images', unauthorized, async(req, res, next) => {
   try {
     //find current logged in user Id
     const userId = req.user.id;
@@ -671,8 +671,8 @@ router.post('/:spotId/images', requireAuth, async(req, res, next) => {
     
     //404 - no spot
     if(!spot){
-      res.status(404),
-      res.json({
+      res.status(404)
+      return res.json({
         message: "Spot couldn't be found"
       })
     }
