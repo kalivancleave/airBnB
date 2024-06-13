@@ -269,7 +269,7 @@ router.get('/', validateQuery, async(req, res, next) => {
         lng: parseInt(spot.lng),
         name: spot.name,
         description: spot.description,
-        price: spot.price,
+        price: parseInt(spot.price),
         createdAt: spot.createdAt,
         updatedAt: spot.updatedAt,
         avgRating: averageRating || 'No reviews found',
@@ -480,8 +480,8 @@ router.get('/:spotId/reviews', async(req, res, next) => {
 
     //404 - no spot found
     if(!spot){
-      res.status(404),
-      res.json({
+      res.status(404)
+      return res.json({
         message: "Spot couldn't be found"
       })
     };
@@ -722,8 +722,8 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async(req, res, nex
 
     //404 - no spot found
     if(!spot){
-      res.status(404),
-      res.json({
+      res.status(404)
+      return res.json({
         message: "Spot couldn't be found"
       })
     }
