@@ -22,12 +22,12 @@ router.get('/current', requireAuth, async(req, res, next) => {
     });
 
     //404 - no reviews found
-    if(reviews.length === 0) {
-      res.status(404),
-      res.json({
-        message: 'No reviews found.'
-      })
-    }
+    // if(reviews.length === 0) {
+    //   res.status(404),
+    //   res.json({
+    //     message: 'No reviews found.'
+    //   })
+    // }
     
     //for each review iterate through each review && add spot && add review Images
     let updatedReviews = [];
