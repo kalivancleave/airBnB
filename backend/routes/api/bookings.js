@@ -158,15 +158,17 @@ router.put('/:bookingId', requireAuth, async(req, res, next) => {
       };
 
       //find all the bookings for the spot id excluding the current booking Id
+      const spot = await Spot.findByPk(booking.spotId)
+
       const bookings = await Booking.findAll({
         where: {
-          spotId: Spot.id
+          spotId: spot.id
         }
       })
 
       res.json(bookings)
 
-      //iterate through existing bookings and make sure no conflicts
+      //iterate through existing bookings that are not current booking and make sure no conflicts
     
     
         //403 - checking requested dates v. all other booked dates
