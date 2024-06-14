@@ -165,7 +165,7 @@ router.put('/:bookingId', requireAuth, async(req, res, next) => {
       };
 
     //set current booking dates to a date that will never conflict
-    booking.update({
+    await booking.update({
       startDate: '2000-01-01',
       endDate: '2000-01-02'
     });
