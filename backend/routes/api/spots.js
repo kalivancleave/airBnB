@@ -109,7 +109,7 @@ const validateQuery = [
 //get all spots
 router.get('/', validateQuery, async(req, res, next) => {
   try {
-    const data = matchedData(req.query, {includeOptionals: true})
+    const data = matchedData(req, {includeOptionals: true})
     
     //pagination
     let {page, size} = req.query;
