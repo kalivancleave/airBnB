@@ -353,20 +353,20 @@ router.get('/current', requireAuth, async (req, res, next) => {
       });
 
       const payload = {
-      id: spot.id,
-      ownerId: spot.ownerId,
+      id: parseInt(spot.id),
+      ownerId: parseInt(spot.ownerId),
         address: spot.address,
         city: spot.city,
         state: spot.state,
         country: spot.country,
-        lat: spot.lat,
-        lng: spot.lng,
+        lat: parseFloat(spot.lat),
+        lng: parseFloat(spot.lng),
         name: spot.name,
         description: spot.description,
-        price: spot.price,
+        price: parseFloat(spot.price),
         createdAt: spot.createdAt,
         updatedAt: spot.updatedAt,
-        avgRating: averageRating || 'No reviews found',
+        avgRating: parseFloat(averageRating) || 'No reviews found',
         previewImage: previewImage
       }
 
