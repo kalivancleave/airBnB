@@ -805,7 +805,12 @@ router.post('/:spotId/bookings', requireAuth, async(req, res, next) => {
     });
 
     //SPOT MUST NOT BELONG TO CURRENT USER
-    if(spot.ownerId !== req.user.id){
+    if(spot.ownerId === req.user.id){
+        res.status(403)
+        return res.json({
+        message: 'Forbidden'
+      })
+    }
       
       //destructure from req.body
       const {startDate, endDate} = req.body;
@@ -887,12 +892,6 @@ router.post('/:spotId/bookings', requireAuth, async(req, res, next) => {
     //return requested reponse
     res.status(201)
     res.json(newBooking)
-    };
-
-    res.status(403)
-    res.json({
-      message: 'Forbidden'
-    })
     
   } catch (error) {
     next(error)
