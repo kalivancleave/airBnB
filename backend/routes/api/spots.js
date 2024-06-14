@@ -861,13 +861,13 @@ router.post('/:spotId/bookings', requireAuth, async(req, res, next) => {
         }; 
       };
 
-    let startYear = startDate.getFullYear()
-    let startMonth = startDate.getMonth()
-    let startDay = startDate.getDate()
+    let startYear = newBookingStartDate.getYear()
+    let startMonth = newBookingStartDate.getMonth()
+    let startDay = newBookingStartDate.getDate()
 
-    let endYear = endDate.getFullYear()
-    let endMonth = endDate.getMonth()
-    let endDay = endDate.getDate()
+    let endYear = newBookingEndDate.getFullYear()
+    let endMonth = newBookingEndDate.getMonth()
+    let endDay = newBookingEndDate.getDate()
     
     //request passes all checks
     //create a booking request
