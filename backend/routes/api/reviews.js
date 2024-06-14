@@ -74,10 +74,10 @@ router.get('/current', requireAuth, async(req, res, next) => {
         city: spot.city,
         state: spot.state,
         country: spot.country,
-        lat: spot.lat,
-        lng: spot.lng,
+        lat: parseFloat(spot.lat),
+        lng: parseFloat(spot.lng),
         name: spot.name,
-        price: spot.price,
+        price: parseFloat(spot.price),
         previewImage: updatedSpotPreviewImage
       }
 
