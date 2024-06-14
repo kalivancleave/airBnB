@@ -366,7 +366,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
         price: parseFloat(spot.price),
         createdAt: spot.createdAt,
         updatedAt: spot.updatedAt,
-        avgRating: parseFloat(averageRating) || 'No reviews found',
+        avgRating: parseFloat(averageRating), //|| 'No reviews found',
         previewImage: previewImage
       }
 
