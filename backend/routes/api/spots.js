@@ -125,7 +125,14 @@ router.get('/', validateQuery, async(req, res, next) => {
       return res.json({
         message: "Bad Request",
         errors: {
-          page: 'Page must be greater than or equal to 1'
+          page: "Page must be greater than or equal to 1",
+          size: "Size must be between 1 and 20",
+          maxLat: "Maximum latitude is invalid",
+          minLat: "Minimum latitude is invalid",
+          minLng: "Maximum longitude is invalid",
+          maxLng: "Minimum longitude is invalid",
+          minPrice: "Minimum price must be greater than or equal to 0",
+          maxPrice: "Maximum price must be greater than or equal to 0"
         }
       })
     }
@@ -135,7 +142,14 @@ router.get('/', validateQuery, async(req, res, next) => {
       return res.json({
         message: "Bad Request",
         errors: {
-          size: 'Size must be between 1 and 20'
+          page: "Page must be greater than or equal to 1",
+          size: "Size must be between 1 and 20",
+          maxLat: "Maximum latitude is invalid",
+          minLat: "Minimum latitude is invalid",
+          minLng: "Maximum longitude is invalid",
+          maxLng: "Minimum longitude is invalid",
+          minPrice: "Minimum price must be greater than or equal to 0",
+          maxPrice: "Maximum price must be greater than or equal to 0"
         }
       })
     } 
@@ -145,11 +159,17 @@ router.get('/', validateQuery, async(req, res, next) => {
       return res.json({
         message: "Bad Request",
         errors: {
-          size: 'Size must be between 1 and 20'
+          page: "Page must be greater than or equal to 1",
+          size: "Size must be between 1 and 20",
+          maxLat: "Maximum latitude is invalid",
+          minLat: "Minimum latitude is invalid",
+          minLng: "Maximum longitude is invalid",
+          maxLng: "Minimum longitude is invalid",
+          minPrice: "Minimum price must be greater than or equal to 0",
+          maxPrice: "Maximum price must be greater than or equal to 0"
         }
       })
     };
-
     
     if(isNaN(page)) page = 1;
     if(isNaN(size)) size = 20;    
@@ -163,12 +183,115 @@ router.get('/', validateQuery, async(req, res, next) => {
     });
 
     //define all data options - maxPrice minPrice maxLng minLng maxLat minLat
-    const minPrice = parseFloat(data.minPrice)
-    const maxPrice = parseFloat(data.maxPrice)
-    const minLng = parseFloat(data.minLng)
-    const maxLng = parseFloat(data.maxLng)
-    const minLat = parseFloat(data.minLat)
-    const maxLat = parseFloat(data.maxLat)
+    const minPrice = parseFloat(data.minPrice);
+    const maxPrice = parseFloat(data.maxPrice);
+    const minLng = parseFloat(data.minLng);
+    const maxLng = parseFloat(data.maxLng);
+    const minLat = parseFloat(data.minLat);
+    const maxLat = parseFloat(data.maxLat);
+
+    //400 - Query parameter validation errors
+    if(maxLat !== null && maxLat > 90 || maxLat < -90){
+      res.status(400)
+      return res.json({
+        message: "Bad Request",
+        errors: {
+          page: "Page must be greater than or equal to 1",
+          size: "Size must be between 1 and 20",
+          maxLat: "Maximum latitude is invalid",
+          minLat: "Minimum latitude is invalid",
+          minLng: "Maximum longitude is invalid",
+          maxLng: "Minimum longitude is invalid",
+          minPrice: "Minimum price must be greater than or equal to 0",
+          maxPrice: "Maximum price must be greater than or equal to 0"
+        }
+      })
+    };
+
+    if(minLat !== null && minLat < -90 || minLat > 90){
+      res.status(400)
+      return res.json({
+        message: "Bad Request",
+        errors: {
+          page: "Page must be greater than or equal to 1",
+          size: "Size must be between 1 and 20",
+          maxLat: "Maximum latitude is invalid",
+          minLat: "Minimum latitude is invalid",
+          minLng: "Maximum longitude is invalid",
+          maxLng: "Minimum longitude is invalid",
+          minPrice: "Minimum price must be greater than or equal to 0",
+          maxPrice: "Maximum price must be greater than or equal to 0"
+        }
+      })
+    };
+
+    if(maxLng !== null && maxLng > 180 || maxLng < -180){
+      res.status(400)
+      return res.json({
+        message: "Bad Request",
+        errors: {
+          page: "Page must be greater than or equal to 1",
+          size: "Size must be between 1 and 20",
+          maxLat: "Maximum latitude is invalid",
+          minLat: "Minimum latitude is invalid",
+          minLng: "Maximum longitude is invalid",
+          maxLng: "Minimum longitude is invalid",
+          minPrice: "Minimum price must be greater than or equal to 0",
+          maxPrice: "Maximum price must be greater than or equal to 0"
+        }
+      })
+    }
+
+    if(minLng !== null && minLng < -180 || minLng > 180){
+      res.status(400)
+      return res.json({
+        message: "Bad Request",
+        errors: {
+          page: "Page must be greater than or equal to 1",
+          size: "Size must be between 1 and 20",
+          maxLat: "Maximum latitude is invalid",
+          minLat: "Minimum latitude is invalid",
+          minLng: "Maximum longitude is invalid",
+          maxLng: "Minimum longitude is invalid",
+          minPrice: "Minimum price must be greater than or equal to 0",
+          maxPrice: "Maximum price must be greater than or equal to 0"
+        }
+      })
+    }
+
+    if(minPrice !== null && minPrice < 0){
+      res.status(400)
+      return res.json({
+        message: "Bad Request",
+        errors: {
+          page: "Page must be greater than or equal to 1",
+          size: "Size must be between 1 and 20",
+          maxLat: "Maximum latitude is invalid",
+          minLat: "Minimum latitude is invalid",
+          minLng: "Maximum longitude is invalid",
+          maxLng: "Minimum longitude is invalid",
+          minPrice: "Minimum price must be greater than or equal to 0",
+          maxPrice: "Maximum price must be greater than or equal to 0"
+        }
+      })
+    }
+
+    if(maxPrice !== null && maxPrice < 0){
+      res.status(400)
+      return res.json({
+        message: "Bad Request",
+        errors: {
+          page: "Page must be greater than or equal to 1",
+          size: "Size must be between 1 and 20",
+          maxLat: "Maximum latitude is invalid",
+          minLat: "Minimum latitude is invalid",
+          minLng: "Maximum longitude is invalid",
+          maxLng: "Minimum longitude is invalid",
+          minPrice: "Minimum price must be greater than or equal to 0",
+          maxPrice: "Maximum price must be greater than or equal to 0"
+        }
+      })
+    }
     
     //filter spots
     let filteredSpots = []
