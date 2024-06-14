@@ -861,7 +861,7 @@ router.post('/:spotId/bookings', requireAuth, async(req, res, next) => {
         }; 
       };
 
-    let startYear = newBookingStartDate.getYear()
+    let startYear = newBookingStartDate.getFullYear()
     let startMonth = newBookingStartDate.getMonth()
     let startDay = newBookingStartDate.getDate()
 
