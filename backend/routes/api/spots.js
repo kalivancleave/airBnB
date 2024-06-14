@@ -563,14 +563,38 @@ router.get('/:spotId/bookings', requireAuth, async(req, res, next) => {
         spotId: spotId
       }
     })
-    
-    //iterate through each booking
-    let nonOwnerBookings = [];
+
     let ownerBookings = [];
+    let nonOwnerBookings = [];
+    if(spot.ownerId === req.user.id){
+      for (let i = 0; i < bookings.length; i++) {
+        let booking = bookings[i]; 
+        
+        const user = await User.findOne({
+          where: {
+            id: booking.userId
+          },
+          attributes: ['id', 'firstName', 'lastName']
+        });
+    
+        const ownerBookingInfo = {
+          //bookingUserId: booking.userId, //debugging
+          //loggedInUserId: req.user.id, //debugging
+          User: user,
+          id: booking.id,
+          spotId: booking.spotId,
+          userId: booking.userId,
+          startDate: booking.startDate,
+          endDate: booking.endDate,
+          createdAt: booking.createdAt,
+          updatedAt: booking.updatedAt
+        }
+    
+        ownerBookings.push(ownerBookingInfo);    
+      }
+    } else {   
     for (let i = 0; i < bookings.length; i++) {
       let booking = bookings[i];   
-
-      if (booking.userId !== req.user.id){
 
         const nonOwnerBookingInfo = {
           //bookingUserId: booking.userId, //debugging
@@ -581,43 +605,21 @@ router.get('/:spotId/bookings', requireAuth, async(req, res, next) => {
         }
         
         nonOwnerBookings.push(nonOwnerBookingInfo);
-
       } 
-      const user = await User.findOne({
-        where: {
-          id: booking.userId
-        },
-        attributes: ['id', 'firstName', 'lastName']
-      });
-
-      const ownerBookingInfo = {
-        //bookingUserId: booking.userId, //debugging
-        //loggedInUserId: req.user.id, //debugging
-        User: user,
-        id: booking.id,
-        spotId: booking.spotId,
-        userId: booking.userId,
-        startDate: booking.startDate,
-        endDate: booking.endDate,
-        createdAt: booking.createdAt,
-        updatedAt: booking.updatedAt
-      }
-
-      ownerBookings.push(ownerBookingInfo);    
     };
 
     //if user.id is spot.OwnerID
-    if(parseInt(spot.ownerId) === parseInt(req.user.id)){
+    if(spot.ownerId === req.user.id){
       //Response for OWNER
       return res.json({
         Bookings: ownerBookings
       });
-    } else {
+    }
+
       //Response for NON OWNER
       res.json({
         Bookings: nonOwnerBookings
       });   
-    }
     
   } catch (error) {
     next(error)
