@@ -860,14 +860,22 @@ router.post('/:spotId/bookings', requireAuth, async(req, res, next) => {
           })
         }; 
       };
+
+    let startYear = startDate.getFullYear()
+    let startMonth = startDate.getMonth()
+    let startDay = startDate.getDate()
+
+    let endYear = endDate.getFullYear()
+    let endMonth = endDate.getMonth()
+    let endDay = endDate.getDate()
     
     //request passes all checks
     //create a booking request
     let newBooking = await Booking.create({
       spotId: spotId,
       userId: req.user.id,
-      startDate,
-      endDate
+      startDate: `${startYear}-${startMonth}-${startDay}`,
+      endDate: `${endYear}-${endMonth}-${endDay}`
     });
 
     //return requested reponse
