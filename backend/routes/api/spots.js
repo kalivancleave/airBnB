@@ -920,7 +920,7 @@ router.put('/:spotId', requireAuth, validateSpot, async(req, res, next) => {
     }
 
     //check that logged in user owns the spot
-    if(spot.ownerId !== userId){
+    if(spot.ownerId !== req.user.id){
       res.status(403)
       return res.json({
         //userId: userId, //(debugging)
