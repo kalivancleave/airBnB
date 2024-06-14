@@ -133,12 +133,6 @@ router.put('/:bookingId', requireAuth, async(req, res, next) => {
         endDateUpdate = booking.endDate
       };
   
-      //important dates
-      const minAllowedDate = new Date("2018-01-01");
-      const newBookingStartDate = new Date(startDate).getTime();
-      const newBookingEndDate = new Date(endDate).getTime();
-      const today = new Date().getTime();
-  
       //400 - bad requests
       if(newBookingEndDate <= newBookingStartDate){
         res.status(400)
@@ -156,46 +150,63 @@ router.put('/:bookingId', requireAuth, async(req, res, next) => {
             startDate: "startDate cannot be in the past"
           }
         })
-      }
-  
-      //403 - checking requested dates v. all other booked dates
-      let date1 = new Date(booking.startDate).getTime();
-      let date2 = new Date(booking.endDate).getTime();
-  
-      //errors if overlap
-      if(newBookingEndDate >= date1 && newBookingEndDate <= date2){
-        res.status(403)
-        res.json({
-          message: 'Sorry, this spot is already booked for the specified dates',
-        errors: {
-          startDate: 'Start date conflicts with an existing booking',
-          endDate: 'End date conflicts with an existing booking'
+      };
+
+      //find all the bookings for the spot id excluding the current booking Id
+      const bookings = await Booking.findAll({
+        where: {
+          spotId: Spot.id
         }
       })
-      } else if(newBookingStartDate >= date1 && newBookingStartDate <= date2){
-        res.status(403)
+
+      res.json(bookings)
+
+      //iterate through existing bookings and make sure no conflicts
+        //important dates
+        const minAllowedDate = new Date("2018-01-01");
+        const newBookingStartDate = new Date(startDate).getTime();
+        const newBookingEndDate = new Date(endDate).getTime();
+        const today = new Date().getTime();
+    
+    
+        //403 - checking requested dates v. all other booked dates
+        let date1 = new Date(booking.startDate).getTime();
+        let date2 = new Date(booking.endDate).getTime();
+    
+        //errors if overlap
+        if(newBookingEndDate >= date1 && newBookingEndDate <= date2){
+          res.status(403)
           res.json({
-          message: 'Sorry, this spot is already booked for the specified dates',
+            message: 'Sorry, this spot is already booked for the specified dates',
           errors: {
             startDate: 'Start date conflicts with an existing booking',
             endDate: 'End date conflicts with an existing booking'
           }
         })
-      } else if(newBookingStartDate <= date1 && newBookingEndDate >= date2){
-        res.status(403)
-        return res.json({
-          message: 'Sorry, this spot is already booked for the specified dates',
-          errors: {
-            startDate: 'Start date conflicts with an existing booking',
-            endDate: 'End date conflicts with an existing booking'
-          }
-        })
-      } else if(newBookingEndDate <= today){
-        res.status(403)
-        res.json({
-          message: "Past bookings can't be modified"
-        })
-      }; 
+        } else if(newBookingStartDate >= date1 && newBookingStartDate <= date2){
+          res.status(403)
+            res.json({
+            message: 'Sorry, this spot is already booked for the specified dates',
+            errors: {
+              startDate: 'Start date conflicts with an existing booking',
+              endDate: 'End date conflicts with an existing booking'
+            }
+          })
+        } else if(newBookingStartDate <= date1 && newBookingEndDate >= date2){
+          res.status(403)
+          return res.json({
+            message: 'Sorry, this spot is already booked for the specified dates',
+            errors: {
+              startDate: 'Start date conflicts with an existing booking',
+              endDate: 'End date conflicts with an existing booking'
+            }
+          })
+        } else if(newBookingEndDate <= today){
+          res.status(403)
+          res.json({
+            message: "Past bookings can't be modified"
+          })
+        }; 
   
       //passes all restrictions - booking.update
       let updatedBooking = await booking.update({
