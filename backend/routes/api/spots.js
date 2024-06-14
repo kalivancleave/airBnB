@@ -809,7 +809,7 @@ router.post('/:spotId/bookings', requireAuth, async(req, res, next) => {
       const {startDate, endDate} = req.body;
       
       //check and make sure no booking conflict
-      let minAllowedDate = new Date("2024-01-01")
+      let minAllowedDate = new Date()
       let newBookingStartDate = new Date(startDate).getTime();
       let newBookingEndDate = new Date(endDate).getTime();
 
