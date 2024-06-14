@@ -109,7 +109,7 @@ const validateQuery = [
 //get all spots
 router.get('/', validateQuery, async(req, res, next) => {
   try {
-    const data = matchedData(req, {includeOptionals: true})
+    const data = matchedData(req.query, {includeOptionals: true})
     
     //pagination
     let {page, size} = req.query;
@@ -163,12 +163,12 @@ router.get('/', validateQuery, async(req, res, next) => {
     });
 
     //define all data options - maxPrice minPrice maxLng minLng maxLat minLat
-    const minPrice = parseInt(data.minPrice)
-    const maxPrice = parseInt(data.maxPrice)
-    const minLng = parseInt(data.minLng)
-    const maxLng = parseInt(data.maxLng)
-    const minLat = parseInt(data.minLat)
-    const maxLat = parseInt(data.maxLat)
+    const minPrice = parseFloat(data.minPrice)
+    const maxPrice = parseFloat(data.maxPrice)
+    const minLng = parseFloat(data.minLng)
+    const maxLng = parseFloat(data.maxLng)
+    const minLat = parseFloat(data.minLat)
+    const maxLat = parseFloat(data.maxLat)
     
     //filter spots
     let filteredSpots = []
