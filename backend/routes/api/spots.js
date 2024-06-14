@@ -640,11 +640,11 @@ router.post('/', requireAuth, validateSpot, async(req, res, next) => {
       city,
       state,
       country,
-      lat: parseInt(lat),
-      lng: parseInt(lng),
+      lat,
+      lng,
       name,
       description,
-      price: parseInt(price)
+      price
     });
 
     //return requested response
