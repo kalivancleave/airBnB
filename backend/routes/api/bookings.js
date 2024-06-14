@@ -125,9 +125,6 @@ router.put('/:bookingId', requireAuth, async(req, res, next) => {
     let startDateUpdate;
     let endDateUpdate;
 
-    //delete current booking to avoid conflict over same dates that are going to change
-    const deletedBooking = await booking.destroy();
-
     //important dates
     const minAllowedDate = new Date("2018-01-01");
     const newBookingStartDate = new Date(startDate).getTime();
@@ -167,6 +164,12 @@ router.put('/:bookingId', requireAuth, async(req, res, next) => {
         })
       };
 
+    //set current booking dates to a date that will never conflict
+    booking.update({
+      startDate: '2000-01-01',
+      endDate: '2000-01-02'
+    });
+
     //find all the bookings for the spot id (this should exclude the current deleted booking)
     const spot = await Spot.findByPk(booking.spotId)
 
@@ -179,7 +182,6 @@ router.put('/:bookingId', requireAuth, async(req, res, next) => {
     //iterate through existing bookings and make sure no conflicts
     for (let i = 0; i < bookings.length; i++){
       let booking = bookings[i];
-
 
         //403 - checking requested dates v. all other booked dates
         let date1 = new Date(booking.startDate).getTime();
@@ -220,8 +222,6 @@ router.put('/:bookingId', requireAuth, async(req, res, next) => {
           })
         }; 
       }
-
-    await booking.create({deletedBooking});
 
     //passes all restrictions - booking.update
     let updatedBooking = await booking.update({
