@@ -223,9 +223,9 @@ router.put('/:bookingId', requireAuth, async(req, res, next) => {
 
     //passes all restrictions - booking.update
     let updatedBooking = await booking.update({
-      id: booking.id,
-      spotId: booking.spotId,
-      userId: booking.userId,
+      id: deletedBooking.id,
+      spotId: deletedBooking.spotId,
+      userId: deletedBooking.userId,
       startDate: startDateUpdate,
       endDate: endDateUpdate
     });
