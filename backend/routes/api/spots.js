@@ -660,7 +660,9 @@ router.post('/', requireAuth, validateSpot, async(req, res, next) => {
       lng: parseFloat(newSpot.lng),
       name: newSpot.name,
       description: newSpot.description,
-      price: parseFloat(newSpot.price)
+      price: parseFloat(newSpot.price),
+      createdAt: newSpot.createdAt,
+      updatedAt: newSpot.updatedAt
     });
     
   } catch (error) {
