@@ -118,6 +118,11 @@ router.put('/:bookingId', requireAuth, async(req, res, next) => {
       const {startDate, endDate} = req.body
       let startDateUpdate;
       let endDateUpdate;
+      //important dates
+      const minAllowedDate = new Date("2018-01-01");
+      const newBookingStartDate = new Date(startDate).getTime();
+      const newBookingEndDate = new Date(endDate).getTime();
+      const today = new Date().getTime();
 
       //if start date is OR is not entered in req.body
       if(startDate){
@@ -162,11 +167,6 @@ router.put('/:bookingId', requireAuth, async(req, res, next) => {
       res.json(bookings)
 
       //iterate through existing bookings and make sure no conflicts
-        //important dates
-        const minAllowedDate = new Date("2018-01-01");
-        const newBookingStartDate = new Date(startDate).getTime();
-        const newBookingEndDate = new Date(endDate).getTime();
-        const today = new Date().getTime();
     
     
         //403 - checking requested dates v. all other booked dates
