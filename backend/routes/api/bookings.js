@@ -221,7 +221,7 @@ router.put('/:bookingId', requireAuth, async(req, res, next) => {
         }; 
       }
 
-    await deletedBooking.create();
+    await booking.create(deletedBooking);
 
     //passes all restrictions - booking.update
     let updatedBooking = await booking.update({
