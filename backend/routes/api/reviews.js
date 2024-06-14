@@ -8,6 +8,19 @@ const {handleValidationErrors} = require('../../utils/validation');
 
 const router = express.Router();
 
+const validateReview = [
+  check('review')
+    .exists({checkFalsy: true})
+    .withMessage('Review text is required'),
+  check('stars')
+    .isFloat({
+      min: 1,
+      max: 5
+    })
+    .withMessage('Stars must be an integer from 1 to 5'),
+  handleValidationErrors
+]
+
 //get all reviews of current user
 router.get('/current', requireAuth, async(req, res, next) => {
   try {
@@ -186,7 +199,7 @@ router.post('/:reviewId/images', requireAuth, async(req, res, next) => {
 });
 
 //edit a review
-router.put('/:reviewId', requireAuth, async(req, res, next) => {
+router.put('/:reviewId', requireAuth, validateReview, async(req, res, next) => {
   try {
     //find review id
     const reviewId = req.params.reviewId;
