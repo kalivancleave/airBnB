@@ -267,7 +267,7 @@ router.delete('/:bookingId', requireAuth, async(req, res, next) => {
     if(booking.userId !== req.user.id && spot.ownerId !== req.user.id){
       res.status(403)
       return res.json({
-        message: "You are not authorized to delete this booking."
+        message: "Forbidden"
       })
     };
 
