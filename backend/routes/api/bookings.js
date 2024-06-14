@@ -124,9 +124,6 @@ router.put('/:bookingId', requireAuth, async(req, res, next) => {
     const {startDate, endDate} = req.body
     let startDateUpdate;
     let endDateUpdate;
-    let spotId = booking.spotId;
-    let userId = booking.userId;
-    let id = booking.id;
 
     //delete current booking to avoid conflict over same dates that are going to change
     const deletedBooking = await booking.destroy();
@@ -224,11 +221,13 @@ router.put('/:bookingId', requireAuth, async(req, res, next) => {
         }; 
       }
 
+    await deletedBooking.create();
+
     //passes all restrictions - booking.update
     let updatedBooking = await booking.update({
-      id: id,
-      spotId: spotId,
-      userId: userId,
+      id: booking.id,
+      spotId: booking.spotId,
+      userId: booking.userId,
       startDate: startDateUpdate,
       endDate: endDateUpdate
     });
