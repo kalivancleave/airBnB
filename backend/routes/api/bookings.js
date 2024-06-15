@@ -181,11 +181,11 @@ router.put('/:bookingId', requireAuth, async(req, res, next) => {
 
     //iterate through existing bookings and make sure no conflicts
     for (let i = 0; i < bookings.length; i++){
-      let booking = bookings[i];
+      let bookingCompare = bookings[i];
 
         //403 - checking requested dates v. all other booked dates
-        let date1 = new Date(booking.startDate).getTime();
-        let date2 = new Date(booking.endDate).getTime();
+        let date1 = new Date(bookingCompare.startDate).getTime();
+        let date2 = new Date(bookingCompare.endDate).getTime();
     
         //errors if overlap
         if(newBookingEndDate >= date1 && newBookingEndDate <= date2){
@@ -239,7 +239,7 @@ router.put('/:bookingId', requireAuth, async(req, res, next) => {
             startDate: booking.startDate,
             endDate: booking.endDate
           });
-          
+
           res.status(403)
           return res.json({
             message: "Past bookings can't be modified"
