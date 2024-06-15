@@ -395,7 +395,7 @@ router.get('/', validateQuery, async(req, res, next) => {
         price: parseFloat(spot.price),
         createdAt: spot.createdAt,
         updatedAt: spot.updatedAt,
-        avgRating: parseFloat(averageRating) || 'No reviews found',
+        avgRating: parseFloat(averageRating), //|| 'No reviews found',
         previewImage: previewImage
       }
 
@@ -1008,13 +1008,21 @@ router.post('/:spotId/bookings', requireAuth, async(req, res, next) => {
     let newBooking = await Booking.create({
       spotId: spotId,
       userId: req.user.id,
-      startDate: startDate.toISOString().split('T')[0],
-      endDate: endDate.toISOString().split('T')[0]
+      startDate,
+      endDate
     });
 
     //return requested reponse
     res.status(201)
-    res.json(newBooking)
+    res.json({
+      id: parseInt(newBooking.id),
+      spotId: parseInt(newBooking.spotId),
+      userId: parseInt(newBooking.userId),
+      startDate: newBooking.startDate.toISOString().split('T')[0],
+      endDate: newBooking.endDate.toISOString().split('T')[0],
+      createdAt: newBooking.createdAt,
+      updatedAt: newBooking.updatedAt
+    })
     
   } catch (error) {
     next(error)

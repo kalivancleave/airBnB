@@ -228,12 +228,20 @@ router.put('/:bookingId', requireAuth, async(req, res, next) => {
       id: booking.id,
       spotId: booking.spotId,
       userId: booking.userId,
-      startDate: startDateUpdate.toISOString().split('T')[0],
-      endDate: endDateUpdate.toISOString().split('T')[0]
+      startDate: startDateUpdate,
+      endDate: endDateUpdate
     });
   
     //return requested response
-    res.json(updatedBooking);
+    res.json({
+      id: parseInt(updatedBooking.id),
+      spotId: parseInt(updatedBooking.spotId),
+      userId: parseInt(updatedBooking.userId),
+      startDate: updatedBooking.startDate.toISOString().split('T')[0],
+      endDate: updatedBooking.endDate.toISOString().split('T')[0],
+      createdAt: updatedBooking.createdAt,
+      updatedAt: updatedBooking.updatedAt
+    });
 
   } catch (error) {
     next(error)
