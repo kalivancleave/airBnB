@@ -189,6 +189,12 @@ router.put('/:bookingId', requireAuth, async(req, res, next) => {
     
         //errors if overlap
         if(newBookingEndDate >= date1 && newBookingEndDate <= date2){
+          //restore booking
+          await booking.update({
+            startDate: booking.startDate,
+            endDate: booking.endDate
+          });
+
           res.status(403)
           return res.json({
             message: 'Sorry, this spot is already booked for the specified dates',
@@ -198,6 +204,12 @@ router.put('/:bookingId', requireAuth, async(req, res, next) => {
             }
           })
         } else if(newBookingStartDate >= date1 && newBookingStartDate <= date2){
+          //restore booking
+          await booking.update({
+            startDate: booking.startDate,
+            endDate: booking.endDate
+          });
+
           res.status(403)
           return res.json({
             message: 'Sorry, this spot is already booked for the specified dates',
@@ -207,6 +219,12 @@ router.put('/:bookingId', requireAuth, async(req, res, next) => {
             }
           })
         } else if(newBookingStartDate <= date1 && newBookingEndDate >= date2){
+          //restore booking
+          await booking.update({
+            startDate: booking.startDate,
+            endDate: booking.endDate
+          });
+
           res.status(403)
           return res.json({
             message: 'Sorry, this spot is already booked for the specified dates',
@@ -216,6 +234,12 @@ router.put('/:bookingId', requireAuth, async(req, res, next) => {
             }
           })
         } else if(newBookingEndDate <= today){
+          //restore booking
+          await booking.update({
+            startDate: booking.startDate,
+            endDate: booking.endDate
+          });
+          
           res.status(403)
           return res.json({
             message: "Past bookings can't be modified"
