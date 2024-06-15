@@ -124,9 +124,11 @@ router.put('/:bookingId', requireAuth, async(req, res, next) => {
     const {startDate, endDate} = req.body
     let startDateUpdate;
     let endDateUpdate;
-
+    
     //important dates
     const minAllowedDate = new Date("2018-01-01");
+    let originalStartDate = booking.startDate;
+    let originalEndDate = booking.endDate;
     const newBookingStartDate = new Date(startDate).getTime();
     const newBookingEndDate = new Date(endDate).getTime();
     const today = new Date().getTime();
@@ -191,8 +193,8 @@ router.put('/:bookingId', requireAuth, async(req, res, next) => {
         if(newBookingEndDate >= date1 && newBookingEndDate <= date2){
           //restore booking
           await booking.update({
-            startDate: booking.startDateUpdate,
-            endDate: booking.endDateUpdate
+            startDate: originalStartDate,
+            endDate: originalEndDate
           });
 
           res.status(403)
@@ -206,8 +208,8 @@ router.put('/:bookingId', requireAuth, async(req, res, next) => {
         } else if(newBookingStartDate >= date1 && newBookingStartDate <= date2){
           //restore booking
           await booking.update({
-            startDate: booking.startDateUpdate,
-            endDate: booking.endDateUpdate
+            startDate: originalStartDate,
+            endDate: originalEndDate
           });
 
           res.status(403)
@@ -221,8 +223,8 @@ router.put('/:bookingId', requireAuth, async(req, res, next) => {
         } else if(newBookingStartDate <= date1 && newBookingEndDate >= date2){
           //restore booking
           await booking.update({
-            startDate: booking.startDateUpdate,
-            endDate: booking.endDateUpdate
+            startDate: originalStartDate,
+            endDate: originalEndDate
           });
 
           res.status(403)
@@ -236,8 +238,8 @@ router.put('/:bookingId', requireAuth, async(req, res, next) => {
         } else if(newBookingEndDate <= today){
           //restore booking
           await booking.update({
-            startDate: booking.startDateUpdate,
-            endDate: booking.endDateUpdate
+            startDate: originalStartDate,
+            endDate: originalEndDate
           });
 
           res.status(403)
