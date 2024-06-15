@@ -66,48 +66,48 @@ const validateReview = [
 ];
 
 //validate query info
-const validateQuery = [
-  check('maxLat')
-    .optional()
-    .isFloat({
-      max: 90
-    })
-    .withMessage('Maximum latitude is invalid'),
-  check('minLat')
-    .optional()
-    .isFloat({
-      min: -90
-    })
-    .withMessage('Minimum latitude is invalid'),
-  check('minLng')
-    .optional()
-    .isFloat({
-      min: -180
-    })
-    .withMessage('Minimum longitude is invalid'),
-  check('maxLng')
-    .optional()
-    .isFloat({
-      max: 180
-    })
-    .withMessage('Maximum longitude is invalid'),
-  check('minPrice')
-    .optional()
-    .isFloat({
-      min: 0
-    })
-    .withMessage('Minimum price must be greater than or equal to 0'),
-  check('maxPrice')
-    .optional()
-    .isFloat({
-      min: 0
-    })
-    .withMessage('Maximum price must be greater than or equal to 0'),
-  handleValidationErrors  
-]
+// const validateQuery = [
+//   check('maxLat')
+//     .optional()
+//     .isFloat({
+//       max: 90
+//     })
+//     .withMessage('Maximum latitude is invalid'),
+//   check('minLat')
+//     .optional()
+//     .isFloat({
+//       min: -90
+//     })
+//     .withMessage('Minimum latitude is invalid'),
+//   check('minLng')
+//     .optional()
+//     .isFloat({
+//       min: -180
+//     })
+//     .withMessage('Minimum longitude is invalid'),
+//   check('maxLng')
+//     .optional()
+//     .isFloat({
+//       max: 180
+//     })
+//     .withMessage('Maximum longitude is invalid'),
+//   check('minPrice')
+//     .optional()
+//     .isFloat({
+//       min: 0
+//     })
+//     .withMessage('Minimum price must be greater than or equal to 0'),
+//   check('maxPrice')
+//     .optional()
+//     .isFloat({
+//       min: 0
+//     })
+//     .withMessage('Maximum price must be greater than or equal to 0'),
+//   handleValidationErrors  
+// ]
 
 //get all spots
-router.get('/', validateQuery, async(req, res, next) => {
+router.get('/', async(req, res, next) => {
   try {
     const data = matchedData(req, {includeOptionals: true})
     
