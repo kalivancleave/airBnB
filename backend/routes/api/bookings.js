@@ -191,8 +191,8 @@ router.put('/:bookingId', requireAuth, async(req, res, next) => {
         if(newBookingEndDate >= date1 && newBookingEndDate <= date2){
           //restore booking
           await booking.update({
-            startDate: booking.startDate,
-            endDate: booking.endDate
+            startDate: booking.startDateUpdate,
+            endDate: booking.endDateUpdate
           });
 
           res.status(403)
@@ -206,8 +206,8 @@ router.put('/:bookingId', requireAuth, async(req, res, next) => {
         } else if(newBookingStartDate >= date1 && newBookingStartDate <= date2){
           //restore booking
           await booking.update({
-            startDate: booking.startDate,
-            endDate: booking.endDate
+            startDate: booking.startDateUpdate,
+            endDate: booking.endDateUpdate
           });
 
           res.status(403)
@@ -221,8 +221,8 @@ router.put('/:bookingId', requireAuth, async(req, res, next) => {
         } else if(newBookingStartDate <= date1 && newBookingEndDate >= date2){
           //restore booking
           await booking.update({
-            startDate: booking.startDate,
-            endDate: booking.endDate
+            startDate: booking.startDateUpdate,
+            endDate: booking.endDateUpdate
           });
 
           res.status(403)
@@ -236,8 +236,8 @@ router.put('/:bookingId', requireAuth, async(req, res, next) => {
         } else if(newBookingEndDate <= today){
           //restore booking
           await booking.update({
-            startDate: booking.startDate,
-            endDate: booking.endDate
+            startDate: booking.startDateUpdate,
+            endDate: booking.endDateUpdate
           });
 
           res.status(403)
