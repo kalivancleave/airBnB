@@ -692,7 +692,7 @@ router.get('/:spotId/bookings', requireAuth, async(req, res, next) => {
     if(spot.ownerId === req.user.id){
       for (let i = 0; i < bookings.length; i++) {
         let booking = bookings[i]; 
-        
+    
         const user = await User.findOne({
           where: {
             id: booking.userId
@@ -707,8 +707,8 @@ router.get('/:spotId/bookings', requireAuth, async(req, res, next) => {
           id: booking.id,
           spotId: booking.spotId,
           userId: booking.userId,
-          startDate: booking.startDate,
-          endDate: booking.endDate,
+          startDate: booking.startDate.toISOString().split('T')[0],
+          endDate: booking.endDate.toISOString().split('T')[0],
           createdAt: booking.createdAt,
           updatedAt: booking.updatedAt
         }
@@ -723,8 +723,8 @@ router.get('/:spotId/bookings', requireAuth, async(req, res, next) => {
           //bookingUserId: booking.userId, //debugging
           //loggedInUserId: req.user.id, //debugging
           spotId: booking.spotId,
-          startDate: booking.startDate,
-          endDate: booking.endDate
+          startDate: booking.startDate.toISOString().split('T')[0],
+          endDate: booking.endDate.toISOString().split('T')[0]
         }
         
         nonOwnerBookings.push(nonOwnerBookingInfo);
@@ -1008,8 +1008,8 @@ router.post('/:spotId/bookings', requireAuth, async(req, res, next) => {
     let newBooking = await Booking.create({
       spotId: spotId,
       userId: req.user.id,
-      startDate,
-      endDate
+      startDate: startDate.toISOString().split('T')[0],
+      endDate: endDate.toISOString().split('T')[0]
     });
 
     //return requested reponse
