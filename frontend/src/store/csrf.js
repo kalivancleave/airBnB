@@ -1,27 +1,32 @@
-import Cookies from 'js-Cookies';
+import Cookies from 'js-cookie';
 
-export async function csrfFetch(url, options = {}){
-
-  //set options.method to 'GET' if there is no method
+export async function csrfFetch(url, options = {}) {
+  // set options.method to 'GET' if there is no method
   options.method = options.method || 'GET';
+  // set options.headers to an empty object if there is no headers
+  options.headers = options.headers || {};
 
-  //set options.header to an empty object if there is no headers
-  options.header = options.header || {};
-
-  //if options.method is not 'GET'
-    //set "Content-Type": to be the current content type (if provided) OR default to "application/JSON"
-    //set "XSRF-TOKEN": "value of xsrfTokenCookie"
-  if(options.method.toUpperCase() !== 'GET'){
-    options.headers['Content-Type'] = options.headers['Content-Type'] || 'application/json';
-    options.headers['XSRF-Token'] = Cookies.get('XSFR-TOKEN');
+  // if the options.method is not 'GET', then set the "Content-Type" header to
+  // "application/json", and set the "XSRF-TOKEN" header to the value of the
+  // "XSRF-TOKEN" cookie
+  if (options.method.toUpperCase() !== 'GET') {
+    options.headers['Content-Type'] =
+      options.headers['Content-Type'] || 'application/json';
+    options.headers['XSRF-Token'] = Cookies.get('XSRF-TOKEN');
   }
-  
-  //call the default window's fetch with the url and the options passed in 
-  const result = await window.fetch(url, options);
+  // call the default window's fetch with the url and the options passed in
+  const res = await window.fetch(url, options);
 
-  //if res.status is >= 400 throw result error as a response
-  if (result.status >= 400) throw result;
+  // if the response status code is 400 or above, then throw an error with the
+  // error being the response
+  if (res.status >= 400) throw res;
 
-  //all things pass and no errors are found: return response
-  return result
+  // if the response status code is under 400, then return the response to the
+  // next promise chain
+  return res;
+}
+
+//call this to get the 'XSRF-TOKEN' cookie, should only be used in development
+export function restoreCSRF() {
+  return csrfFetch('/api/csrf/restore');
 }
