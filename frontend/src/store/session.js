@@ -1,0 +1,58 @@
+import { csrfFetch } from "./csrf";
+
+//action creator definitions
+const SET_USER = 'session/setUser';
+const REMOVE_USER = 'session/removeUser';
+
+//action creator
+const setUser = (user) => {
+  return {
+    type: SET_USER,
+    payload: user
+  }
+}
+
+const removeUser = () => {
+  return {
+    type: REMOVE_USER
+  }
+}
+
+//thunk
+//request session user from /api/session
+export const login = (user) => async (dispatch) => {
+  //destructure from user
+  const {credential, password} = user;
+
+  //create a response using a csrfFetch to the /spi/session
+  const response = await csrfFetch('/api/session', {
+    method: "POST",
+    body: JSON.stringify({
+      credential,
+      password
+    })
+  });
+
+  //create data in .json
+  const data = await response.json();
+
+  //dispatch the setUser action passing in the new user data
+  dispatch(setUser(data.user));
+
+  //return the response
+  return response
+}
+
+//reducer
+const sessionReducer = (state = {user: null}, action) => {
+  switch (action.type) {
+    case SET_USER:
+      return { ...state, user: action.payload };
+    case REMOVE_USER:
+      return { ...state, user: null };
+    default:
+      return state;
+  }
+};
+
+export default sessionReducer;
