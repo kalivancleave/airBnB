@@ -18,7 +18,10 @@ const removeUser = () => {
   }
 }
 
-//thunk
+
+//////////////////////////////////////////////////////////
+//thunks
+
 //request session user from /api/session
 export const login = (user) => async (dispatch) => {
   //destructure from user
@@ -43,6 +46,15 @@ export const login = (user) => async (dispatch) => {
   return response
 }
 
+//restore user
+export const restoreUser = () => async (dispatch) => {
+  const response = await csrfFetch('/api/session');
+  const data = await response.json();
+  dispatch(setUser(data.user));
+  return response;
+};
+
+/////////////////////////////////////////
 //reducer
 const sessionReducer = (state = {user: null}, action) => {
   switch (action.type) {
