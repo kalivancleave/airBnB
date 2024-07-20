@@ -1,26 +1,17 @@
 import { NavLink } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
-import * as sessionActions from '../../store/session';
+import './Navigation.css';
 
 
 function Navigation({isLoaded}) {
   const sessionUser = useSelector(state => state.session.user)
-  const dispatch = useDispatch();
-
-  const logout = (e) => {
-    e.preventDefault();
-    dispatch(sessionActions.logout());
-  };
 
   const sessionLinks = sessionUser ? 
     (
       <>
-        <li>
+        <li className="navLink">
           <ProfileButton user={sessionUser} />
-        </li>
-        <li>
-          <button onClick={logout}>Log Out</button>
         </li>
       </>
     ) 
@@ -30,19 +21,19 @@ function Navigation({isLoaded}) {
     (
       <>
         <li>
-          <NavLink to='/login'>Log In</NavLink>
+          <NavLink to='/login' className="navLink">Log In</NavLink>
         </li>
-        <li>
-          <NavLink to='/signup'>Sign Up</NavLink>
+        <li> 
+          <NavLink to='/signup' className="navLink">Sign Up</NavLink>
         </li>
       </>
     );
 
   return(
     <>
-      <ul>
+      <ul className="navBar">
         <li>
-          <NavLink to='/'>Home</NavLink>
+          <NavLink to='/' className="navLink">Home</NavLink>
         </li>
         {isLoaded && sessionLinks}
       </ul>
