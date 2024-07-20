@@ -73,7 +73,7 @@ export const signup = (user) => async (dispatch) => {
 }
 
 //logout user
-export const logout = (user) => async (dispatch) => {
+export const logout = () => async (dispatch) => {
   const response = await csrfFetch('/api/session', {
     method: 'DELETE',
   });
