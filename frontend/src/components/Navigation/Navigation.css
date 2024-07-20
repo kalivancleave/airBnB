@@ -1,5 +1,4 @@
 .navBar {
-  width: 100%;
   height: 70px;
   margin: 0;
   /* overflow: hidden; */
@@ -7,23 +6,26 @@
   padding-right: 20px;
   border-bottom: solid 2px #999999;
   display: flex;
-  justify-content: flex-end;
+  justify-content: right;
+  align-items: bottom;
 }
 
 .navLink {
   text-decoration: none;
-  margin-left: 20px;
-  margin-right: 20px;
-  padding: 0px;
-  /* border: 1px solid pink; */
+  border: none;
   font-size: normal;
   font-family: sans-serif;
   align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .profileButton {
   background-color: white;
-  /* border: red 1px solid;  */
+  display: flex;
+  justify-items: center;
+  /* border: 1px solid red;  */
   /* make border: none when done testing to override global style of buttons */
   color: #333333;
   font-size: 60px;
@@ -38,8 +40,18 @@
 .profileMenu {
   font-size: normal;
   font-family: sans-serif;
+  background-color: white;
+  margin-right: 0px;
+  margin-top: 5px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .profileMenuHidden {
   visibility: hidden;
+  padding: 15px;
+  margin-right: 0px;
+  margin-top: 5px;
 }

@@ -26,8 +26,8 @@ function LoginFormModal() {
 
   return (
     <>
-      <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
+      <h1 className='logInHeader'>Log In</h1>
+      <form onSubmit={handleSubmit} className='logInForm'>
         <label>
           Username or Email
           <input
