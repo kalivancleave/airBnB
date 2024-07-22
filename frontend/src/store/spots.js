@@ -9,20 +9,22 @@ const getSpots = (spots) => ({
 
 //thunks
 //get all spots
-export const allSpots = () => async (dispatch) => {
+export const fetchSpots = () => async (dispatch) => {
   const response = await fetch(`/api/spots`);
 
   if(response.ok) {
-    const listOfSpots = await response.json();
-    dispatch(getSpots(listOfSpots));
+    const spots = await response.json();
+    dispatch(getSpots(spots));
   }
 }
 
+const initialState = { spots: [], isLoading: true}
+
 //reducer
-const spotReducer = (state = {spots: null}, action) => {
+const spotReducer = (state = initialState, action) => {
   switch(action.type) {
     case GET_SPOTS:
-      return {...state, spots: action.payload}
+      return {...state, spots: [...action.payload.Spots]}
     default:
       return state;
   }

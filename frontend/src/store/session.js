@@ -19,9 +19,7 @@ const removeUser = () => {
 }
 
 
-//////////////////////////////////////////////////////////
 //thunks
-
 //request session user from /api/session
 export const login = (user) => async (dispatch) => {
   //destructure from user
@@ -81,7 +79,7 @@ export const logout = () => async (dispatch) => {
   return response;
 }
 
-/////////////////////////////////////////
+
 //reducer
 const sessionReducer = (state = {user: null}, action) => {
   switch (action.type) {
