@@ -39,7 +39,7 @@ function ProfileButton({user}) {
 
   return(
     <>
-      <button onClick={toggleMenu} className="noBorder whiteBackground">
+      <button onClick={toggleMenu} className="redBorder whiteBackground roundedCorners">
         <FontAwesomeIcon icon={faBars} className="xlargeFont fullPadding darkGreyText" />
         <FontAwesomeIcon icon={faCircleUser} className="xlargeFont fullPadding darkGreyText" />
       </button>

@@ -23,20 +23,20 @@ function Navigation({isLoaded}) {
     :
 
     (
-      <>
-        <li>
+      <div className="displayFlex">
+        <li className="fullMargin">
           <OpenModalButton
             buttonText="Log In"
             modalComponenet={<LoginFormModal />}
           />
         </li>
-        <li> 
+        <li className="fullMargin"> 
           <OpenModalButton
             buttonText="Sign Up"
             modalComponenet={<SignupFormModal />}
           />
         </li>
-      </>
+      </div>
     );
 
   return(

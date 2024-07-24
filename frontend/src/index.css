@@ -8,6 +8,10 @@
   border: none;
 }
 
+.blackBorder {
+  border: 2px solid black;
+}
+
 .testBorder {
   border: 1px solid red;
 }
@@ -17,7 +21,7 @@
   background-color: white;
 }
 
-.pinkBackground {
+.redBackground {
   background-color: #FF5A5F;
 }
 
@@ -102,6 +106,39 @@ body {
   display: inline;
 }
 
+/* whole item designs */
+.activeButtonDesign {
+  background-color: #FF5A5F;
+  font-size: 16px;
+  text-align: center;
+  cursor: pointer;
+  font-family: sans-serif;
+  color: white;
+  border: solid, 1px, black;
+  padding: 16px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  border-radius: 30px;
+}
+
+.activeButtonDesign:hover {
+  background-color: rgb(196, 68, 68);
+}
+
+.inactiveButtonDesign {
+  background-color: #333333;
+  font-size: 16px;
+  text-align: center;
+  cursor: not-allowed;
+  font-family: sans-serif;
+  color: #999999;
+  border: solid, 1px, black;
+  padding: 16px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  border-radius: 30px;
+}
+
 
 
 
@@ -130,24 +167,6 @@ label {
   font-size: 14px;
   font-weight: regular;
 }
-
-/* button {
-  background-color: #FF5A5F;
-  font-size: normal;
-  text-align: center;
-  cursor: pointer;
-  font-family: sans-serif;
-  color: white;
-  border: solid, 1px, black;
-  padding: 16px 32px;
-  text-decoration: none;
-  margin: 4px 2px;
-  border-radius: 30px;
-} */
-
-/* button:hover {
-  background-color: rgb(196, 68, 68);
-} */
 
 ul {
   list-style-type: none;
