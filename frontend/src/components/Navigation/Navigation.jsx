@@ -2,9 +2,10 @@ import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import AirbnbHomeLogo from "../../assets/AirbnbHomeLogo.png"
 import ProfileButton from "./ProfileButton";
-import OpenModalButton from '../OpenModalButton';
-import LoginFormModal from "../LoginFormModal";
-import SignupFormModal from "../SignupFormModal";
+import ProfileButtonLoggedOut from "./ProfileButtonLoggedOut";
+// import OpenModalButton from '../OpenModalButton';
+// import LoginFormModal from "../LoginFormModal";
+// import SignupFormModal from "../SignupFormModal";
 import './Navigation.css';
 
 
@@ -13,30 +14,17 @@ function Navigation({isLoaded}) {
 
   const sessionLinks = sessionUser ? 
     (
-      <>
-        <li className="navLink">
-          <ProfileButton user={sessionUser} />
-        </li>
-      </>
+      <li className="navLink">
+        <ProfileButton user={sessionUser} />
+      </li>
     ) 
 
     :
 
     (
-      <div className="displayFlex">
-        <li className="fullMargin">
-          <OpenModalButton
-            buttonText="Log In"
-            modalComponenet={<LoginFormModal />}
-          />
-        </li>
-        <li className="fullMargin"> 
-          <OpenModalButton
-            buttonText="Sign Up"
-            modalComponenet={<SignupFormModal />}
-          />
-        </li>
-      </div>
+      <li className="navLink">
+        <ProfileButtonLoggedOut />
+      </li>
     );
 
   return(
