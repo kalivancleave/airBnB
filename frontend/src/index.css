@@ -1,49 +1,111 @@
-/* TODO: Add sitewide styles */
+
+/* borders and corners */
+.roundedCorners {
+  border-radius: 30px;
+}
+
+.noBorder {
+  border: none;
+}
+
+.testBorder {
+  border: 1px solid red;
+}
+
+/* background colors */
+.whiteBackground {
+  background-color: white;
+}
+
+.pinkBackground {
+  background-color: #FF5A5F;
+}
+
+/* text styles */
+.blackText {
+  color: black;
+}
+
+.redText {
+  color: #FF5A5F;
+}
+
+.darkGreyText {
+  color: #999999;
+}
+
+.lightGreyText {
+  color: #333333;
+}
+
+.xlargeFont {
+  font-size: 40px;
+}
+
+.largeFont {
+  font-size: 24px;
+}
+
+.mediumFont {
+  font-size: 18px;
+}
+
+.smallFont {
+  font-size: normal;
+}
+
+.noDecoration {
+  text-decoration: none;
+}
+
+/* padding and margins */
+.noPadding {
+  padding: 0px;
+}
+
+.fullPadding {
+  padding: 10px;
+}
+
+.leftAndRightPadding {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.noMargin {
+  margin: 0px;
+}
+
+.fullMargin {
+  margin: 10px;
+}
+
+.leftAndRightMargin {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+/* misc stylings */
 body {
   background-color: #FFFFFF;
 }
 
-h1 {
-  font-size: 24px;
-  font-weight: bold;
-  font-family: sans-serif;
-  color:#999999
+.displayFlex {
+  display: flex;
 }
 
-h2 {
-  font-size: 18px;
-  font-weight: bold;
-  font-family: sans-serif;
-  color:#999999
+.displayGrid {
+  display: grid;
 }
 
-h3 {
-  font-size: 18px;
-  font-weight: bold;
-  font-family: sans-serif;
-  color:#999999
+.displayInline {
+  display: inline;
 }
 
-h4 {
-  font-size: 18px;
-  font-weight: bold;
-  font-family: sans-serif;
-  color:#999999
-}
 
-h5 {
-  font-size: 18px;
-  font-weight: bold;
-  font-family: sans-serif;
-  color:#999999
-}
 
-h6 {
-  font-size: 18px;
-  font-weight: bold;
-  font-family: sans-serif;
-  color:#999999
-}
+
+
 
 input {
   width: 100%;
@@ -69,7 +131,7 @@ label {
   font-weight: regular;
 }
 
-button {
+/* button {
   background-color: #FF5A5F;
   font-size: normal;
   text-align: center;
@@ -81,11 +143,11 @@ button {
   text-decoration: none;
   margin: 4px 2px;
   border-radius: 30px;
-}
+} */
 
-button:hover {
+/* button:hover {
   background-color: rgb(196, 68, 68);
-}
+} */
 
 ul {
   list-style-type: none;

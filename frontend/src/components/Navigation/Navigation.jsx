@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
+import AirbnbHomeLogo from "../../assets/AirbnbHomeLogo.png"
 import ProfileButton from "./ProfileButton";
 import OpenModalButton from '../OpenModalButton';
 import LoginFormModal from "../LoginFormModal";
@@ -42,7 +43,11 @@ function Navigation({isLoaded}) {
     <>
       <ul className="navBar">
         <li>
-          <NavLink to='/' className="navLink">Home</NavLink>
+          <NavLink to='/' className="navLink">
+            <a href=''>
+              <img src={AirbnbHomeLogo} className='logo noPadding noMargin' alt="home" />
+            </a>
+          </NavLink>
         </li>
         {isLoaded && sessionLinks}
       </ul>

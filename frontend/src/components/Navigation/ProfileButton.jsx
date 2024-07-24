@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
-import { IoPersonCircleSharp } from "react-icons/io5";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 import * as sessionActions from '../../store/session';
 import './Navigation.css';
 
@@ -37,8 +39,9 @@ function ProfileButton({user}) {
 
   return(
     <>
-      <button onClick={toggleMenu} className="profileButton">
-        <IoPersonCircleSharp />
+      <button onClick={toggleMenu} className="noBorder whiteBackground">
+        <FontAwesomeIcon icon={faBars} className="xlargeFont fullPadding darkGreyText" />
+        <FontAwesomeIcon icon={faCircleUser} className="xlargeFont fullPadding darkGreyText" />
       </button>
       <ul className={ulClassName} ref={ulRef}>
         <li>{user.username}</li>
