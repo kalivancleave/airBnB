@@ -19,9 +19,8 @@ function LoginFormModal() {
       .catch(
         async (res) => {
           const data = await res.json();
-          let errorMessage = JSON.stringify(Object.values(data));
           if (data) {
-            setErrors(errorMessage.slice(2, errorMessage.length));
+            setErrors("The provided credentials were invalid");
           }
         }
       );
@@ -54,7 +53,7 @@ function LoginFormModal() {
             required
           />
         </label>
-        <p className='redText smallFont'>{JSON.stringify(errors).slice(1, errors.length - 1)}</p>
+        <p className='redText smallFont'>{JSON.stringify(errors)}</p>
         <button type="submit" 
         className={validate() ? 'activeButtonDesign' : 'inactiveButtonDesign'} //disabled button with style
         //disabled={!validate()} //basic way of disabling a button
