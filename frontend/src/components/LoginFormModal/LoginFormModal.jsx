@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as sessionActions from '../../store/session';
 import { useDispatch } from 'react-redux';
 import { useModal } from '../../context/Modal';
@@ -9,6 +9,7 @@ function LoginFormModal() {
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
+  const [isValid, setIsValid] = useState(false);
   const { closeModal } = useModal();
 
   const handleSubmit = (e) => {
@@ -23,6 +24,16 @@ function LoginFormModal() {
         }
       );
   };
+
+  //validations for the log in button paired with a useEffect to detect changes in the form
+  const validate = () => {
+    return credential.length >= 4 && password.length >= 6
+  }
+
+  useEffect(() => {
+    const isValid = validate();
+    setIsValid(isValid);
+  }, [credential, password])
 
   return (
     <>
@@ -47,7 +58,10 @@ function LoginFormModal() {
           />
         </label>
         {errors.credential && <p>{errors.credential}</p>}
-        <button type="submit" className='activeButtonDesign'>Log In</button>
+        <button type="submit" 
+        className={validate() ? 'activeButtonDesign' : 'inactiveButtonDesign'} //disabled button with style
+        //disabled={!validate()} //basic way of disabling a button
+        >Log In</button>
       </form>
     </>
   );
