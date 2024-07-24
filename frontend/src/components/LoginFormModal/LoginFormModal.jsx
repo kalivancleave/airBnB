@@ -23,12 +23,20 @@ function LoginFormModal() {
             setErrors("The provided credentials were invalid");
           }
         }
-      );
+      )
   };
 
   //validations for the log in button paired with a useEffect to detect changes in the form
   const validate = () => {
     return credential.length >= 4 && password.length >= 6
+  }
+
+  const demoLogin = async () => {
+    await dispatch(sessionActions.login({
+      credential: "alphaabraham", 
+      password: "alphaspassword"
+    }))
+      .then(closeModal)
   }
 
   return (
@@ -54,10 +62,8 @@ function LoginFormModal() {
           />
         </label>
         <p className='redText smallFont'>{JSON.stringify(errors)}</p>
-        <button type="submit" 
-        className={validate() ? 'activeButtonDesign' : 'inactiveButtonDesign'} //disabled button with style
-        //disabled={!validate()} //basic way of disabling a button
-        >Log In</button>
+        <button type="submit" className={validate() ? 'activeButtonDesign' : 'inactiveButtonDesign'}>Log In</button>
+        <button type='submit' onClick={() => demoLogin()}>Log in as Demo User</button>
       </form>
     </>
   );
