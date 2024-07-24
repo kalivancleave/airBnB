@@ -8,12 +8,12 @@ function LoginFormModal() {
   const dispatch = useDispatch();
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState('');
   const { closeModal } = useModal();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setErrors({});
+    setErrors('');
     return dispatch(sessionActions.login({ credential, password }))
       .then(closeModal)
       .catch(
@@ -61,7 +61,7 @@ function LoginFormModal() {
             required
           />
         </label>
-        <p className='redText smallFont'>{JSON.stringify(errors)}</p>
+        <p className='redText smallFont'>{errors}</p>
         <button type="submit" className={validate() ? 'activeButtonDesign' : 'inactiveButtonDesign'}>Log In</button>
         <button type='submit' onClick={() => demoLogin()}>Log in as Demo User</button>
       </form>
