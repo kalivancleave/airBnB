@@ -17,6 +17,21 @@ const spotImages = [
     preview: true
   },
   {
+    spotId: 1,
+    url: 'TudorFarmHouse1_egbirc.png',
+    preview: true
+  },
+  {
+    spotId: 1,
+    url: 'TudorFarmHouse2_eqamyj.png',
+    preview: true
+  },
+  {
+    spotId: 1,
+    url: 'TudorFarmHouse3_wv2wds.png',
+    preview: true
+  },
+  {
     spotId: 2,
     url: 'image-placeholder_xsvyni.png',
     preview: true

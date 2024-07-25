@@ -7,6 +7,7 @@ import App from './App';
 import configureStore from './store';
 import * as sessionActions from './store/session';
 import * as spotActions from './store/spots'
+import * as imageActions from './store/images'
 import './index.css';
 
 const store = configureStore();
@@ -19,6 +20,7 @@ if (import.meta.env.MODE !== 'production') {
   window.store = store;
   window.sessionActions = sessionActions;
   window.spotActions = spotActions;
+  window.imageActions = imageActions;
 }
 
 ReactDOM.createRoot(document.getElementById('root')).render(

@@ -9,6 +9,7 @@ import Navigation from './components/Navigation';
 import * as sessionActions from './store/session';
 import GetAllSpots from './components/Spots/GetAllSpots';
 import SingleSpot from './components/Spots/GetSpot';
+import 'react-tooltip/dist/react-tooltip.css'
 
 function Layout() {
   const dispatch = useDispatch();
