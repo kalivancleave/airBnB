@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
+import { Cloudinary } from '@cloudinary/url-gen';
+import { auto } from '@cloudinary/url-gen/actions/resize';
+import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
+import { AdvancedImage } from '@cloudinary/react';
 import Navigation from './components/Navigation';
 import * as sessionActions from './store/session';
 import GetAllSpots from './components/Spots/GetAllSpots';
@@ -23,6 +27,20 @@ function Layout() {
     </>
   );
 }
+
+//sample of cloudinary
+export const cloudinaryPreviewImage = (image) => {
+  const cloud = new Cloudinary({cloud: {cloudName: 'djnfjzocb'}});
+
+  // Use this sample image or upload your own via the Media Explorer
+  const img = cloud
+        .image(image)
+        .format('auto') // Optimize delivery by resizing and applying auto-format and auto-quality
+        .quality('auto')
+        .resize(auto().gravity(autoGravity()).width(400).height(400)); // Transform the image: auto-crop to square aspect_ratio
+
+  return (<AdvancedImage cldImg={img}/>);
+};
 
 const router = createBrowserRouter([
   {

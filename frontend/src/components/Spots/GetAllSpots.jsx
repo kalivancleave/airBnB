@@ -4,6 +4,8 @@ import { fetchSpots } from "../../store/spots";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { cloudinaryPreviewImage } from "../../App";
+
 
 const GetAllSpots = () => {
   const dispatch = useDispatch();
@@ -16,11 +18,11 @@ const GetAllSpots = () => {
   return (
     <>
       <h1>All Spots</h1>
-      <ol className="testBorder displayFlex fullPadding">
+      <ol className="testBorder displayFlex fullPadding flexWrap justifyCenter">
         {spotsList.map(({id, previewImage, city, state, avgRating, price}) => (
-          <div key={id} className="testBorder fullPadding fullMargin">
+          <div key={id} className="testBorder fullPadding fullMargin photoBox">
             <NavLink to={`${id}`} className="noDecoration" >
-              <li className="blackText mediumFont">{previewImage}</li>
+              <li className="blackText mediumFont">{previewImage !== 404 ? cloudinaryPreviewImage(previewImage) : cloudinaryPreviewImage('image-placeholder_xsvyni.png')}</li>
               <li className="blackText mediumFont">{city}, {state}</li>
               <div>
                 <FontAwesomeIcon icon={faStar} className="redText" /> 

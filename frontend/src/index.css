@@ -144,6 +144,29 @@ body {
   flex-direction: column;
 }
 
+.flexWrap {
+  flex-wrap: wrap;
+}
+
+.alignCenter {
+  align-items: center;
+}
+
+.justifyCenter {
+  justify-content: center;
+}
+
+.flexBasisFull {
+  flex-basis: 100%;
+}
+
+/* adaptive things */
+@media only screen and (max-width: 800px) {
+  .photoBox {
+    flex-basis: 100%;
+  }
+}
+
 /* whole item designs */
 .activeButtonDesign {
   background-color: #FF5A5F;

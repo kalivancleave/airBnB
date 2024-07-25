@@ -13,27 +13,27 @@ if (process.env.NODE_ENV === 'production') {
 const spotImages = [
   {
     spotId: 1,
-    url: 'imageurl1.com',
+    url: 'TudorFarmHouseMain_yk6i6e.png',
     preview: true
   },
   {
     spotId: 2,
-    url: 'imageurl2.com',
+    url: 'image-placeholder_xsvyni.png',
     preview: true
   },
   {
     spotId: 1,
-    url: 'imageurl3.com',
+    url: 'image-placeholder_xsvyni.png',
     preview: false
   },
   {
     spotId: 3,
-    url: 'imageurl4.com',
+    url: 'image-placeholder_xsvyni.png',
     preview: true
   },
   {
     spotId: 4,
-    url: 'imageurl5.com',
+    url: 'image-placeholder_xsvyni.png',
     preview: false
   },
 ]
