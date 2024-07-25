@@ -37,14 +37,23 @@ function SignupFormModal() {
         });
     }
     return setErrors ({
-      confirmPassword: "Confirm Password field myst be the same as the Password field"
+      confirmPassword: "Confirm Password field must be the same as the Password field"
     });
   };
 
+  const validate = () => {
+    return  email.length === 0 || 
+            username.length < 4 || 
+            firstName.length === 0 || 
+            lastName.length === 0 ||
+            password.length < 6 ||
+            confirmPassword.length < 6
+  }
+
   return (
     <>
-      <h1 className="signUpHeader">Sign Up</h1>
-      <form onSubmit={handleSubmit} className="signUpForm">
+      <h1 className="leftAndRightMargin leftAndRightPadding">Sign Up</h1>
+      <form onSubmit={handleSubmit} className="leftAndRightMargin leftAndRightPadding">
         <label>
           Email
           <input
@@ -54,7 +63,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.email && <p>{errors.email}</p>}
+        {errors.email && <p className="redText mediumFont whiteBackground fullMargin">{errors.email}</p>}
         <label>
           Username
           <input
@@ -64,7 +73,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.username && <p>{errors.username}</p>}
+        {errors.username && <p className="redText mediumFont whiteBackground fullMargin">{errors.username}</p>}
         <label>
           First Name
           <input
@@ -74,7 +83,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.firstName && <p>{errors.firstName}</p>}
+        {errors.firstName && <p className="redText mediumFont whiteBackground fullMargin">{errors.firstName}</p>}
         <label>
           Last Name
           <input
@@ -84,7 +93,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.lastName && <p>{errors.lastName}</p>}
+        {errors.lastName && <p className="redText mediumFont whiteBackground fullMargin">{errors.lastName}</p>}
         <label>
           Password
           <input
@@ -94,7 +103,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.password && <p>{errors.password}</p>}
+        {errors.password && <p className="redText mediumFont whiteBackground fullMargin">{errors.password}</p>}
         <label>
           Confirm Password
           <input
@@ -104,8 +113,8 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-        <button type="submit">Sign Up</button>
+        {errors.confirmPassword && <p className="redText mediumFont whiteBackground fullMargin">{errors.confirmPassword}</p>}
+        <button type="submit" className={!validate() ? "activeButtonDesign mediumSize" : "inactiveButtonDesign mediumSize"}>Sign Up</button>
       </form>
     </>
   )

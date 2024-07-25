@@ -64,7 +64,7 @@ function LoginFormModal() {
         <p className='redText smallFont'>{errors}</p>
         <div className='displayFlex flexColumn'>
           <button type="submit" className={validate() ? 'activeButtonDesign mediumSize ' : 'inactiveButtonDesign mediumSize'}>Log In</button>
-          <button type='submit' className="mediumFont noBorder redText whiteBackground fullMargin" onClick={() => demoLogin()}>Log in as Demo User</button>
+          <button type='submit' className="mediumFont noBorder redTextLink whiteBackground fullMargin" onClick={() => demoLogin()}>Log in as Demo User</button>
         </div>
       </form>
     </>
