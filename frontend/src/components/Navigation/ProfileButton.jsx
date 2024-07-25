@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
@@ -8,6 +9,7 @@ import './Navigation.css';
 
 function ProfileButton({user}) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
 
@@ -32,23 +34,26 @@ function ProfileButton({user}) {
 
   const logout = (e) => {
     e.preventDefault();
-    dispatch(sessionActions.logout());
+    dispatch(sessionActions.logout())
+      .then(() => navigate('/'));
   };
 
   const ulClassName = "profileMenu" + (showMenu ? "" : "Hidden");
 
   return(
     <>
-      <button onClick={toggleMenu} className="redBorder whiteBackground roundedCorners">
-        <FontAwesomeIcon icon={faBars} className="xlargeFont fullPadding darkGreyText" />
-        <FontAwesomeIcon icon={faCircleUser} className="xlargeFont fullPadding darkGreyText" />
-      </button>
+      <div className="displayFlex">
+        <li>Create a New Spot</li>
+        <button onClick={toggleMenu} className="whiteBackground roundedCorners blackBorder blur">
+          <FontAwesomeIcon icon={faBars} className="xlargeFont fullPadding blackText" />
+          <FontAwesomeIcon icon={faCircleUser} className="xlargeFont fullPadding blackText" />
+        </button>
+      </div>
       <ul className={ulClassName} ref={ulRef}>
-        <li>{user.username}</li>
-        <li>{user.firstName} {user.lastName}</li>
-        <li>{user.email}</li>
+        <li>Hello, {user.firstName}</li>
+        <li>email: {user.email}</li>
         <li>
-          <button onClick={logout}>Log Out</button>
+          <button onClick={logout} className="activeButtonDesign">Log Out</button>
         </li>
       </ul>
     </>

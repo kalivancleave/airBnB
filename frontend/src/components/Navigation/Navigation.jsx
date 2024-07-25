@@ -3,9 +3,6 @@ import { useSelector } from "react-redux";
 import AirbnbHomeLogo from "../../assets/AirbnbHomeLogo.png"
 import ProfileButton from "./ProfileButton";
 import ProfileButtonLoggedOut from "./ProfileButtonLoggedOut";
-// import OpenModalButton from '../OpenModalButton';
-// import LoginFormModal from "../LoginFormModal";
-// import SignupFormModal from "../SignupFormModal";
 import './Navigation.css';
 
 

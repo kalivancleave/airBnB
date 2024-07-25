@@ -12,6 +12,10 @@
   border: 2px solid black;
 }
 
+.blur {
+  box-shadow: 5px 5px 5px darkgray;
+}
+
 .testBorder {
   border: 1px solid red;
 }
@@ -32,6 +36,11 @@
 
 .redText {
   color: #FF5A5F;
+}
+
+.redText:hover {
+  color: rgb(196, 68, 68);
+  font-weight: bold;
 }
 
 .darkGreyText {
@@ -89,6 +98,27 @@
   margin-right: 10px;
 }
 
+/* general size of things */
+.smallSize {
+  width: 10%;
+}
+
+.mediumSize {
+  width: 25%;
+}
+
+.largeSize {
+  width: 50%;
+}
+
+.xlargeSize {
+  width: 75%;
+}
+
+.fullSize {
+  width: 100%;
+}
+
 /* misc stylings */
 body {
   background-color: #FFFFFF;
@@ -104,6 +134,10 @@ body {
 
 .displayInline {
   display: inline;
+}
+
+.flexColumn {
+  flex-direction: column;
 }
 
 /* whole item designs */

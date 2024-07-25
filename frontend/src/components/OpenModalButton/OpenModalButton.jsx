@@ -10,7 +10,7 @@ function OpenModalButton({modalComponenet, buttonText, onButtonClick, onModalClo
   };
 
   return (
-    <button onClick={onClick}>{buttonText}</button>
+    <button onClick={onClick} className="activeButtonDesign">{buttonText}</button>
   )
 }
 
