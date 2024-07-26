@@ -10,6 +10,8 @@ import * as sessionActions from './store/session';
 import GetAllSpots from './components/Spots/GetAllSpots';
 import SingleSpot from './components/Spots/GetSpot';
 import 'react-tooltip/dist/react-tooltip.css'
+import CreateSpot from './components/Spots/CreateSpot';
+
 
 function Layout() {
   const dispatch = useDispatch();
@@ -29,7 +31,7 @@ function Layout() {
   );
 }
 
-//sample of cloudinary
+//display images already uploaded to cloudinary
 export const cloudinaryPreviewImage = (image) => {
   const cloud = new Cloudinary({cloud: {cloudName: 'djnfjzocb'}});
 
@@ -42,6 +44,7 @@ export const cloudinaryPreviewImage = (image) => {
 
   return (<AdvancedImage cldImg={img}/>);
 };
+ 
 
 const router = createBrowserRouter([
   {
@@ -54,6 +57,10 @@ const router = createBrowserRouter([
       {
         path: ':id',
         element: <SingleSpot />
+      },
+      {
+        path: '/createSpot',
+        element: <CreateSpot />
       }
     ]
   }

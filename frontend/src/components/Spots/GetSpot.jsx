@@ -30,7 +30,7 @@ const SingleSpot = () => {
       <ol>
         {spotImageDetails?.map(({id, url}) => (
           <div key={id}>
-            <li>{cloudinaryPreviewImage(url)}</li>
+            <li className="smallSize">{cloudinaryPreviewImage(url)}</li>
           </div>
         ))}
       </ol>

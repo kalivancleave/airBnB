@@ -92,6 +92,10 @@
   padding: 10px;
 }
 
+.topPadding {
+  padding-top: 5px;
+}
+
 .leftAndRightPadding {
   padding-left: 10px;
   padding-right: 10px;
@@ -176,6 +180,10 @@ body {
   justify-content: center;
 }
 
+.justifyRight {
+  justify-content: right;
+}
+
 .flexBasisFull {
   flex-basis: 100%;
 }
@@ -197,6 +205,12 @@ body {
 
 .bringToFront {
   z-index: 1;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%
 }
 
 /* whole item designs */
@@ -230,6 +244,10 @@ body {
   text-decoration: none;
   margin: 4px 2px;
   border-radius: 30px;
+}
+
+.cursorPointer {
+  cursor: pointer;
 }
 
 

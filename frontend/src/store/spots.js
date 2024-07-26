@@ -19,6 +19,7 @@ const getSpotOwnerDetails = (spotDetails) => ({
   payload: spotDetails
 });
 
+
 //thunks
 //get all spots
 export const fetchSpots = () => async (dispatch) => {
@@ -27,6 +28,16 @@ export const fetchSpots = () => async (dispatch) => {
   if(response.ok) {
     const spots = await response.json();
     dispatch(getSpots(spots));
+  }
+}
+
+//get all details of a spot
+export const fetchSpotDetails = (id) => async (dispatch) => {
+  const response = await fetch(`api/spots/${id}`);
+
+  if(response.ok) {
+    const spotDetails = await response.json();
+    dispatch(getSpotImageDetails(spotDetails));
   }
 }
 
@@ -47,6 +58,31 @@ export const fetchSpotOwner = (id) => async (dispatch) => {
   if(response.ok) {
     const spotOwnerDetails = await response.json();
     dispatch(getSpotOwnerDetails(spotOwnerDetails));
+  }
+}
+
+export const createSpot = (spot) => async (dispatch) => {
+  const { country, address, city, state, lat, lng, description, name, price, SpotImages} = spot
+  const result = await fetch('/api/spots', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      country,
+      address,
+      city,
+      state,
+      lat,
+      lng,
+      description,
+      name,
+      price,
+      SpotImages //should be an array of objects??
+    })
+  });
+
+  if(result.ok) {
+    const data = await result.json();
+    dispatch(fetchSpotDetails(data))
   }
 }
 
