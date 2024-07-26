@@ -96,6 +96,10 @@
   padding-top: 5px;
 }
 
+.topMargin {
+  margin-top: 15px;
+}
+
 .leftAndRightPadding {
   padding-left: 10px;
   padding-right: 10px;
