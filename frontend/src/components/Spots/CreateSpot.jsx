@@ -18,7 +18,7 @@ const CreateSpot = () => {
   const [description, setDescription] = useState("");
   const [name, setName] = useState("");
   const [price, setPrice] = useState(null);
-  const [errors, setErrors] = useState([])
+  const [errors, setErrors] = useState({})
 
   const user = useSelector(state => state.session.user)
   const spotsList = useSelector(state => state.spots.spots);
@@ -29,8 +29,8 @@ const CreateSpot = () => {
 
   const submitNewSpot = async () => {
     const newSpot = {}
-    setErrors([])
-    newSpot.id = spotsList.length - 1
+    setErrors({})
+    newSpot.id = spotsList.length + 1
     newSpot.ownerId = user.id
     newSpot.address = address
     newSpot.city = city
@@ -47,21 +47,29 @@ const CreateSpot = () => {
       lastName: user.lastName
     }
 
-    const payload = await dispatch(createSpot(newSpot))
-    if(!payload) {
-      return "There is an error with the payload to submit a new spot"
-    } else {
-      setErrors(payload)
-    }
-
-    navigate('/')
+    return dispatch(createSpot(newSpot))
+    .then(navigate(`/${newSpot.id}`))
+    .catch(async (res) => {
+      const data = await res.json();
+      if(data?.errors) {
+        setErrors(data.errors)
+      }
+    });
   }
 
+  const validate = () => {
+    return  country.length === 0 ||
+            address.length === 0 ||
+            city.length === 0 ||
+            state.length === 0 ||
+            description.length < 30 ||
+            name.length === 0 ||
+            price < 0 
+            //validate for first preview image once that is working
+  }
+  
   return(
     <div className='displayFlex justifyCenter bottomPageBorder'>
-      {errors.map(error => (
-          {error}
-      ))}
     
       <form className="largeSize topMargin" onSubmit={(e) => {e.preventDefault(); submitNewSpot()}}>
         <h1 className='blackText xlargeFont sans'>Create a new Spot</h1>
@@ -71,60 +79,79 @@ const CreateSpot = () => {
         <p className="blackText mediumFont sans">Guests will only get your exact address once they booked a reservation.</p>
           <div>
             <div>
-              <label className='mediumFont blackText sans'>Country</label>
-              <input onChange={e => setCountry(e.target.value)}
-              type="text"
-              placeholder="Country"
-              required="required"
-              value={country} />
+              <label className='mediumFont blackText sans'>
+                Country
+                <input onChange={e => setCountry(e.target.value)}
+                type="text"
+                placeholder="Country"
+                required="required"
+                value={country} />
+              </label>
+              {errors.country && <p className="redText mediumFont whiteBackground fullMargin">{errors.country}</p>}
             </div>
+            
             <div>
-              <label className='mediumFont blackText sans'>Street Address</label>
-              <input onChange={e => setAddress(e.target.value)}
-              type="text"
-              placeholder='Address'
-              required='required'
-              value={address} />
+              <label className='mediumFont blackText sans'>
+                Street Address
+                <input onChange={e => setAddress(e.target.value)}
+                type="text"
+                placeholder='Address'
+                required='required'
+                value={address} />
+              </label>
+              {errors.address && <p className="redText mediumFont whiteBackground fullMargin">{errors.address}</p>}
             </div>
             <div className='displayFlex alignBottom spaceBetween'>
               <div className='fullSize blackText mediumFont sans'>
-                <label className='mediumFont blackText sans'>City</label>
-                <input onChange={e => setCity(e.target.value)}
-                type='text'
-                placeholder='City'
-                required='required'
-                value={city} />
+                <label className='mediumFont blackText sans'>
+                  City
+                  <input onChange={e => setCity(e.target.value)}
+                  type='text'
+                  placeholder='City'
+                  required='required'
+                  value={city} />
+                </label>
+                {errors.city && <p className="redText mediumFont whiteBackground fullMargin">{errors.city}</p>}
               </div>
               <div className='rightMargin mediumFont blackText sans'>
                 <p>,</p>
               </div>
               <div className='fullSize blackText mediumFont sans'>
-                <label className='mediumFont blackText sans'>State</label>
-                <input onChange={e => setState(e.target.value)}
-                type='text'
-                placeholder='State'
-                required='required'
-                value={state} />
+                <label className='mediumFont blackText sans'>
+                  State
+                  <input onChange={e => setState(e.target.value)}
+                  type='text'
+                  placeholder='State'
+                  required='required'
+                  value={state} />
+                </label>
+                {errors.state && <p className="redText mediumFont whiteBackground fullMargin">{errors.state}</p>}
               </div>
             </div>
 
             <div className='displayFlex alignBottom spaceBetween'>
               <div className='fullSize'>
-                <label className='mediumFont blackText sans'>Latitude</label>
-                <input onChange={e => setLat(e.target.value)}
-                type='text'
-                placeholder='Latitude'
-                value={lat} />
+                <label className='mediumFont blackText sans'>
+                  Latitude
+                  <input onChange={e => setLat(e.target.value)}
+                  type='text'
+                  placeholder='Latitude'
+                  value={lat} />
+                </label>
+                {errors.lat && <p className="redText mediumFont whiteBackground fullMargin">{errors.lat}</p>}
               </div>
               <div className='rightMargin mediumFont blackText sans'>
                 <p>,</p>
               </div>
               <div className='fullSize'>
-                <label className='mediumFont blackText sans'>Longitude</label>
-                <input onChange={e =>setLng(e.target.value)}
-                type='text'
-                placeholder='Longitude'
-                value={lng} />
+                <label className='mediumFont blackText sans'>
+                  Longitude
+                  <input onChange={e =>setLng(e.target.value)}
+                  type='text'
+                  placeholder='Longitude'
+                  value={lng} />
+                </label>
+                {errors.lng && <p className="redText mediumFont whiteBackground fullMargin">{errors.lng}</p>}
               </div>    
             </div>
           </div>
@@ -141,6 +168,7 @@ const CreateSpot = () => {
             required='required'
             minLength={30}
             value={description} />
+            {errors.description && <p className="redText mediumFont whiteBackground fullMargin">{errors.description}</p>}
           </div>
 
     {/* section 3   */}
@@ -148,13 +176,16 @@ const CreateSpot = () => {
             <h2 className='blackText largeFont sans extraTopMargin'>Create a title for your spot</h2>          
             <p className="blackText mediumFont sans">Catch guests&apos; attention with a spot title that highlights what makes your place special.</p>
             <div className='fullSize'>
-              <label className='mediumFont blackText sans'>Name</label>
-              <input onChange={e => setName(e.target.value)}
-              className='sans'
-              type='text'
-              placeholder='Name of your spot'
-              required='required'
-              value={name} />
+              <label className='mediumFont blackText sans'>
+                Name
+                <input onChange={e => setName(e.target.value)}
+                className='sans'
+                type='text'
+                placeholder='Name of your spot'
+                required='required'
+                value={name} />
+              </label>
+              {errors.name && <p className="redText mediumFont whiteBackground fullMargin">{errors.name}</p>}
             </div>
           </div>
 
@@ -170,6 +201,7 @@ const CreateSpot = () => {
               placeholder='Price per night (USD)'
               required='required'
               value={price} />
+              {errors.price && <p className="redText mediumFont whiteBackground fullMargin">{errors.price}</p>}
             </div>
           </div>
 
@@ -220,7 +252,7 @@ const CreateSpot = () => {
             />  
           </div>
 
-         <button className='activeButtonDesign' type='submit' onClick={() => {console.log("click")}}>Create Spot</button> 
+         <button className={!validate() ? 'activeButtonDesign' : 'inactiveButtonDesign'} type='submit' onClick={() => {console.log("click")}}>Create Spot</button> 
 
       </form>
     </div>
