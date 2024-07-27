@@ -79,6 +79,10 @@
   font-size: normal;
 }
 
+.tinyFont {
+  font-size: 6px;
+}
+
 .noDecoration {
   text-decoration: none;
 }
@@ -96,13 +100,38 @@
   padding-top: 5px;
 }
 
-.topMargin {
-  margin-top: 15px;
-}
 
 .leftAndRightPadding {
   padding-left: 10px;
   padding-right: 10px;
+}
+
+.leftPageBorder {
+  margin-left: 50px;
+}
+
+.rightPageBorder {
+  margin-right: 50px;
+}
+
+.littleTopMargin {
+  margin-top: 5px;
+}
+
+.topMargin {
+  margin-top: 15px;
+}
+
+.extraTopMargin {
+  margin-top: 40px;
+}
+
+.leftMargin {
+  margin-left: 20px;
+}
+
+.rightMargin {
+  margin-right: 20px;
 }
 
 .noMargin {
@@ -254,7 +283,9 @@ body {
   cursor: pointer;
 }
 
-
+.visibilityHidden {
+  visibility: hidden;
+}
 
 
 input {
@@ -290,4 +321,12 @@ li {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+textarea {
+  resize: none;
+}
+
+hr.solid {
+  border-top: 3px solid #bbb;
 }

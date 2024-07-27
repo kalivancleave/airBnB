@@ -86,6 +86,9 @@ export const createSpot = (spot) => async (dispatch) => {
   }
 }
 
+//delete spot
+// export const deleteSpot = ()
+
 const initialState = { spots: [], isLoading: true}
 
 //reducer
