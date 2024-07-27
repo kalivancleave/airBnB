@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fetchSpots } from "../../store/spots";
 import { fetchSpot } from "../../store/spots";
 import { fetchSpotOwner } from '../../store/spots'
@@ -18,6 +18,8 @@ const SingleSpot = () => {
   const spotImageDetails = useSelector(state => state.spots.spotImageDetails);
   const spotOwnerDetails = useSelector(state => state.spots.spotOwnerDetails);
   const spotReviews = useSelector(state => state.reviews.reviews);
+
+  const user = useSelector(state => state.session.user)
   
   useEffect(() => {
     dispatch(fetchSpots());
@@ -45,10 +47,40 @@ const SingleSpot = () => {
     if(number === "12") return "December"
   }
 
-  const hideMe = "displayFlex alignCenter visibility" + (spotReviews.length === 0 ? "Hidden" : "");
+  //functions to sort the reviews by date
+  function smallestToBiggest(a, b) {
+    return a.createdAt - b.createdAt
+  }
+  
+  function biggestToSmallest(a, b) {
+    return b.createdAt = a.createdAt
+  }
+  
+  let sortedReviews = spotReviews.sort(smallestToBiggest)
+  //end of date sorting logic
+
+  
+  //checking that the logged in user had not already created a review
+  let reviewCreatorIds = [];
+
+  function reviewCreatorCheck (reviewCreatorIds) {
+    for (let i = 0; i < reviewCreatorIds?.length; i++) {
+       if (user?.id === reviewCreatorIds[i]){
+        return true
+       }
+    }
+    return false
+  }
+  //end of review checking logic
+  
+  
+  const hideMeReviews = "displayFlex alignCenter visibility" + (spotReviews.length === 0 ? "Hidden" : "");
+  const hideMeReviewButton = "leftPageBorder visibility" + (user?.id !== undefined && user?.id !== spotOwnerDetails?.id && reviewCreatorCheck(reviewCreatorIds) !== true ? "" : "Hidden")
+  
   
   return (
     <>
+  {/* spot images */}
       <div className="topMargin leftPageBorder">
         <h1 className="sans noMargin">{singleSpot?.name}</h1>
         <p className="sans mediumFont topPadding">{singleSpot?.city}, {singleSpot?.state}, {singleSpot?.country}</p>
@@ -67,14 +99,17 @@ const SingleSpot = () => {
           </ol>
         </div>
       </div>
+
+  {/* hosted by deets */}
         <div>
           <p className='sans largeFont leftPageBorder'>Hosted by {spotOwnerDetails?.firstName} {spotOwnerDetails?.lastName}</p>
         </div>
 
+  {/* spot description box */}
         <div className="displayFlex spaceBetween leftPageBorder rightPageBorder">
           <p className='xlargeSize fullPadding noBorder sans rightMargin mediumFont'>{singleSpot?.description}</p>
 
-          
+  {/* reserve box with price per night, average rating, and reserve COMING SOON */}
           <div className="displayFlex fullPadding flexColumn whiteBackground roundedCorners blackBorder mediumSize">
             <div className="fullMargin displayFlex flexRow spaceBetween">
               <li className="blackText largeFont leftAndRightPadding sans"> ${singleSpot?.price} night</li>
@@ -89,34 +124,44 @@ const SingleSpot = () => {
           </div>
         </div>
   
+  {/* page separator */}
       <hr className="solid leftPageBorder rightPageBorder topMargin" />
       
+  {/* average reviews rating and number of reviews display */}
       <div>
         <div className="displayFlex alignCenter leftPageBorder">
             <FontAwesomeIcon icon={faStar} className="redText largeFont" /> 
             <li className="displayInline fullPadding blackText largeFont sans">{typeof singleSpot?.avgRating === 'number' ? singleSpot?.avgRating : 'New'}</li>
-            
-          <div className={hideMe}>
+          <div className={hideMeReviews}>
             <FontAwesomeIcon icon={faCircle} className="blackText tinyFont leftAndRightPadding"/>
             <p className="blackText largeFont sans" >{spotReviews.length} {spotReviews.length === 1 ? "review" : "reviews"}</p>
           </div>
         </div>
       </div>
       
-      <div className="leftPageBorder">
+  {/* post review button */}
+      <div className={hideMeReviewButton}>
         <button className="activeButtonDesign">Post Your Review</button>
       </div>
-
-      <div>
+      
+  {/* reviews display */}
+      <div className="bottomPageBorder">
+        {user !== null && spotOwnerDetails?.id !== user?.id ? 
+          <p className="leftPageBorder blackText mediumFont sans ">Be the first to post a review!</p>
+          :
         <ol>
-          {spotReviews.map(({id, review, User, createdAt}) => (
+          {sortedReviews.map(({id, review, User, createdAt}) => (
             <div key={id}>
               <li className="sans blackText largeFont extraTopMargin">{User.firstName}</li>
               <li className="sans darkGreyText mediumFont littleTopMargin">{displayMonth(createdAt.slice(5,7))} {createdAt.slice(0,4)}</li>
               <li className="sans blackText mediumFont fullSize topMargin">{review}</li>
-            </div>
+                <div className="visibilityHidden">
+                  {reviewCreatorIds.push(User.id)}
+                </div>
+              </div>
           ))}
         </ol>
+        }
       </div>
     </>
   ) 
