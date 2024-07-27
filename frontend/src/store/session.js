@@ -18,7 +18,6 @@ const removeUser = () => {
   }
 }
 
-
 //thunks
 //request session user from /api/session
 export const login = (user) => async (dispatch) => {

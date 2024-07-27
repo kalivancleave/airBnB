@@ -44,7 +44,7 @@ export const cloudinaryPreviewImage = (image) => {
 
   return (<AdvancedImage cldImg={img}/>);
 };
- 
+
 
 const router = createBrowserRouter([
   {

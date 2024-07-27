@@ -1,3 +1,5 @@
+import { csrfFetch } from "./csrf";
+
 //action creator definitions
 const GET_SPOTS = 'spots/GET_SPOTS';
 const GET_SPOT_IMAGE_DETAILS = 'spots/GET_SPOT_IMAGE_DETAILS';
@@ -62,8 +64,8 @@ export const fetchSpotOwner = (id) => async (dispatch) => {
 }
 
 export const createSpot = (spot) => async (dispatch) => {
-  const { country, address, city, state, lat, lng, description, name, price, SpotImages} = spot
-  const result = await fetch('/api/spots', {
+  const {country, address, city, state, lat, lng, description, name, price} = spot
+  const result = await csrfFetch('/api/spots', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({
@@ -75,14 +77,20 @@ export const createSpot = (spot) => async (dispatch) => {
       lng,
       description,
       name,
-      price,
-      SpotImages //should be an array of objects??
+      price
     })
   });
 
   if(result.ok) {
     const data = await result.json();
-    dispatch(fetchSpotDetails(data))
+    dispatch(fetchSpotDetails(data.id))
+  } else if (result.status < 500) {
+    const data = await result.json();
+    if (data.errors) return data.errors;
+  } else {
+    const data = await result.json();
+    data.errors.puch(['A server error occurred.'])
+    return data.errors;
   }
 }
 
