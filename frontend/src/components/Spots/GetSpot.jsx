@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { fetchSpots } from "../../store/spots";
 import { fetchSpot } from "../../store/spots";
 import { fetchSpotOwner } from '../../store/spots'
@@ -52,9 +52,9 @@ const SingleSpot = () => {
     return a.createdAt - b.createdAt
   }
   
-  function biggestToSmallest(a, b) {
-    return b.createdAt = a.createdAt
-  }
+  // function biggestToSmallest(a, b) {
+  //   return b.createdAt = a.createdAt
+  // }
   
   let sortedReviews = spotReviews.sort(smallestToBiggest)
   //end of date sorting logic

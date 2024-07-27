@@ -33,7 +33,7 @@ const UploadImage = () => {
     <>
       <p className="xlargeFont redText">BROKEN DO NOT USE</p>
       <form method='post' encType='multipart/form-data'>
-        <input type='file' name="files[]" single />
+        <input type='file' name="files[]" multiple />
         <input type='submit' value='Upload Files' name='submit' onSubmit={() => upload()} />
       </form>
     </>
