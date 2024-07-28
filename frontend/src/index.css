@@ -118,6 +118,10 @@
   margin-bottom: 75px;
 }
 
+.littleBottomBorder {
+  margin-bottom: 30px;
+}
+
 .rightPageBorder {
   margin-right: 50px;
 }
@@ -178,6 +182,10 @@
 
 .fullSize {
   width: 100%;
+}
+
+.averageHeight {
+  height: 100px;
 }
 
 /* misc stylings */
@@ -302,6 +310,11 @@ body {
 .visibilityHidden {
   visibility: hidden;
 }
+
+.reviewsModalForcedWidth {
+  width: 500px;
+}
+
 
 
 

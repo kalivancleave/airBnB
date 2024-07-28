@@ -5,6 +5,8 @@ import { fetchSpots } from "../../store/spots";
 import { fetchSpot } from "../../store/spots";
 import { fetchSpotOwner } from '../../store/spots'
 import { fetchReviewsForSpot } from "../../store/review";
+import ReviewModal from "../Review/ReviewModal";
+import OpenModalButton from "../OpenModalButton";
 import { cloudinaryPreviewImage } from "../../App";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from '@fortawesome/free-solid-svg-icons'
@@ -48,20 +50,27 @@ const SingleSpot = () => {
   }
 
   //functions to sort the reviews by date
-  function smallestToBiggest(a, b) {
-    return a.createdAt - b.createdAt
-  }
-  
-  // function biggestToSmallest(a, b) {
-  //   return b.createdAt = a.createdAt
+  // function smallestToBiggest(a, b) {
+  //   return new Date(a?.createdAt) - new Date(b?.createdAt)
   // }
   
-  let sortedReviews = spotReviews.sort(smallestToBiggest)
+  function biggestToSmallest(a, b) {
+    return new Date(b?.createdAt) - new Date(a?.createdAt)
+  }
+  
+  // let sortedReviewsSmall2Big = spotReviews.sort(smallestToBiggest)
+  let sortedReviewsBig2Small = spotReviews.sort(biggestToSmallest)
   //end of date sorting logic
+
+
 
   
   //checking that the logged in user had not already created a review
   let reviewCreatorIds = [];
+
+  {spotReviews.forEach(review => {
+    reviewCreatorIds.push(review?.User?.id)
+  })}
 
   function reviewCreatorCheck (reviewCreatorIds) {
     for (let i = 0; i < reviewCreatorIds?.length; i++) {
@@ -73,11 +82,10 @@ const SingleSpot = () => {
   }
   //end of review checking logic
   
-  
+
   const hideMeReviews = "displayFlex alignCenter visibility" + (spotReviews.length === 0 ? "Hidden" : "");
-  const hideMeReviewButton = "leftPageBorder visibility" + (user?.id !== undefined && user?.id !== spotOwnerDetails?.id && reviewCreatorCheck(reviewCreatorIds) !== true ? "" : "Hidden")
-  
-  
+  const hideMeReviewButton = "leftPageBorder visibility" + (user?.id === undefined || user?.id === spotOwnerDetails?.id || reviewCreatorCheck(reviewCreatorIds) === true ? "Hidden" : "")
+ 
   return (
     <>
   {/* spot images */}
@@ -141,24 +149,25 @@ const SingleSpot = () => {
       
   {/* post review button */}
       <div className={hideMeReviewButton}>
-        <button className="activeButtonDesign">Post Your Review</button>
+          <OpenModalButton
+          className="activeButtonDesign"
+          buttonText="Post Your Review"
+          modalComponenet={<ReviewModal spotId={singleSpot}/>}
+          />
       </div>
       
   {/* reviews display */}
       <div className="bottomPageBorder">
-        {user !== null && spotOwnerDetails?.id !== user?.id ? 
+        {user !== null && spotOwnerDetails?.id !== user?.id && spotReviews.length === 0 ? 
           <p className="leftPageBorder blackText mediumFont sans ">Be the first to post a review!</p>
           :
         <ol>
-          {sortedReviews.map(({id, review, User, createdAt}) => (
+          {sortedReviewsBig2Small.map(({id, review, User, createdAt}) => (
             <div key={id}>
               <li className="sans blackText largeFont extraTopMargin">{User.firstName}</li>
               <li className="sans darkGreyText mediumFont littleTopMargin">{displayMonth(createdAt.slice(5,7))} {createdAt.slice(0,4)}</li>
               <li className="sans blackText mediumFont fullSize topMargin">{review}</li>
-                <div className="visibilityHidden">
-                  {reviewCreatorIds.push(User.id)}
-                </div>
-              </div>
+            </div>
           ))}
         </ol>
         }

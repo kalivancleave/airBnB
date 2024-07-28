@@ -1,3 +1,5 @@
+import { csrfFetch } from "./csrf";
+
 const GET_REVIEWS = 'reviews/GET_REVIEWS';
 const GET_SPOT_REVIEWS = 'reviews/GET_SPOT_REVIEWS';
 
@@ -32,6 +34,30 @@ export const fetchReviewsForSpot = (id) => async (dispatch) => {
   if(response.ok) {
     const spotReviews = await response.json();
     dispatch(getSpotReviews(spotReviews));
+  }
+}
+
+export const createReview = (reviewDetails) => async (dispatch) => {
+  const {review, stars, spotId} = reviewDetails
+  const result = await csrfFetch(`/api/spots/${spotId}/reviews`, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      review,
+      stars
+    })
+  })
+
+  if(result.ok) {
+    const data = await result.json();
+    dispatch(fetchReviewsForSpot(data.id))
+  } else if (result.status < 500) {
+    const data = await result.json();
+    if (data.errors) return data.errors;
+  } else {
+    const data = await result.json();
+    data.errors.puch(['A server error occurred.'])
+    return data.errors;
   }
 }
 
