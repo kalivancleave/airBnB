@@ -7,6 +7,7 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { cloudinaryPreviewImage } from "../../App";
 import { Tooltip } from 'react-tooltip';
 
+
 const ManageSpots = () => {
   const dispatch = useDispatch();
   const spotsList = useSelector(state => state.spots.spots);
@@ -50,7 +51,7 @@ const ManageSpots = () => {
                 <li className="blackText largeFont leftAndRightPadding sans"> ${price} night</li>
               </NavLink>
               <div className="displayFlex spaceEvenly littleTopMargin">
-                <button className="activeButtonDesign">Update</button>
+                <NavLink to={`/updateSpot/${id}`} className="activeButtonDesign">Update</NavLink>
                 <button className="activeButtonDesign">Delete</button>
               </div>
             </div>

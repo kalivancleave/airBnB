@@ -12,6 +12,7 @@ import SingleSpot from './components/Spots/GetSpot';
 import 'react-tooltip/dist/react-tooltip.css'
 import CreateSpot from './components/Spots/CreateSpot';
 import ManageSpots from './components/Spots/ManageSpots';
+import UpdateSpot from './components/Spots/UpdateSpot';
 
 
 function Layout() {
@@ -66,9 +67,14 @@ const router = createBrowserRouter([
       {
         path: '/manageSpots',
         element: <ManageSpots />
+      },
+      {
+        path: '/updateSpot/:id',
+        element: <UpdateSpot />
       }
     ]
   }
+
 ]);
 
 function App() {

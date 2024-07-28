@@ -30,6 +30,13 @@ export const fetchSpots = () => async (dispatch) => {
   if(response.ok) {
     const spots = await response.json();
     dispatch(getSpots(spots));
+  } else if (response.status < 500) {
+    const data = await response.json();
+    if (data.errors) return data.errors;
+  } else {
+    const data = await response.json();
+    data.errors.puch(['A server error occurred.'])
+    return data.errors;
   }
 }
 
@@ -63,6 +70,7 @@ export const fetchSpotOwner = (id) => async (dispatch) => {
   }
 }
 
+//create spot
 export const createSpot = (spot) => async (dispatch) => {
   const {country, address, city, state, lat, lng, description, name, price} = spot
   const result = await csrfFetch('/api/spots', {
@@ -91,6 +99,34 @@ export const createSpot = (spot) => async (dispatch) => {
     const data = await result.json();
     data.errors.puch(['A server error occurred.'])
     return data.errors;
+  }
+}
+
+//update spot
+export const updateSpot = (updatedSpot) => async (dispatch) => {
+  const {id, country, address, city, state, lat, lng, description, name, price} = updatedSpot
+  const result = await csrfFetch(`/api/spots/${id}`, {
+    method: 'PUT',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      country,
+      address,
+      city,
+      state,
+      lat,
+      lng,
+      description,
+      name,
+      price
+    })
+  });
+
+  if(result.ok) {
+    const data = result.json();
+    dispatch(fetchSpotDetails(data.id))
+  } else if (result.status < 500) {
+    const data = await result.json();
+    if (data.errors) return data.errors;
   }
 }
 

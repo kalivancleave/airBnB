@@ -15,6 +15,7 @@ const GetAllSpots = () => {
   useEffect(() => {
     dispatch(fetchSpots());
   }, [dispatch])
+  console.log(spotsList)
   
   
   return (
