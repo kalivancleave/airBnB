@@ -57,10 +57,10 @@ function ProfileButton({user}) {
           <li className="noMargin noPadding mediumFont sans">Hello, {user.firstName}</li>
           <li className="noMargin topPadding mediumFont sans">{user.email}</li>
         </div>
-        <div>
-          <p className="redTextLink smallFont">Manage Spots</p>
+        <div className="topMargin">
+          <NavLink to='/ManageSpots' className="redTextLink mediumFont noDecoration">Manage Spots</NavLink>
         </div>
-        <li>
+        <li className="littleTopMargin">
           <button onClick={logout} className="activeButtonDesign">Log Out</button>
         </li>
       </ul>

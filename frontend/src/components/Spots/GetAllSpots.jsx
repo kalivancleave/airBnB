@@ -23,7 +23,7 @@ const GetAllSpots = () => {
       <Tooltip id='my-tooltip' />
         {spotsList.map(({id, name, previewImage, city, state, avgRating, price}) => (
           <div key={id} className="fullPadding fullMargin photoBox" data-tooltip-id="my-tooltip" data-tooltip-content={name} data-tooltip-place="top">
-            <NavLink to={`${id}`} className="noDecoration" >
+            <NavLink to={`/${id}`} className="noDecoration" >
               <li className="blur">{cloudinaryPreviewImage(previewImage)}</li>
               <div className="displayFlex flexRow spaceBetween fullPadding">
                 <div>

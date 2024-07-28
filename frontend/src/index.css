@@ -249,6 +249,10 @@ body {
   justify-content: space-between;
 }
 
+.spaceEvenly {
+  justify-content: space-evenly;
+}
+
 .borderBox {
   box-sizing: border-box;
 }
