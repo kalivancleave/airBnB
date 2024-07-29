@@ -28,10 +28,10 @@ const ManageSpots = () => {
   })
   
 
-  const deleteSpotFunction = async () => {
+  const deleteSpotFunction = async (spotId) => {
     await dispatch(deleteSpot(spotId))
     console.log("spot deleted")
-    .then(navigate('/'))
+    .then(window.location.reload())
   }
 
 
@@ -64,7 +64,7 @@ const ManageSpots = () => {
               </NavLink>
               <div className="displayFlex spaceEvenly littleTopMargin">
                 <NavLink to={`/updateSpot/${id}`} className="activeButtonDesign">Update</NavLink>
-                <button className="activeButtonDesign" onClick={() => deleteSpotFunction(spot.id)}>Delete</button>
+                <button className="activeButtonDesign" onClick={() => deleteSpotFunction(id)}>Delete</button>
                 {console.log(id)}
               </div>
             </div>

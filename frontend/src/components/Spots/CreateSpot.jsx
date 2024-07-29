@@ -56,7 +56,7 @@ const CreateSpot = () => {
       }
     });
   }
-  console.log(id)
+
 
   const validate = () => {
     return  country.length === 0 ||
