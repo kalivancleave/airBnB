@@ -7,6 +7,7 @@ import { fetchSpotOwner } from '../../store/spots'
 import { fetchReviewsForSpot } from "../../store/review";
 import ReviewModal from "../Review/ReviewModal";
 import OpenModalButton from "../OpenModalButton";
+import DeleteReview from "../Review/DeleteReview";
 import { cloudinaryPreviewImage } from "../../App";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from '@fortawesome/free-solid-svg-icons'
@@ -167,6 +168,13 @@ const SingleSpot = () => {
               <li className="sans blackText largeFont extraTopMargin">{User.firstName}</li>
               <li className="sans darkGreyText mediumFont littleTopMargin">{displayMonth(createdAt.slice(5,7))} {createdAt.slice(0,4)}</li>
               <li className="sans blackText mediumFont fullSize topMargin">{review}</li>
+             <div className={User.id === user.id ? "" : "visibilityHidden"}>
+              <OpenModalButton 
+                buttonText="Delete"
+                modalComponenet={<DeleteReview id={id}/>}
+                />
+             </div>
+              
             </div>
           ))}
         </ol>
