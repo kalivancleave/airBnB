@@ -1,15 +1,19 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fetchSpots } from "../../store/spots"; 
+import { deleteSpot } from "../../store/spots";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { cloudinaryPreviewImage } from "../../App";
 import { Tooltip } from 'react-tooltip';
+import { useNavigate } from "react-router-dom";
 
 
 const ManageSpots = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [spotId, setSpotId] = useState(null)
   const spotsList = useSelector(state => state.spots.spots);
 
   const user = useSelector(state => state.session.user);
@@ -18,9 +22,17 @@ const ManageSpots = () => {
     dispatch(fetchSpots());
   }, [dispatch])
 
+  
   const userSpots = spotsList.filter((spot) => {
     return spot.ownerId === user.id
   })
+  
+
+  const deleteSpotFunction = async () => {
+    await dispatch(deleteSpot(spotId))
+    console.log("spot deleted")
+    .then(navigate('/'))
+  }
 
 
   return (
@@ -52,7 +64,8 @@ const ManageSpots = () => {
               </NavLink>
               <div className="displayFlex spaceEvenly littleTopMargin">
                 <NavLink to={`/updateSpot/${id}`} className="activeButtonDesign">Update</NavLink>
-                <button className="activeButtonDesign">Delete</button>
+                <button className="activeButtonDesign" onClick={() => deleteSpotFunction(spot.id)}>Delete</button>
+                {console.log(id)}
               </div>
             </div>
           ))}

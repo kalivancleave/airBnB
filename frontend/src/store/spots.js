@@ -4,6 +4,7 @@ import { csrfFetch } from "./csrf";
 const GET_SPOTS = 'spots/GET_SPOTS';
 const GET_SPOT_IMAGE_DETAILS = 'spots/GET_SPOT_IMAGE_DETAILS';
 const GET_SPOT_OWNER_DETAILS = 'spots/GET_SPOT_OWNER_DETAILS';
+const DELETE_SPOT = 'spots/DELETE_SPOT'
 
 //action creator
 const getSpots = (spots) => ({
@@ -20,6 +21,13 @@ const getSpotOwnerDetails = (spotDetails) => ({
   type: GET_SPOT_OWNER_DETAILS,
   payload: spotDetails
 });
+
+const destroySpot = (id) => {
+  return {
+    type: DELETE_SPOT,
+    payload: id
+  }
+}
 
 
 //thunks
@@ -97,7 +105,7 @@ export const createSpot = (spot) => async (dispatch) => {
     if (data.errors) return data.errors;
   } else {
     const data = await result.json();
-    data.errors.puch(['A server error occurred.'])
+    data.errors.push(['A server error occurred.'])
     return data.errors;
   }
 }
@@ -131,12 +139,24 @@ export const updateSpot = (updatedSpot) => async (dispatch) => {
 }
 
 //delete spot
-// export const deleteSpot = ()
+export const deleteSpot = (id) => async (dispatch) => {
+  const res = await csrfFetch(`/api/spots/${id}`, {
+    method: 'DELETE'
+  })
+
+  if (res.ok) {
+    dispatch(destroySpot(id))
+  } else if (res.status < 500) {
+    const data = await res.json();
+    if (data.errors) return data.errors;
+  }
+}
 
 const initialState = { spots: [], isLoading: true}
 
 //reducer
 const spotReducer = (state = initialState, action) => {
+  let newState = Object.assign({}, state)
   switch(action.type) {
     case GET_SPOTS:
       return {...state, spots: [...action.payload.Spots]}
@@ -144,6 +164,11 @@ const spotReducer = (state = initialState, action) => {
       return {...state, spotImageDetails: [...action.payload.SpotImages]}
     case GET_SPOT_OWNER_DETAILS:
       return {...state, spotOwnerDetails: action.payload.Owner}
+    case DELETE_SPOT:
+      delete newState[action.payload]
+      delete newState.arr
+      newState.arr = Object.values(newState)
+      return newState
     default:
       return state;
   }

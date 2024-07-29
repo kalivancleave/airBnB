@@ -27,11 +27,11 @@ const CreateSpot = () => {
     dispatch(fetchSpots());
   }, [dispatch])
 
+  const id = spotsList[spotsList.length - 1].id + 1
+
   const submitNewSpot = async () => {
     const newSpot = {}
     setErrors({})
-    newSpot.id = spotsList.length + 1
-    newSpot.ownerId = user.id
     newSpot.address = address
     newSpot.city = city
     newSpot.state = state
@@ -48,7 +48,7 @@ const CreateSpot = () => {
     }
 
     return dispatch(createSpot(newSpot))
-    .then(navigate(`/${newSpot.id}`))
+    .then(navigate(`/${id}`))
     .catch(async (res) => {
       const data = await res.json();
       if(data?.errors) {
@@ -56,6 +56,7 @@ const CreateSpot = () => {
       }
     });
   }
+  console.log(id)
 
   const validate = () => {
     return  country.length === 0 ||
