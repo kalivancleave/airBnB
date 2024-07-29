@@ -1,19 +1,18 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { fetchSpots } from "../../store/spots"; 
-import { deleteSpot } from "../../store/spots";
+// import { deleteSpot } from "../../store/spots";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { cloudinaryPreviewImage } from "../../App";
 import { Tooltip } from 'react-tooltip';
-import { useNavigate } from "react-router-dom";
+import OpenModalButton from "../OpenModalButton";
+import DeleteSpot from "./DeleteSpot";
 
 
 const ManageSpots = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [spotId, setSpotId] = useState(null)
   const spotsList = useSelector(state => state.spots.spots);
 
   const user = useSelector(state => state.session.user);
@@ -27,13 +26,11 @@ const ManageSpots = () => {
     return spot.ownerId === user.id
   })
   
-
-  const deleteSpotFunction = async (spotId) => {
-    await dispatch(deleteSpot(spotId))
-    console.log("spot deleted")
-    .then(window.location.reload())
-  }
-
+  // const deleteSpotFunction = async (spotId) => {
+  //   await dispatch(deleteSpot(spotId))
+  //   console.log("spot deleted")
+  //   .then(window.location.reload())
+  // }
 
   return (
     <div className="bottomPageBorder">
@@ -64,8 +61,12 @@ const ManageSpots = () => {
               </NavLink>
               <div className="displayFlex spaceEvenly littleTopMargin">
                 <NavLink to={`/updateSpot/${id}`} className="activeButtonDesign">Update</NavLink>
-                <button className="activeButtonDesign" onClick={() => deleteSpotFunction(id)}>Delete</button>
-                {console.log(id)}
+                <OpenModalButton
+                  buttonText="Delete"
+                  modalComponenet={<DeleteSpot id={id}/>}
+                  className='activeButtonDesign' />
+                {/* <button className="activeButtonDesign" onClick={() => deleteSpotFunction(id)}>Delete</button> */}
+                {/* {console.log(id)} */}
               </div>
             </div>
           ))}
