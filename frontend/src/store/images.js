@@ -1,3 +1,5 @@
+import { csrfFetch } from "./csrf";
+
 //action creator definitions
 const GET_IMAGES = 'images/GET_IMAGES'
 
@@ -15,6 +17,28 @@ export const fetchImages = () => async (dispatch) => {
   if(response.ok) {
     const images = await response.json();
     dispatch(getImages(images));
+  }
+}
+
+//create image
+
+export const createImage = (image, spotId) => async (dispatch) => {
+  const {url, preview} = image
+  const result = await csrfFetch(`/api/spots/${spotId}/images`, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      url,
+      preview
+    })
+  })
+
+  if(result.ok) {
+    const data = await result.json();
+    dispatch(getImages(data.id))
+  } else if (result.status < 500) {
+    const data = await result.json();
+    if (data.errors) return data.errors;
   }
 }
 

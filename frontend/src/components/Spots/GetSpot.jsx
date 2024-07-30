@@ -8,7 +8,6 @@ import { fetchReviewsForSpot } from "../../store/review";
 import ReviewModal from "../Review/ReviewModal";
 import OpenModalButton from "../OpenModalButton";
 import DeleteReview from "../Review/DeleteReview";
-import { cloudinaryPreviewImage } from "../../App";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import { faCircle } from '@fortawesome/free-solid-svg-icons' 
@@ -96,13 +95,13 @@ const SingleSpot = () => {
       </div>
       <div className="displayFlex flexWrap leftPageBorder rightPageBorder">
         <div className="largeSize">
-          <li>{cloudinaryPreviewImage(singleSpot?.previewImage)}</li>
+          <img src={singleSpot?.previewImage} alt="preview image"/>
         </div>
         <div>
           <ol className="displayFlex noMargin">
             {spotImageDetails?.map(({id, url}) => (
               <div className="leftAndRightPadding noMargin fullSize" key={id}>
-                <li>{cloudinaryPreviewImage(url)}</li>
+                <img src={url} alt="additional images" />
               </div>
             ))} 
           </ol>

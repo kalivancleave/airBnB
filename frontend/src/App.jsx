@@ -35,18 +35,19 @@ function Layout() {
 
 //display images already uploaded to cloudinary
 export const cloudinaryPreviewImage = (image) => {
-  const cloud = new Cloudinary({cloud: {cloudName: 'djnfjzocb'}});
+  const cloud = new Cloudinary({cloud: {cloudName: 'djnfjzocb', uploadPreset: 'airbnb'}});
+
+  console.log(image)
 
   // Use this sample image or upload your own via the Media Explorer
   const img = cloud
         .image(image)
         .format('auto') // Optimize delivery by resizing and applying auto-format and auto-quality
         .quality('auto')
-        .resize(auto().gravity(autoGravity()).width(400).height(400)); // Transform the image: auto-crop to square aspect_ratio
+        .resize(auto().gravity(autoGravity()).width(250).height(250)); // Transform the image: auto-crop to square aspect_ratio
 
   return (<AdvancedImage cldImg={img}/>);
 };
-
 
 const router = createBrowserRouter([
   {

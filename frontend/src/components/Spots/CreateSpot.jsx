@@ -3,7 +3,12 @@ import { useEffect, useState } from 'react';
 import { createSpot } from '../../store/spots';
 import { useNavigate } from 'react-router-dom';
 import { fetchSpots } from '../../store/spots';
-import UploadImage from '../Images/UploadImage';
+import { createImage } from '../../store/images';
+// import { image } from '@cloudinary/url-gen/qualifiers/source';
+// import UploadImage from '../Images/UploadImage';
+// import UploadWidget from '../Images/UploadWidget';
+// import DetailedImageUpload from '../Images/DetailedImageUpload';
+// import CreateAndUploadImage from '../Images/AnotherImageWidget';
 
 const CreateSpot = () => {
   const dispatch = useDispatch();
@@ -18,6 +23,10 @@ const CreateSpot = () => {
   const [description, setDescription] = useState("");
   const [name, setName] = useState("");
   const [price, setPrice] = useState(null);
+  const [previewImage, setPreviewImage] = useState('')
+  const [imageSelected, setImageSelected] = useState("");
+  const [previewStatus, setPreviewStatus] = useState(false);
+
   const [errors, setErrors] = useState({})
 
   const user = useSelector(state => state.session.user)
@@ -26,9 +35,9 @@ const CreateSpot = () => {
   useEffect(() => {
     dispatch(fetchSpots());
   }, [dispatch])
-
-  const id = spotsList[spotsList.length - 1].id + 1
-
+  
+  const id = spotsList[spotsList.length - 1]?.id + 1
+  
   const submitNewSpot = async () => {
     const newSpot = {}
     setErrors({})
@@ -47,7 +56,16 @@ const CreateSpot = () => {
       lastName: user.lastName
     }
 
+    const newImage = {}
+      
+      newImage.url = previewImage
+      newImage.preview = previewStatus
+
+      console.log(newImage.url)
+
+
     return dispatch(createSpot(newSpot))
+    .then(dispatch(createImage(newImage, id)))
     .then(navigate(`/${id}`))
     .catch(async (res) => {
       const data = await res.json();
@@ -68,6 +86,33 @@ const CreateSpot = () => {
             price < 0 
             //validate for first preview image once that is working
   }
+
+  //photo upload code
+  let imageURL;
+  const uploadImage = async () => {
+    const formData = new FormData()
+    formData.append('file', imageSelected)
+    formData.append("upload_preset", "airbnb")
+
+    const response = await fetch(
+      "https://api.cloudinary.com/v1_1/djnfjzocb/image/upload",
+    
+      {
+        method: "POST",
+        body: formData
+      }
+    )
+    const imageData =  await response.json()
+    imageURL = imageData.url.toString() //this gets stored to image database
+    console.log(imageData.url)
+    
+
+    setPreviewImage(imageURL) //I dont know if i need this it really is just for display at this point
+  } 
+  //end of photo upload code
+
+
+
   
   return(
     <div className='displayFlex justifyCenter bottomPageBorder'>
@@ -211,19 +256,18 @@ const CreateSpot = () => {
             <h2 className='blackText largeFont sans extraTopMargin'>Liven up your spot with photos</h2>          
             <p className="blackText mediumFont sans">Submit a link to at least one photo to publish your spot.</p>
             
-            <UploadImage />
+    {/* photo upload code */}
+            <input 
+              type='file'
+              onChange={(e) => {setImageSelected(e.target.files[0]), setPreviewStatus(true)}}
+            />
+            <button onClick={uploadImage}>Upload</button>
+    {/* end of photo upload code */}
+            
             
 
-            <input
-              // onClick={e => setPrice(e.target.value)}
-              className="littleLeftMargin sans"
-              type='text'
-              placeholder='Preview Image URL'
-              required='required'
-              // value={price} 
-            />
 
-            <input 
+             {/* <input 
               // onClick={e => setPrice(e.target.value)}
               className="littleLeftMargin sans"
               type='text'
@@ -250,8 +294,9 @@ const CreateSpot = () => {
               type='text'
               placeholder='Image URL'
               // value={price} 
-            />  
-          </div>
+            /> */}
+
+          </div> 
 
          <button className={!validate() ? 'activeButtonDesign' : 'inactiveButtonDesign'} type='submit' onClick={() => {console.log("click")}}>Create Spot</button> 
 
