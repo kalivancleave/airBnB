@@ -20,25 +20,32 @@ const GetAllSpots = () => {
   
   return (
     <>
-      <ol className="displayFlex fullPadding flexWrap justifyCenter">
+      <ol className="displayFlex flexWrap noMargin noPadding fullSize justifyLeft">
       <Tooltip id='my-tooltip' />
+
         {spotsList.map(({id, name, previewImage, city, state, avgRating, price}) => (
-          <div key={id} className="fullPadding fullMargin photoBox" data-tooltip-id="my-tooltip" data-tooltip-content={name} data-tooltip-place="top">
+          <div key={id} className="displayFlex frontPageSize topMargin littleBottomBorder justifyCenter photoBox" data-tooltip-id="my-tooltip" data-tooltip-content={name} data-tooltip-place="top">
+            
             <NavLink to={`/${id}`} className="noDecoration" >
-              <li className="blur">{cloudinaryPreviewImage(previewImage)}</li>
-              <div className="displayFlex flexRow spaceBetween fullPadding">
-                <div>
-                  <li className="blackText largeFont sans">{city}, {state}</li>
+              <div className="displayFlex flexColumn alignCenter">
+
+                <li className="addlPhotoSize blur">{previewImage}</li>
+                <div className="displayFlex flexRow spaceBetween fullPadding">
+                  <div>
+                    <li className="blackText mediumFont sans">{city}, {state}</li>
+                  </div>
+                  <div>
+                    <FontAwesomeIcon icon={faStar} className="redText mediumFont" /> 
+                    <li className="displayInline fullPadding blackText mediumFont sans">{typeof avgRating === 'number' ? avgRating : 'New'}</li>
+                  </div>
                 </div>
-                <div>
-                  <FontAwesomeIcon icon={faStar} className="redText largeFont" /> 
-                  <li className="displayInline fullPadding blackText largeFont sans">{typeof avgRating === 'number' ? avgRating : 'New'}</li>
-                </div>
+                <li className="blackText mediumFont leftAndRightPadding sans"> ${price} night</li>
               </div>
-              <li className="blackText largeFont leftAndRightPadding sans"> ${price} night</li>
             </NavLink>
+              
           </div>
         ))}
+
       </ol>
     </>
   )
