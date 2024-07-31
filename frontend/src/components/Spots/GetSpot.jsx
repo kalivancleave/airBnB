@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fetchSpots } from "../../store/spots";
 import { fetchSpot } from "../../store/spots";
 import { fetchSpotOwner } from '../../store/spots'
@@ -48,21 +48,13 @@ const SingleSpot = () => {
     if(number === "11") return "November"
     if(number === "12") return "December"
   }
-
-  //functions to sort the reviews by date
-  // function smallestToBiggest(a, b) {
-  //   return new Date(a?.createdAt) - new Date(b?.createdAt)
-  // }
   
+  //sorting reviews newest to oldest
   function biggestToSmallest(a, b) {
     return new Date(b?.createdAt) - new Date(a?.createdAt)
   }
-  
-  // let sortedReviewsSmall2Big = spotReviews.sort(smallestToBiggest)
   let sortedReviewsBig2Small = spotReviews.sort(biggestToSmallest)
   //end of date sorting logic
-
-
 
   
   //checking that the logged in user had not already created a review
@@ -81,11 +73,41 @@ const SingleSpot = () => {
     return false
   }
   //end of review checking logic
-  
+
+  //image standardization logic
+  const [addlImage1, setAddlImage1] = useState(null);
+  const [addlImage2, setAddlImage2] = useState(null);
+  const [addlImage3, setAddlImage3] = useState(null);
+  const [addlImage4, setAddlImage4] = useState(null);
+  const [addlImage5, setAddlImage5] = useState(null);
+  const [addlImage6, setAddlImage6] = useState(null);
+  const [addlImage7, setAddlImage7] = useState(null);
+  const [addlImage8, setAddlImage8] = useState(null);
+
+  for(let i = 1; i < spotImageDetails?.length; i++) {
+    if (i === 1 && spotImageDetails[1]) {
+      setAddlImage1(spotImageDetails[1].url)
+    } else if (i === 2 && spotImageDetails[2]) {
+      setAddlImage2(spotImageDetails[2].url)
+    } else if (i === 3 && spotImageDetails[3]) {
+      setAddlImage3(spotImageDetails[3].url)
+    } else if (i === 4 && spotImageDetails[4]) {
+      setAddlImage4(spotImageDetails[4].url)
+    } else if (i === 5 && spotImageDetails[5]) {
+      setAddlImage5(spotImageDetails[5].url)
+    } else if (i === 6 && spotImageDetails[6]) {
+      setAddlImage6(spotImageDetails[6].url)
+    } else if (i === 7 && spotImageDetails[7]) {
+      setAddlImage7(spotImageDetails[7].url)
+    } else if (i === 8 && spotImageDetails[8]) {
+      setAddlImage8(spotImageDetails[8].url)
+    } 
+  }
+  //end of image standardization logic
 
   const hideMeReviews = "displayFlex alignCenter visibility" + (spotReviews.length === 0 ? "Hidden" : "");
   const hideMeReviewButton = "leftPageBorder visibility" + (user?.id === undefined || user?.id === spotOwnerDetails?.id || reviewCreatorCheck(reviewCreatorIds) === true ? "Hidden" : "")
- 
+
   return (
     <>
   {/* spot images */}
@@ -93,19 +115,29 @@ const SingleSpot = () => {
         <h1 className="sans noMargin">{singleSpot?.name}</h1>
         <p className="sans mediumFont topPadding">{singleSpot?.city}, {singleSpot?.state}, {singleSpot?.country}</p>
       </div>
-      <div className="displayFlex flexWrap leftPageBorder rightPageBorder">
-        <div className="largeSize">
-          <img src={singleSpot?.previewImage} alt="preview image"/>
-        </div>
-        <div>
-          <ol className="displayFlex noMargin">
-            {spotImageDetails?.map(({id, url}) => (
-              <div className="leftAndRightPadding noMargin fullSize" key={id}>
-                <img src={url} alt="additional images" />
+      <div className="leftPageBorder rightPageBorder">
+
+        <div className="displayFlex flexRow rowWrap">
+          <div className="displayFlex">
+            <div className="largeSize rightMargin littleRoundedCorners blur">
+              <img className="fullSize" src={singleSpot?.previewImage} alt="preview image"/>
+            </div>
+
+            <div className="displayFlex flexRow fullSize flexWrap">
+              <div className="displayFlex flexRow flexWrap fullSize">
+                <img className="addlPhotoSize blur" src={addlImage1} alt='addl image'></img>
+                <img className="addlPhotoSize blur" src={addlImage2} alt='addl image'></img>
+                <img className="addlPhotoSize blur" src={addlImage3} alt='addl image'></img>
+                <img className="addlPhotoSize blur" src={addlImage4} alt='addl image'></img>
+                <img className="addlPhotoSize blur" src={addlImage5} alt='addl image'></img>
+                <img className="addlPhotoSize blur" src={addlImage6} alt='addl image'></img>
+                <img className="addlPhotoSize blur" src={addlImage7} alt='addl image'></img>
+                <img className="addlPhotoSize blur" src={addlImage8} alt='addl image'></img>
               </div>
-            ))} 
-          </ol>
+            </div> 
+          </div>
         </div>
+        
       </div>
 
   {/* hosted by deets */}

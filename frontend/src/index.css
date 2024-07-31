@@ -4,6 +4,10 @@
   border-radius: 30px;
 }
 
+.littleRoundedCorners {
+  border-radius: 10px;
+}
+
 .noBorder {
   border: none;
 }
@@ -182,6 +186,20 @@
 
 .fullSize {
   width: 100%;
+}
+
+.largePhotoSize {
+  height: 500px;
+  width: 500px;
+}
+
+.addlPhotoSize {
+  width: 200px;
+  height: 200px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  border-radius: 10px;
 }
 
 .averageHeight {
