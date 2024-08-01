@@ -4,11 +4,6 @@ import { createSpot } from '../../store/spots';
 import { useNavigate } from 'react-router-dom';
 import { fetchSpots } from '../../store/spots';
 import { createImage } from '../../store/images';
-// import { image } from '@cloudinary/url-gen/qualifiers/source';
-// import UploadImage from '../Images/UploadImage';
-// import UploadWidget from '../Images/UploadWidget';
-// import DetailedImageUpload from '../Images/DetailedImageUpload';
-// import CreateAndUploadImage from '../Images/AnotherImageWidget';
 
 const CreateSpot = () => {
   const dispatch = useDispatch();
@@ -26,11 +21,17 @@ const CreateSpot = () => {
   const [previewImage, setPreviewImage] = useState('')
   const [imageSelected, setImageSelected] = useState("");
   const [previewStatus, setPreviewStatus] = useState(false);
+  //question to check if the photo has been uploaded
+  const [uploadPhoto, setUploadPhoto] = useState(false); //use to light up the next upload button
+  const [readyToSubmit, setReadyToSubmit] = useState(false);
+  const [isLoading, setIsLoading] = useState(false) //button specific
 
   const [errors, setErrors] = useState({})
 
   const user = useSelector(state => state.session.user)
   const spotsList = useSelector(state => state.spots.spots);
+
+
 
   useEffect(() => {
     dispatch(fetchSpots());
@@ -83,13 +84,15 @@ const CreateSpot = () => {
             state.length === 0 ||
             description.length < 30 ||
             name.length === 0 ||
-            price < 0 
-            //validate for first preview image once that is working
+            price < 0 ||
+            uploadPhoto === false ||
+            readyToSubmit === false
   }
 
   //photo upload code
   let imageURL;
   const uploadImage = async () => {
+    setIsLoading(true);
     const formData = new FormData()
     formData.append('file', imageSelected)
     formData.append("upload_preset", "airbnb")
@@ -107,11 +110,17 @@ const CreateSpot = () => {
     console.log(imageData.url)
     
 
-    setPreviewImage(imageURL) //I dont know if i need this it really is just for display at this point
+    setPreviewImage(imageURL) 
+    setUploadPhoto(true) //validation
+    setReadyToSubmit(true)
+    setIsLoading(false)
   } 
+
   //end of photo upload code
 
 
+  const hideMeUploadButton = "visibility" + (uploadPhoto === true ? "Hidden" : "")
+  const hideMeLoadingText = 'visibility' + (isLoading === true ? "" : "Hidden")
 
   
   return(
@@ -256,16 +265,20 @@ const CreateSpot = () => {
             <h2 className='blackText largeFont sans extraTopMargin'>Liven up your spot with photos</h2>          
             <p className="blackText mediumFont sans">Submit a link to at least one photo to publish your spot.</p>
             
-    {/* photo upload code */}
+    {/* photo upload code THIS WORKS... DONT FLUFF WITH THIS*/}
             <input 
               type='file'
+              className='blackBorder'
+              required='required'
               onChange={(e) => {setImageSelected(e.target.files[0]), setPreviewStatus(true)}}
             />
-            <button onClick={uploadImage}>Upload</button>
-    {/* end of photo upload code */}
-            
-            
+            <p className={hideMeLoadingText}>...Loading</p>
+            <button className={hideMeUploadButton} onClick={uploadImage}>Upload</button>
+            {console.log(hideMeUploadButton)}
+            {console.log(uploadPhoto)}
+            {console.log(readyToSubmit)}
 
+    {/* end of photo upload code */}
 
              {/* <input 
               // onClick={e => setPrice(e.target.value)}

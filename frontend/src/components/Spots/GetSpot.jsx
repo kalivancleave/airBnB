@@ -75,38 +75,68 @@ const SingleSpot = () => {
   //end of review checking logic
 
   //image standardization logic
-  const [addlImage1, setAddlImage1] = useState(null);
-  const [addlImage2, setAddlImage2] = useState(null);
-  const [addlImage3, setAddlImage3] = useState(null);
-  const [addlImage4, setAddlImage4] = useState(null);
-  const [addlImage5, setAddlImage5] = useState(null);
-  const [addlImage6, setAddlImage6] = useState(null);
-  const [addlImage7, setAddlImage7] = useState(null);
-  const [addlImage8, setAddlImage8] = useState(null);
+  let addlImage1 =null;
+  let addlImage2 =null;
+  let addlImage3 =null;
+  let addlImage4 =null;
+  let addlImage5 =null;
+  let addlImage6 =null;
+  let addlImage7 =null;
+  let addlImage8 =null;
 
-  for(let i = 1; i < spotImageDetails?.length; i++) {
-    if (i === 1 && spotImageDetails[1]) {
-      setAddlImage1(spotImageDetails[1].url)
-    } else if (i === 2 && spotImageDetails[2]) {
-      setAddlImage2(spotImageDetails[2].url)
-    } else if (i === 3 && spotImageDetails[3]) {
-      setAddlImage3(spotImageDetails[3].url)
-    } else if (i === 4 && spotImageDetails[4]) {
-      setAddlImage4(spotImageDetails[4].url)
-    } else if (i === 5 && spotImageDetails[5]) {
-      setAddlImage5(spotImageDetails[5].url)
-    } else if (i === 6 && spotImageDetails[6]) {
-      setAddlImage6(spotImageDetails[6].url)
-    } else if (i === 7 && spotImageDetails[7]) {
-      setAddlImage7(spotImageDetails[7].url)
-    } else if (i === 8 && spotImageDetails[8]) {
-      setAddlImage8(spotImageDetails[8].url)
-    } 
+  let imageURLs = []
+
+  spotImageDetails?.forEach(spot => {
+    let spotURL = spot.url.toString()
+    imageURLs.push(spotURL)
+  })
+
+  console.log(imageURLs)
+  if(imageURLs[1]){
+    addlImage1 = imageURLs[1]
   }
+
+  if(imageURLs[2]){
+    addlImage2 = imageURLs[2]
+  }
+
+  if(imageURLs[3]){
+    addlImage3 = imageURLs[3]
+  }
+
+  if(imageURLs[4]){
+    addlImage4 = imageURLs[4]
+  }
+
+  if(imageURLs[5]){
+    addlImage5 = imageURLs[5]
+  }
+
+  if(imageURLs[6]){
+    addlImage6 = imageURLs[6]
+  }
+
+  if(imageURLs[7]){
+    addlImage7 = imageURLs[7]
+  }
+
+  if(imageURLs[8]){
+    addlImage8 = imageURLs[8]
+  }
+
+  
   //end of image standardization logic
 
   const hideMeReviews = "displayFlex alignCenter visibility" + (spotReviews.length === 0 ? "Hidden" : "");
   const hideMeReviewButton = "leftPageBorder visibility" + (user?.id === undefined || user?.id === spotOwnerDetails?.id || reviewCreatorCheck(reviewCreatorIds) === true ? "Hidden" : "")
+  const hideMeUnusedPhotos1 = 'addlPhotoSize blur visibility' + (addlImage1 === null ? "Hidden" : "")
+  const hideMeUnusedPhotos2 = 'addlPhotoSize blur visibility' + (addlImage2 === null ? "Hidden" : "")
+  const hideMeUnusedPhotos3 = 'addlPhotoSize blur visibility' + (addlImage3 === null ? "Hidden" : "")
+  const hideMeUnusedPhotos4 = 'addlPhotoSize blur visibility' + (addlImage4 === null ? "Hidden" : "")
+  const hideMeUnusedPhotos5 = 'addlPhotoSize blur visibility' + (addlImage5 === null ? "Hidden" : "")
+  const hideMeUnusedPhotos6 = 'addlPhotoSize blur visibility' + (addlImage6 === null ? "Hidden" : "")
+  const hideMeUnusedPhotos7 = 'addlPhotoSize blur visibility' + (addlImage7 === null ? "Hidden" : "")
+  const hideMeUnusedPhotos8 = 'addlPhotoSize blur visibility' + (addlImage8 === null ? "Hidden" : "")
 
   return (
     <>
@@ -125,14 +155,14 @@ const SingleSpot = () => {
 
             <div className="displayFlex flexRow fullSize flexWrap">
               <div className="displayFlex flexRow flexWrap fullSize">
-                <img className="addlPhotoSize blur" src={addlImage1} alt='addl image'></img>
-                <img className="addlPhotoSize blur" src={addlImage2} alt='addl image'></img>
-                <img className="addlPhotoSize blur" src={addlImage3} alt='addl image'></img>
-                <img className="addlPhotoSize blur" src={addlImage4} alt='addl image'></img>
-                <img className="addlPhotoSize blur" src={addlImage5} alt='addl image'></img>
-                <img className="addlPhotoSize blur" src={addlImage6} alt='addl image'></img>
-                <img className="addlPhotoSize blur" src={addlImage7} alt='addl image'></img>
-                <img className="addlPhotoSize blur" src={addlImage8} alt='addl image'></img>
+                <img className={hideMeUnusedPhotos1} src={addlImage1} alt='addl image'></img>
+                <img className={hideMeUnusedPhotos2} src={addlImage2} alt='addl image'></img>
+                <img className={hideMeUnusedPhotos3} src={addlImage3} alt='addl image'></img>
+                <img className={hideMeUnusedPhotos4} src={addlImage4} alt='addl image'></img>
+                <img className={hideMeUnusedPhotos5} src={addlImage5} alt='addl image'></img>
+                <img className={hideMeUnusedPhotos6} src={addlImage6} alt='addl image'></img>
+                <img className={hideMeUnusedPhotos7} src={addlImage7} alt='addl image'></img>
+                <img className={hideMeUnusedPhotos8} src={addlImage8} alt='addl image'></img>
               </div>
             </div> 
           </div>

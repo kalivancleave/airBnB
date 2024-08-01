@@ -13,42 +13,52 @@ if (process.env.NODE_ENV === 'production') {
 const spotImages = [
   {
     spotId: 1,
-    url: 'TudorFarmHouseMain_yk6i6e.png',
+    url: 'https://res.cloudinary.com/djnfjzocb/image/upload/v1721909733/TudorFarmHouse7_slci3l.png',
     preview: true
   },
   {
     spotId: 1,
-    url: 'TudorFarmHouse1_egbirc.png',
-    preview: true
-  },
-  {
-    spotId: 1,
-    url: 'TudorFarmHouse2_eqamyj.png',
-    preview: true
-  },
-  {
-    spotId: 1,
-    url: 'TudorFarmHouse3_wv2wds.png',
-    preview: true
-  },
-  {
-    spotId: 2,
-    url: 'image-placeholder_xsvyni.png',
-    preview: true
-  },
-  {
-    spotId: 1,
-    url: 'image-placeholder_xsvyni.png',
+    url: 'https://res.cloudinary.com/djnfjzocb/image/upload/v1721909733/TudorFarmHouse9_rzmu7a.png',
     preview: false
   },
   {
+    spotId: 1,
+    url: 'https://res.cloudinary.com/djnfjzocb/image/upload/v1721909732/TudorFarmHouse8_clh9zq.png',
+    preview: false
+  },
+  {
+    spotId: 1,
+    url: 'https://res.cloudinary.com/djnfjzocb/image/upload/v1721909729/TudorFarmHouse6_gnzedm.png',
+    preview: false
+  },
+  {
+    spotId: 1,
+    url: 'https://res.cloudinary.com/djnfjzocb/image/upload/v1721909728/TudorFarmHouse5_nmatta.png',
+    preview: false
+  },
+  {
+    spotId: 1,
+    url: 'https://res.cloudinary.com/djnfjzocb/image/upload/v1721909726/TudorFarmHouse4_todccw.png',
+    preview: false
+  },
+  {
+    spotId: 1,
+    url: 'https://res.cloudinary.com/djnfjzocb/image/upload/v1721909725/TudorFarmHouse3_wv2wds.png',
+    preview: false
+  },
+  {
+    spotId: 2,
+    url: 'https://res.cloudinary.com/djnfjzocb/image/upload/v1721880630/image-placeholder_xsvyni.png',
+    preview: true
+  },
+  {
     spotId: 3,
-    url: 'image-placeholder_xsvyni.png',
+    url: 'https://res.cloudinary.com/djnfjzocb/image/upload/v1721880630/image-placeholder_xsvyni.png',
     preview: true
   },
   {
     spotId: 4,
-    url: 'image-placeholder_xsvyni.png',
+    url: 'https://res.cloudinary.com/djnfjzocb/image/upload/v1721880630/image-placeholder_xsvyni.png',
     preview: false
   },
 ]

@@ -36,9 +36,9 @@ function ProfileButtonLoggedOut() {
 
   return(
     <>
-      <button onClick={toggleMenu} className="whiteBackground roundedCorners blackBorder blur">
-        <FontAwesomeIcon icon={faBars} className="xlargeFont fullPadding blackText" />
-        <FontAwesomeIcon icon={faCircleUser} className="xlargeFont fullPadding blackText" />
+      <button onClick={toggleMenu} className="blackBorder displayFlex alignCenter roundedCorners largeFont">
+        <FontAwesomeIcon icon={faBars} className="littleLeftMargin littleTopMargin tinyBottomMargin" />
+        <FontAwesomeIcon icon={faCircleUser} className="littleLeftMargin littleTopMargin littleRightMargin tinyBottomMargin" />
       </button>
       <ul className={ulClassName} ref={ulRef}>
         <div className="">
