@@ -4,7 +4,6 @@ import { fetchSpots } from "../../store/spots";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
-import { cloudinaryPreviewImage } from "../../App";
 import { Tooltip } from 'react-tooltip';
 
 
@@ -29,7 +28,8 @@ const GetAllSpots = () => {
             <NavLink to={`/${id}`} className="noDecoration" >
               <div className="displayFlex flexColumn alignCenter">
 
-                <li className="addlPhotoSize blur">{previewImage}</li>
+                <img src={previewImage} className="addlPhotoSize blur" />
+
                 <div className="displayFlex flexRow spaceBetween fullPadding">
                   <div>
                     <li className="blackText mediumFont sans">{city}, {state}</li>

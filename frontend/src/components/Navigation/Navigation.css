@@ -1,18 +1,4 @@
-.logo {
-  height: 100px;
-  width: 150px;
-}
 
-.navBar {
-  height: 70px;
-  margin: 0;
-  padding-left: 20px;
-  padding-right: 20px;
-  border-bottom: solid 2px #999999;
-  display: flex;
-  justify-content: space-between;
-  align-items: bottom;
-}
 
 .navLink {
   text-decoration: none;
@@ -33,7 +19,7 @@
   /* border: 1px solid red;  */
   /* make border: none when done testing to override global style of buttons */
   color: #333333;
-  font-size: 60px;
+  font-size: 25px;
   margin: 0;
   padding: 0;
   cursor: pointer;

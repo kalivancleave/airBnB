@@ -48,7 +48,7 @@ const initialState = { images: [], isLoading: true}
 const imageReducer = (state = initialState, action) => {
   switch(action.type) {
     case GET_IMAGES:
-      return {...state, images: [...action.payload.Images]}
+      return {...state, images: [action.payload.Images]}
     default:
       return state;
   }

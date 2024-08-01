@@ -20,6 +20,10 @@
   border: 2px solid #333
 }
 
+.darkGreyBottomBorder {
+  border-bottom: 2px solid #333
+}
+
 .blur {
   box-shadow: 5px 5px 5px darkgray;
 }
@@ -146,6 +150,14 @@
   margin-left: 20px;
 }
 
+.littleRightMargin {
+  margin-right: 5px;
+}
+
+.tinyBottomMargin {
+  margin-bottom: 5px;
+}
+
 .littleLeftMargin {
   margin-left: 5px;
 }
@@ -210,6 +222,10 @@
   height: 100px;
 }
 
+.tinyHeight {
+  height: 5px;
+}
+
 /* misc stylings */
 body {
   background-color: #FFFFFF;
@@ -249,6 +265,10 @@ body {
 
 .alignLeft {
   align-items: left;
+}
+
+.alignTop {
+  align-items: start;
 }
 
 .alignBottom {
@@ -359,6 +379,17 @@ body {
   border-radius: 30px;
 }
 
+.navBar {
+  height: 70px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.logo {
+  height: 90px;
+  margin-top: -10px;
+}
+
 .cursorPointer {
   cursor: pointer;
 }
@@ -369,6 +400,16 @@ body {
 
 .reviewsModalForcedWidth {
   width: 500px;
+}
+
+.photoUpload {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  border-radius: 30px;
+  border: #CCCCCC 2px solid;
 }
 
 

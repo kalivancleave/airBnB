@@ -26,16 +26,18 @@ function Navigation({isLoaded}) {
 
   return(
     <>
-      <ul className="navBar">
-        <li>
-          <NavLink to='/' className="navLink">
+      <div className="displayFlex spaceBetween alignTop noMargin noPadding navBar darkGreyBottomBorder">
+        <li className="noMargin noPadding">
+          <NavLink to='/' className="noMargin noPadding">
             <a href=''>
-              <img src={AirbnbHomeLogo} className='logo noPadding noMargin' alt="home" />
+              <img src={AirbnbHomeLogo} className='logo  noMargin' alt="home" />
             </a>
           </NavLink>
         </li>
-        {isLoaded && sessionLinks}
-      </ul>
+        <li className="topMargin">
+          {isLoaded && sessionLinks}
+        </li>
+      </div>
     </>
   )
 }
