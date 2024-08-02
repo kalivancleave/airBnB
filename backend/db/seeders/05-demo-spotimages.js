@@ -48,19 +48,54 @@ const spotImages = [
   },
   {
     spotId: 2,
-    url: 'https://res.cloudinary.com/djnfjzocb/image/upload/v1721880630/image-placeholder_xsvyni.png',
+    url: 'https://res.cloudinary.com/djnfjzocb/image/upload/v1722607586/Gingerbread_House_ih8vbj.jpg',
+    preview: true
+  },
+  {
+    spotId: 2,
+    url: 'https://res.cloudinary.com/djnfjzocb/image/upload/v1722607585/Gingerbread_House_1_vhf96h.jpg',
+    preview: true
+  },
+  {
+    spotId: 2,
+    url: 'https://res.cloudinary.com/djnfjzocb/image/upload/v1722607586/Gingerbread_House_5_wmbxnz.jpg',
+    preview: true
+  },
+  {
+    spotId: 2,
+    url: 'https://res.cloudinary.com/djnfjzocb/image/upload/v1722607585/Gingerbread_House_2_hsivsb.jpg',
+    preview: true
+  },
+  {
+    spotId: 2,
+    url: 'https://res.cloudinary.com/djnfjzocb/image/upload/v1722607585/4_eakxak.jpg',
+    preview: true
+  },
+  {
+    spotId: 2,
+    url: 'https://res.cloudinary.com/djnfjzocb/image/upload/v1722607585/Gingerbread_House_3_a7ucia.jpg',
     preview: true
   },
   {
     spotId: 3,
-    url: 'https://res.cloudinary.com/djnfjzocb/image/upload/v1721880630/image-placeholder_xsvyni.png',
+    url: 'https://res.cloudinary.com/djnfjzocb/image/upload/v1722607586/Tree_House_1_up7omn.jpg',
     preview: true
   },
   {
     spotId: 4,
-    url: 'https://res.cloudinary.com/djnfjzocb/image/upload/v1721880630/image-placeholder_xsvyni.png',
+    url: 'https://res.cloudinary.com/djnfjzocb/image/upload/v1722607586/Tiny_Cabin_msjkff.jpg',
+    preview: true
+  },
+  {
+    spotId: 5,
+    url: 'https://res.cloudinary.com/djnfjzocb/image/upload/v1722607585/Cozy_Casa_1_pwtm3z.jpg',
     preview: false
   },
+  {
+    spotId: 5,
+    url: 'https://res.cloudinary.com/djnfjzocb/image/upload/v1722607585/Cozy_Casa_gni6cn.jpg',
+    preview: false
+  }
 ]
 
 /** @type {import('sequelize-cli').Migration} */

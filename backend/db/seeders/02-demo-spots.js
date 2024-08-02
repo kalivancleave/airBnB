@@ -19,20 +19,20 @@ const spots = [
     country: 'USA',
     lat: 45.25478,
     lng: -122.463587,
-    name: 'The First Spot',
-    description: 'A wonderful place to stay.',
-    price: 50.00
+    name: 'The Epic Tudor Farmhouse',
+    description: 'Sometimes, sentimentality gets the better of us. For a husband and wife in Cherry Hills Village, the decision to remodel instead of scrape came down to sheer emotion. Since 2006, the couple had worked on multiple plans to demolish their house and rebuild, but a decade into the process they pivoted toward renovation instead.',
+    price: 150.00
   },
   {
-    ownerId: 1,
+    ownerId: 2,
     address: '222 NE 2nd St',
     city: 'Second City',
     state: 'Second',
     country: 'USA',
     lat: 85.25478,
     lng: -100.463587,
-    name: 'The Second Spot',
-    description: 'Another wonderful place to stay.',
+    name: 'Gingerbread House',
+    description: 'Gingerbread house creating, decorating sugar cookies, pumpkin pie, etc., are all yummy treats we enjoy.',
     price: 70.00
   },
   {
@@ -43,22 +43,34 @@ const spots = [
     country: 'USA',
     lat: -23.25478,
     lng: 56.463587,
-    name: 'The Third Spot',
-    description: 'A third option for a wonderful place to stay.',
-    price: 2.00
+    name: 'Treehouse',
+    description: "Treehouse is a truly unique place. Part of it's uniqueness has to do with that it is a home grown and based business.",
+    price: 269.00
   },
   {
     ownerId: 4,
-    address: '123 Disney Lane',
+    address: '123 Somewhere Lane',
     city: 'San Francisco',
     state: 'California',
     country: 'United States of America',
     lat: 37.7645358,
     lng: -122.4730327,
-    name: 'App Academy',
-    description: 'Place where web developers are created.',
-    price: 123.00
+    name: 'Tiny Log Cabin',
+    description: 'THE original cabin in the woods. Free of ghosts and murderers.',
+    price: 10.00
   },
+  {
+    ownerId: 1,
+    address: '888 Cozy Casa St',
+    city: 'Dreamland',
+    state: 'Wyoming',
+    country: 'United States of America',
+    lat: 77.7645358,
+    lng: -100.4730327,
+    name: 'Coziest of Casas',
+    description: 'So adorable and sweet it will make even the grumpiest of humans happy.',
+    price: 78.50
+  }
 ]
 
 /** @type {import('sequelize-cli').Migration} */

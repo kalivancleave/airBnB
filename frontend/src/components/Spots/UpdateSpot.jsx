@@ -196,10 +196,6 @@ const UpdateSpot = () => {
             {/* {errors.price && <p className="redText mediumFont whiteBackground fullMargin">{errors.price}</p>} */}
           </div>
 
-          <div>
-            <UploadImage spotId={id} />
-          </div>
-
         </div>
 
          <button className='activeButtonDesign' type='submit' onClick={() => {console.log("click")}}>Update your Spot</button> 

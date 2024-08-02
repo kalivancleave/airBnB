@@ -193,7 +193,7 @@ const CreateSpot = () => {
   //end of photo upload code
 
   async function wait() {
-    await new Promise((resolve))
+    await new Promise((resolve) => setTimeout(resolve))
   }
 
   const submitNewSpot = async () => {
@@ -241,7 +241,6 @@ const CreateSpot = () => {
       }
     });
   }
-
 
   const hideMeUploadButton = "visibility" + (uploadPhoto === true ? "Hidden" : "")
   const hideMeUploadButton2 = "visibility" + (uploadPhoto2 === true ? "Hidden" : "")
