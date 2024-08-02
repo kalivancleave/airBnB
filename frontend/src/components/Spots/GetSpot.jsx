@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { fetchSpots } from "../../store/spots";
 import { fetchSpot } from "../../store/spots";
 import { fetchSpotOwner } from '../../store/spots'
@@ -137,7 +137,7 @@ const SingleSpot = () => {
   const hideMeUnusedPhotos6 = 'addlPhotoSize blur visibility' + (addlImage6 === null ? "Hidden" : "")
   const hideMeUnusedPhotos7 = 'addlPhotoSize blur visibility' + (addlImage7 === null ? "Hidden" : "")
   const hideMeUnusedPhotos8 = 'addlPhotoSize blur visibility' + (addlImage8 === null ? "Hidden" : "")
-
+  
   return (
     <>
   {/* spot images */}

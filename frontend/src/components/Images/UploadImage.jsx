@@ -1,41 +1,75 @@
-const UploadImage = () => {
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { createImage } from "../../store/images";
 
-  const upload = () => {
-    const url = 'https://api.cloudinary.com/v1_1/djnfjzocb/image/upload';
-    const form = document.querySelector('form');
+const UploadImage = (spotId) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
+  const [previewImage, setPreviewImage] = useState('')
+  const [imageSelected, setImageSelected] = useState("");
+  const [previewStatus, ] = useState(false);
+  const [isLoading, setIsLoading] = useState(false)
+  const [uploadPhoto, setUploadPhoto] = useState(false);
 
-      const files= document.querySelector('[type=file]').files;
-      const formData = new FormData();
-
-      for (let i = 0; i < files.length; i++) {
-        let file = files[i];
-        formData.append('file', file);
-        formData.append('upload_preset', 'docs_upload_example_us_preset');
-
-        fetch(url, {
-          method: 'POST',
-          body: formData,
-        })
-          .then((response) => {
-            return response.text();
-          })
-          .then((data) => {
-            document.getElementById('data').innerHTML += data;
-          });
+  const newImage = {}
+        
+    newImage.url = previewImage
+    newImage.preview = previewStatus
+  
+  let imageURL;
+  const uploadImage = async () => {
+    
+    const formData = new FormData()
+    formData.append('file', imageSelected)
+    formData.append("upload_preset", "airbnb")
+    
+    const response = await fetch(
+      "https://api.cloudinary.com/v1_1/djnfjzocb/image/upload",
+      
+      {
+        method: "POST",
+        body: formData
       }
-    })
-  };
+    )
+    const imageData =  await response.json()
+    imageURL = imageData.url.toString() //this gets stored to image database
+    
+    console.log(imageData)
+    setPreviewImage(imageURL) 
+    setIsLoading(true);
+    setUploadPhoto(true);     
+  } 
 
-  return (
+  const submitNewImage = () => {
+    
+
+    console.log(newImage)
+
+    return (dispatch(createImage(newImage, spotId.spotId)))
+    .then(setIsLoading(false))
+    .then(navigate(`updateSpot/${spotId.spotId}`))
+  }
+  
+  
+  
+  const hideMeUploadButton = "visibility" + (uploadPhoto === true ? "Hidden" : "")
+  const hideMeLoadingText = 'noMargin noPadding visibility' + (isLoading === true ? "" : "Hidden")
+
+  return(
     <>
-      <p className="xlargeFont redText">BROKEN DO NOT USE</p>
-      <form method='post' encType='multipart/form-data'>
-        <input type='file' name="files[]" multiple />
-        <input type='submit' value='Upload Files' name='submit' onSubmit={() => upload()} />
-      </form>
+      <input 
+        type='file'
+        accept='.jpeg, .png, .jpg'
+        className='blackBorder'
+        required='required'
+        onChange={(e) => {setImageSelected(e.target.files[0])}}
+      />
+      <p className={hideMeLoadingText}>...Loading</p>
+      <button className={hideMeUploadButton} onClick={uploadImage}>Upload</button>
+      <button onClick={submitNewImage}>Submit</button>
+
     </>
   )
 }

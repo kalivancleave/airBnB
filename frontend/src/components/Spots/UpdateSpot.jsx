@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { fetchSpots, updateSpot } from "../../store/spots";
 import { useNavigate } from "react-router-dom";
+import UploadImage from "../Images/UploadImage";
 
 const UpdateSpot = () => {
   const {id} = useParams();
@@ -193,6 +194,10 @@ const UpdateSpot = () => {
             required='required'
             value={uprice}/>
             {/* {errors.price && <p className="redText mediumFont whiteBackground fullMargin">{errors.price}</p>} */}
+          </div>
+
+          <div>
+            <UploadImage spotId={id} />
           </div>
 
         </div>

@@ -18,13 +18,20 @@ const CreateSpot = () => {
   const [description, setDescription] = useState("");
   const [name, setName] = useState("");
   const [price, setPrice] = useState(null);
-  const [previewImage, setPreviewImage] = useState('')
   const [imageSelected, setImageSelected] = useState("");
-  const [previewStatus, setPreviewStatus] = useState(false);
   //question to check if the photo has been uploaded
-  const [uploadPhoto, setUploadPhoto] = useState(false); //use to light up the next upload button
+  const [uploadPhoto, setUploadPhoto] = useState(false);
+  const [uploadPhoto2, setUploadPhoto2] = useState(false);
+  const [uploadPhoto3, setUploadPhoto3] = useState(false);
+  const [uploadPhoto4, setUploadPhoto4] = useState(false);
+  const [uploadPhoto5, setUploadPhoto5] = useState(false);
   const [readyToSubmit, setReadyToSubmit] = useState(false);
   const [isLoading, setIsLoading] = useState(false) //button specific
+  const [isLoading2, setIsLoading2] = useState(false) //button specific
+  const [isLoading3, setIsLoading3] = useState(false) //button specific
+  const [isLoading4, setIsLoading4] = useState(false) //button specific
+  const [isLoading5, setIsLoading5] = useState(false) //button specific
+  const [imagesToUpload, setImagesToUpload] = useState([]);
 
   const [errors, setErrors] = useState({})
 
@@ -36,47 +43,10 @@ const CreateSpot = () => {
   useEffect(() => {
     dispatch(fetchSpots());
   }, [dispatch])
-  
+
+    
   const id = spotsList[spotsList.length - 1]?.id + 1
   
-  const submitNewSpot = async () => {
-    const newSpot = {}
-    setErrors({})
-    newSpot.address = address
-    newSpot.city = city
-    newSpot.state = state
-    newSpot.country = country
-    newSpot.lng = lng
-    newSpot.lat = lat
-    newSpot.name = name
-    newSpot.description = description
-    newSpot.price = price
-    newSpot.Owner = {
-      id: user.id,
-      firstName: user.firstName,
-      lastName: user.lastName
-    }
-
-    const newImage = {}
-      
-      newImage.url = previewImage
-      newImage.preview = previewStatus
-
-      console.log(newImage.url)
-
-
-    return dispatch(createSpot(newSpot))
-    .then(dispatch(createImage(newImage, id)))
-    .then(navigate(`/${id}`))
-    .catch(async (res) => {
-      const data = await res.json();
-      if(data?.errors) {
-        setErrors(data.errors)
-      }
-    });
-  }
-
-
   const validate = () => {
     return  country.length === 0 ||
             address.length === 0 ||
@@ -91,7 +61,8 @@ const CreateSpot = () => {
 
   //photo upload code
   let imageURL;
-  const uploadImage = async () => {
+  const uploadImage = async (e) => {
+    e.preventDefault();
     setIsLoading(true);
     const formData = new FormData()
     formData.append('file', imageSelected)
@@ -107,20 +78,181 @@ const CreateSpot = () => {
     )
     const imageData =  await response.json()
     imageURL = imageData.url.toString() //this gets stored to image database
-    console.log(imageData.url)
+    setImagesToUpload([...imagesToUpload, imageURL])
     
 
-    setPreviewImage(imageURL) 
     setUploadPhoto(true) //validation
     setReadyToSubmit(true)
     setIsLoading(false)
   } 
 
+  let imageURL2;
+  const uploadImage2 = async (e) => {
+    e.preventDefault();
+    setIsLoading2(true);
+    const formData = new FormData()
+    formData.append('file', imageSelected)
+    formData.append("upload_preset", "airbnb")
+
+    const response = await fetch(
+      "https://api.cloudinary.com/v1_1/djnfjzocb/image/upload",
+    
+      {
+        method: "POST",
+        body: formData
+      }
+    )
+    const imageData =  await response.json()
+    imageURL2 = imageData.url.toString() //this gets stored to image database
+    setImagesToUpload([...imagesToUpload, imageURL2])
+
+
+    setUploadPhoto2(true) //validation
+    setReadyToSubmit(true)
+    setIsLoading2(false)
+  } 
+
+  let imageURL3;
+  const uploadImage3 = async (e) => {
+    e.preventDefault();
+    setIsLoading3(true);
+    const formData = new FormData()
+    formData.append('file', imageSelected)
+    formData.append("upload_preset", "airbnb")
+
+    const response = await fetch(
+      "https://api.cloudinary.com/v1_1/djnfjzocb/image/upload",
+    
+      {
+        method: "POST",
+        body: formData
+      }
+    )
+    const imageData =  await response.json()
+    imageURL3 = imageData.url.toString() //this gets stored to image database
+    setImagesToUpload([...imagesToUpload, imageURL3])
+ 
+    setUploadPhoto3(true) //validation
+    setReadyToSubmit(true)
+    setIsLoading3(false)
+  } 
+
+  let imageURL4;
+  const uploadImage4 = async (e) => {
+    e.preventDefault();
+    setIsLoading4(true);
+    const formData = new FormData()
+    formData.append('file', imageSelected)
+    formData.append("upload_preset", "airbnb")
+
+    const response = await fetch(
+      "https://api.cloudinary.com/v1_1/djnfjzocb/image/upload",
+    
+      {
+        method: "POST",
+        body: formData
+      }
+    )
+    const imageData =  await response.json()
+    imageURL4 = imageData.url.toString() //this gets stored to image database
+    setImagesToUpload([...imagesToUpload, imageURL4])
+
+
+    setUploadPhoto4(true) //validation
+    setReadyToSubmit(true)
+    setIsLoading4(false)
+  } 
+
+  let imageURL5;
+  const uploadImage5 = async (e) => {
+    e.preventDefault();
+    setIsLoading5(true);
+    const formData = new FormData()
+    formData.append('file', imageSelected)
+    formData.append("upload_preset", "airbnb")
+
+    const response = await fetch(
+      "https://api.cloudinary.com/v1_1/djnfjzocb/image/upload",
+    
+      {
+        method: "POST",
+        body: formData
+      }
+    )
+    const imageData =  await response.json()
+    imageURL5 = imageData.url.toString() //this gets stored to image database
+    setImagesToUpload([...imagesToUpload, imageURL5])
+
+    setUploadPhoto5(true) //validation
+    setReadyToSubmit(true)
+    setIsLoading5(false)
+  } 
+  
+  console.log(...imagesToUpload)
+
   //end of photo upload code
+
+  async function wait() {
+    await new Promise((resolve))
+  }
+
+  const submitNewSpot = async () => {
+    const newSpot = {}
+    setErrors({})
+    newSpot.id = id
+    newSpot.address = address
+    newSpot.city = city
+    newSpot.state = state
+    newSpot.country = country
+    newSpot.lng = lng
+    newSpot.lat = lat
+    newSpot.name = name
+    newSpot.description = description
+    newSpot.price = price
+    newSpot.Owner = {
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName
+    }
+
+    return dispatch(createSpot(newSpot))
+    .then(async function uploadImages() {
+      let newImage = {}
+      //console.log (imagesToUpload.length + " hello from in the .then statment")
+      for (let i = 0; i < imagesToUpload.length; i++) {
+        let imageToUpload = imagesToUpload[i]
+          newImage.url = imageToUpload
+          if(i === 0) {
+            newImage.preview = true
+          } else {
+            newImage.preview = false
+          }
+          console.log (newImage + " each one should be a new Image")
+          console.log(newSpot.id + " does new spot.id exist yet?")
+        dispatch(createImage(newImage, id))
+      }
+      await wait();
+    })
+    .then(navigate(`/${id}`))
+    .catch(async (res) => {
+      const data = await res.json();
+      if(data?.errors) {
+        setErrors(data.errors)
+      }
+    });
+  }
 
 
   const hideMeUploadButton = "visibility" + (uploadPhoto === true ? "Hidden" : "")
-  const hideMeLoadingText = 'visibility' + (isLoading === true ? "" : "Hidden")
+  const hideMeUploadButton2 = "visibility" + (uploadPhoto2 === true ? "Hidden" : "")
+  const hideMeUploadButton3 = "visibility" + (uploadPhoto3 === true ? "Hidden" : "")
+  const hideMeUploadButton4 = "visibility" + (uploadPhoto4 === true ? "Hidden" : "")
+  const hideMeUploadButton5 = "visibility" + (uploadPhoto5 === true ? "Hidden" : "")
+  const hideMeLoadingText = 'noMargin noPadding visibility' + (isLoading === true ? "" : "Hidden")
+  const hideMeLoadingText2 = 'noMargin noPadding visibility' + (isLoading2 === true ? "" : "Hidden")
+  const hideMeLoadingText3 = 'noMargin noPadding visibility' + (isLoading3 === true ? "" : "Hidden")
+  const hideMeLoadingText4 = 'noMargin noPadding visibility' + (isLoading4 === true ? "" : "Hidden")
+  const hideMeLoadingText5 = 'noMargin noPadding visibility' + (isLoading5 === true ? "" : "Hidden")
 
   
   return(
@@ -268,47 +400,52 @@ const CreateSpot = () => {
     {/* photo upload code THIS WORKS... DONT FLUFF WITH THIS*/}
             <input 
               type='file'
+              accept='.jpeg, .png, .jpg'
               className='blackBorder'
               required='required'
-              onChange={(e) => {setImageSelected(e.target.files[0]), setPreviewStatus(true)}}
+              onChange={(e) => {setImageSelected(e.target.files[0])}}
             />
             <p className={hideMeLoadingText}>...Loading</p>
             <button className={hideMeUploadButton} onClick={uploadImage}>Upload</button>
-            {console.log(hideMeUploadButton)}
-            {console.log(uploadPhoto)}
-            {console.log(readyToSubmit)}
+
+            <input 
+              type='file'
+              accept='.jpeg, .png, .jpg'
+              className='blackBorder'
+              onChange={(e) => {setImageSelected(e.target.files[0])}}
+            />
+            <p className={hideMeLoadingText2}>...Loading</p>
+            <button className={hideMeUploadButton2} onClick={uploadImage2}>Upload</button>
+
+            <input 
+              type='file'
+              accept='.jpeg, .png, .jpg'
+              className='blackBorder'
+              onChange={(e) => {setImageSelected(e.target.files[0])}}
+            />
+            <p className={hideMeLoadingText3}>...Loading</p>
+            <button className={hideMeUploadButton3} onClick={uploadImage3}>Upload</button>
+
+            <input 
+              type='file'
+              accept='.jpeg, .png, .jpg'
+              className='blackBorder'
+              onChange={(e) => {setImageSelected(e.target.files[0])}}
+            />
+            <p className={hideMeLoadingText4}>...Loading</p>
+            <button className={hideMeUploadButton4} onClick={uploadImage4}>Upload</button>
+
+            <input 
+              type='file'
+              accept='.jpeg, .png, .jpg'
+              className='blackBorder'
+              onChange={(e) => {setImageSelected(e.target.files[0])}}
+            />
+            <p className={hideMeLoadingText5}>...Loading</p>
+            <button className={hideMeUploadButton5} onClick={uploadImage5}>Upload</button>
+
 
     {/* end of photo upload code */}
-
-             {/* <input 
-              // onClick={e => setPrice(e.target.value)}
-              className="littleLeftMargin sans"
-              type='text'
-              placeholder='Image URL'
-              // value={price} 
-            />  
-            <input 
-              // onClick={e => setPrice(e.target.value)}
-              className="littleLeftMargin sans"
-              type='text'
-              placeholder='Image URL'
-              // value={price} 
-            /> 
-            <input 
-              // onClick={e => setPrice(e.target.value)}
-              className="littleLeftMargin sans"
-              type='text'
-              placeholder='Image URL'
-              // value={price} 
-            /> 
-            <input 
-              // onClick={e => setPrice(e.target.value)}
-              className="littleLeftMargin sans"
-              type='text'
-              placeholder='Image URL'
-              // value={price} 
-            /> */}
-
           </div> 
 
          <button className={!validate() ? 'activeButtonDesign' : 'inactiveButtonDesign'} type='submit' onClick={() => {console.log("click")}}>Create Spot</button> 
