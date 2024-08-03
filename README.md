@@ -1,5 +1,26 @@
 # Kali's AirBnB
 
+Welcome to an online place that connects people looking for short term housing or rentals in a convenient online marketplace for those who are looing to rent out their homes. Simply log in or create a profile and select the house you would like to rent.
+
+Coming soon: get your space approved as a rental location.
+
+## Frontend
+
+JSX, React, and Redux
+
+## Backend
+
+Express, Sequelize, PostgreSQL, Render
+
+## Home Page
+![Screenshot 2024-08-02 200647](https://github.com/user-attachments/assets/20638869-cce0-45f7-8aaf-27c191597a90)
+
+## Create a Space
+![Screenshot 2024-08-02 200657](https://github.com/user-attachments/assets/5778de8a-7889-4953-9bdb-04ea39b1ac06)
+
+## Rent and Review a Space
+![Screenshot 2024-08-02 200745](https://github.com/user-attachments/assets/80e9d2c5-84ba-43bb-8088-0252eca12c12)
+
 ## Database Schema Design
 
 ![airbnb-database-schema]
