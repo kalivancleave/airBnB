@@ -540,7 +540,7 @@ router.get('/:spotId', async(req, res, next) => {
     });
     
     //find the average of all the stars from the review table
-    const averageRating = sumOfStars/reviews.length
+    const averageRating = (sumOfStars/reviews.length).toFixed(2)
   
 
     //find the owner with that spotId

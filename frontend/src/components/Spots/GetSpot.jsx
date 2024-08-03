@@ -127,7 +127,7 @@ const SingleSpot = () => {
   
   //end of image standardization logic
 
-  const hideMeReviews = "displayFlex alignCenter visibility" + (spotReviews.length === 0 ? "Hidden" : "");
+  const hideMeReviews = "displayFlex alignCenter visibility" + (spotReviews?.length === 0 ? "Hidden" : "");
   const hideMeReviewButton = "leftPageBorder visibility" + (user?.id === undefined || user?.id === spotOwnerDetails?.id || reviewCreatorCheck(reviewCreatorIds) === true ? "Hidden" : "")
   const hideMeUnusedPhotos1 = 'addlPhotoSize blur visibility' + (addlImage1 === null ? "Hidden" : "")
   const hideMeUnusedPhotos2 = 'addlPhotoSize blur visibility' + (addlImage2 === null ? "Hidden" : "")
@@ -186,7 +186,7 @@ const SingleSpot = () => {
               
               <div className="displayFlex alignCenter">
                 <FontAwesomeIcon icon={faStar} className="redText largeFont" /> 
-                <li className="displayInline fullPadding blackText largeFont sans">{typeof singleSpot?.avgRating === 'number' ? singleSpot?.avgRating : 'New'}</li>
+                <li className="displayInline fullPadding blackText largeFont sans">{typeof singleSpot?.avgRating === 'number' ? singleSpot?.avgRating.toFixed(1) : 'New'}</li>
               </div>
             </div>
                 
@@ -201,7 +201,7 @@ const SingleSpot = () => {
       <div>
         <div className="displayFlex alignCenter leftPageBorder">
             <FontAwesomeIcon icon={faStar} className="redText largeFont" /> 
-            <li className="displayInline fullPadding blackText largeFont sans">{typeof singleSpot?.avgRating === 'number' ? singleSpot?.avgRating : 'New'}</li>
+            <li className="displayInline fullPadding blackText largeFont sans">{typeof singleSpot?.avgRating === 'number' ? singleSpot?.avgRating.toFixed(1) : 'New'}</li>
           <div className={hideMeReviews}>
             <FontAwesomeIcon icon={faCircle} className="blackText tinyFont leftAndRightPadding"/>
             <p className="blackText largeFont sans" >{spotReviews.length} {spotReviews.length === 1 ? "review" : "reviews"}</p>
@@ -229,7 +229,7 @@ const SingleSpot = () => {
               <li className="sans blackText largeFont extraTopMargin">{User.firstName}</li>
               <li className="sans darkGreyText mediumFont littleTopMargin">{displayMonth(createdAt.slice(5,7))} {createdAt.slice(0,4)}</li>
               <li className="sans blackText mediumFont fullSize topMargin">{review}</li>
-             <div className={User.id === user.id ? "" : "visibilityHidden"}>
+             <div className={User.id === user?.id ? "" : "visibilityHidden"}>
               <OpenModalButton 
                 buttonText="Delete"
                 modalComponenet={<DeleteReview id={id}/>}

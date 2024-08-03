@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { fetchSpots, updateSpot } from "../../store/spots";
 import { useNavigate } from "react-router-dom";
-import UploadImage from "../Images/UploadImage";
 
 const UpdateSpot = () => {
   const {id} = useParams();
@@ -49,6 +48,16 @@ const UpdateSpot = () => {
         console.log(data.errors)
       }
     });
+  }
+
+  const validate = () => {
+    return  ucountry.length === 0 ||
+            uaddress.length === 0 ||
+            ucity.length === 0 ||
+            ustate.length === 0 ||
+            udescription.length < 30 ||
+            uname.length === 0 ||
+            uprice < 0
   }
 
   return(
@@ -198,7 +207,7 @@ const UpdateSpot = () => {
 
         </div>
 
-         <button className='activeButtonDesign' type='submit' onClick={() => {console.log("click")}}>Update your Spot</button> 
+         <button className={!validate() ? 'activeButtonDesign' : 'inactiveButtonDesign'} type='submit' onClick={() => {console.log("click")}}>Update your Spot</button> 
 
       </form>
     </div>

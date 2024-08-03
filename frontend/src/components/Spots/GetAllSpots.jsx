@@ -36,7 +36,7 @@ const GetAllSpots = () => {
                   </div>
                   <div>
                     <FontAwesomeIcon icon={faStar} className="redText mediumFont" /> 
-                    <li className="displayInline fullPadding blackText mediumFont sans">{typeof avgRating === 'number' ? avgRating : 'New'}</li>
+                    <li className="displayInline fullPadding blackText mediumFont sans">{typeof avgRating === 'number' ? avgRating.toFixed(1) : 'New'}</li>
                   </div>
                 </div>
                 <li className="blackText mediumFont leftAndRightPadding sans"> ${price} night</li>
