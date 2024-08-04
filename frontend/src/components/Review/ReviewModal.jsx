@@ -4,6 +4,7 @@ import { useModal } from "../../context/Modal";
 import { createReview } from "../../store/review";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { fetchReviewsForSpot } from "../../store/review";
 
 
 function ReviewModal(spot) {
@@ -17,20 +18,21 @@ function ReviewModal(spot) {
 
   const spotId = JSON.stringify(spot.spotId.id)
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  console.log(spotId) //this needs to stay for some reason it resets the state so the spotId is the spot.id and not the review.id???
+
+  const handleSubmit = async() => {
     setErrors({})
-    return dispatch(
-      createReview({
-        review,
-        stars,
-        spotId
-      })
-    )
+    await dispatch(createReview({
+          review,
+          stars,
+          spotId
+        })
+      )
     .then(closeModal)
-    .then(window.location.reload())
+    .then(dispatch(fetchReviewsForSpot(spotId)))
     .catch(
       async (res) => {
+        console.log(res)
         const data = await res.json();
         if (data) {
           setErrors(data);
@@ -66,7 +68,7 @@ function ReviewModal(spot) {
   return(
     <div>
       <h1 className='leftPageBorder rightPageBorder blackText sans largeFont extraTopMargin'>How was your stay?</h1>
-      <form onSubmit={handleSubmit} className='leftPageBorder rightPageBorder bottomPageBorder'>
+      <form onSubmit={(e) => e.preventDefault()} className='leftPageBorder rightPageBorder bottomPageBorder'>
         <textarea className='fullPadding blackText sans mediumFont fullSize averageHeight' placeholder='Leave your review here...' value={review} onChange={(e) => setReview(e.target.value)}/>
         <div className="reviewsModalForcedWidth littleTopMargin littleBottomBorder">
         <div className="displayFlex flexRow justifyCenter alignCenter">

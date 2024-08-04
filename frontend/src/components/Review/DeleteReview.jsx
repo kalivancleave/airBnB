@@ -14,7 +14,6 @@ function DeleteReview(props) {
       .then(dispatch(fetchReviewsForSpot(props.spotInfo.id)))
       .catch(
         async (res) => {
-          console.log(res)
           const data = await res.json();
           if(data) {
             console.log(data)

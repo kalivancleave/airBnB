@@ -3,19 +3,19 @@ import { useModal } from "../../context/Modal";
 import { deleteSpot } from "../../store/spots";
 
 
-
-function DeleteSpot(spot) {
+function DeleteSpot(props) {
   const dispatch = useDispatch();
   const {closeModal} = useModal();
 
-  const spotId = [spot.id]
+  // const spotId = [spot.id]
  
-  const deleteSpotFunction = async (id) => {
-    await dispatch(deleteSpot(id))
+  const deleteSpotFunction = async () => {
+    await dispatch(deleteSpot(props.id))
     .then(closeModal)
     .then(window.location.reload())
     .catch(
       async (res) => {
+        console.log(res) //debugging
         const data = await res.json();
         if(data) {
           console.log(data);
@@ -34,7 +34,7 @@ function DeleteSpot(spot) {
         <p className='blackText sans mediumFont littleTopMargin littlebottomBorder'>Are you sure you want to remove this spot?</p>
       </div>
       <div className='displayFlex flexColumn justifyCenter littleBottomBorder leftAndRightMargin'>
-        <button className="activeButtonDesign blur" onClick={() => deleteSpotFunction(spotId)}>Yes (Delete Spot)</button>
+        <button className="activeButtonDesign blur" onClick={() => deleteSpotFunction()}>Yes (Delete Spot)</button>
         <button className="inactiveButtonDesignOnly blur" onClick={doNotDelete}>No (Keep Spot)</button>
       </div>
     </div>

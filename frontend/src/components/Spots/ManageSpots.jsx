@@ -62,7 +62,7 @@ const ManageSpots = () => {
                 <NavLink to={`/updateSpot/${id}`} className="activeButtonDesign">Update</NavLink>
                 <OpenModalButton
                   buttonText="Delete"
-                  modalComponenet={<DeleteSpot id={id}/>}
+                  modalComponenet={<DeleteSpot id={id} allUserSpots={userSpots}/>}
                   className='activeButtonDesign' />
               </div>
             </div>
