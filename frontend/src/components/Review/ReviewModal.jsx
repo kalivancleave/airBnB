@@ -17,8 +17,10 @@ function ReviewModal(spot) {
   const {closeModal} = useModal();
 
   const spotId = JSON.stringify(spot.spotId.id)
-
-  console.log(spotId) //this needs to stay for some reason it resets the state so the spotId is the spot.id and not the review.id???
+  
+  async function wait() {
+    await new Promise((resolve) => setTimeout(resolve))
+  }
 
   const handleSubmit = async() => {
     setErrors({})
@@ -28,8 +30,11 @@ function ReviewModal(spot) {
           spotId
         })
       )
+    .then(async function reviewRefresh() {
+      dispatch(fetchReviewsForSpot(spotId))
+      await wait();
+    })
     .then(closeModal)
-    .then(dispatch(fetchReviewsForSpot(spotId)))
     .catch(
       async (res) => {
         console.log(res)
