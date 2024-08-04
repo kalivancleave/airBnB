@@ -29,7 +29,7 @@ const GetAllSpots = () => {
 
                 <img src={previewImage} className="addlPhotoSize blur" />
 
-                <div className="displayFlex flexRow spaceBetween fullPadding">
+                <div className="displayFlex flexRow someLeftMargin topAndBottomPadding spaceBetween fullSize">
                   <div>
                     <li className="blackText mediumFont sans">{city}, {state}</li>
                   </div>
@@ -38,7 +38,7 @@ const GetAllSpots = () => {
                     <li className="displayInline fullPadding blackText mediumFont sans">{typeof avgRating === 'number' ? avgRating.toFixed(1) : 'New'}</li>
                   </div>
                 </div>
-                <li className="blackText mediumFont leftAndRightPadding sans"> ${price} night</li>
+                <li className="blackText mediumFont someLeftMargin fullSize sans"> ${price.toFixed(2)} night</li>
               </div>
             </NavLink>
               

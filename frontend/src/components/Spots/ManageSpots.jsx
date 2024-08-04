@@ -25,8 +25,8 @@ const ManageSpots = () => {
   })
   
   return (
-    <div className="bottomPageBorder">
-      <h1 className="leftPageBorder blackText sans">Manage Spots</h1>
+    <div className="bottomPageBorder leftPageBorder rightPageBorder">
+      <h1 className="blackText sans">Manage Spots</h1>
       {userSpots.length === 0 ? (
         <div className="leftPageBorder">
           <NavLink to='/CreateSpot'>
@@ -34,7 +34,7 @@ const ManageSpots = () => {
           </NavLink>
         </div>
       ) : (
-        <ol className="displayFlex flexWrap noMargin noPadding fullSize justifyLeft">
+        <ol className="displayFlex flexWrap noPadding fullSize justifyLeft">
         <Tooltip id='my-tooltip' />
         
           {userSpots.map(({id, name, previewImage, city, state, avgRating, price}) => (
@@ -45,20 +45,20 @@ const ManageSpots = () => {
 
                   <img src={previewImage} className="addlPhotoSize blur" />
 
-                  <div className="displayFlex flexRow spaceBetween fullPadding">
-                    <div>
+                  <div className="displayFlex flexRow topAndBottomPadding spaceBetween fullSize">
+                    <div className="extraLeftMargin">
                       <li className="blackText mediumFont sans">{city}, {state}</li>
                     </div>
-                    <div>
+                    <div className="extraRightMargin">
                       <FontAwesomeIcon icon={faStar} className="redText mediumFont" /> 
-                      <li className="displayInline fullPadding blackText mediumFont sans">{typeof avgRating === 'number' ? avgRating : 'New'}</li>
+                      <li className="displayInline topAndBottomPadding blackText mediumFont sans">{typeof avgRating === 'number' ? avgRating : 'New'}</li>
                     </div>
                   </div>
-                  <li className="blackText mediumFont leftAndRightPadding sans"> ${price} night</li>
+                  <li className="blackText leftPageBorder mediumFont fullSize sans"> ${price.toFixed(2)} night</li>
                 </div>
               </NavLink>
 
-              <div className="displayFlex spaceEvenly littleTopMargin">
+              <div className="displayFlex justifyLeft leftMargin topMargin">
                 <NavLink to={`/updateSpot/${id}`} className="activeButtonDesign">Update</NavLink>
                 <OpenModalButton
                   buttonText="Delete"

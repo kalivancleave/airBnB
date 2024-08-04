@@ -41,7 +41,7 @@ function LoginFormModal() {
 
   return (
     <>
-      <h1 className='leftAndRightMargin leftAndRightPadding'>Log In</h1>
+      <h1 className='displayFlex leftAndRightMargin leftAndRightPadding sans justifyCenter'>Log In</h1>
       <form onSubmit={handleSubmit} className='leftAndRightMargin leftAndRightPadding'>
         <label>
           Username or Email
@@ -62,9 +62,9 @@ function LoginFormModal() {
           />
         </label>
         <p className='redText smallFont'>{errors}</p>
-        <div className='displayFlex flexColumn'>
-          <button type="submit" className={validate() ? 'activeButtonDesign mediumSize ' : 'inactiveButtonDesign mediumSize'}>Log In</button>
-          <button type='submit' className="mediumFont noBorder redTextLink whiteBackground fullMargin" onClick={() => demoLogin()}>Log in as Demo User</button>
+        <div className='displayFlex flexColumn justifyCenter littleBottomBorder leftAndRightMargin'>
+          <button type="submit" className={validate() ? 'activeButtonDesign' : 'inactiveButtonDesign'}>Log In</button>
+          <button type='submit' className="mediumFont noBorder blackTextLink whiteBackground fullMargin" onClick={() => demoLogin()}>Log in as Demo User</button>
         </div>
       </form>
     </>

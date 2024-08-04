@@ -50,6 +50,16 @@
   color: black;
 }
 
+.blackTextLink {
+  color: black;
+}
+
+.blackTextLink:hover {
+  color: black;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .redText {
   color: #FF5A5F;
 }
@@ -117,6 +127,10 @@
   padding-left: 10px;
   padding-right: 10px;
 }
+.topAndBottomPadding {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
 
 .leftPageBorder {
   margin-left: 50px;
@@ -146,6 +160,10 @@
   margin-top: 40px;
 }
 
+.extraLeftMargin {
+  margin-left: 25px;
+}
+
 .leftMargin {
   margin-left: 20px;
 }
@@ -162,8 +180,16 @@
   margin-left: 5px;
 }
 
+.someLeftMargin {
+  margin-left: 10px;
+}
+
 .rightMargin {
   margin-right: 20px;
+}
+
+.extraRightMargin {
+  margin-right: 25px;
 }
 
 .noMargin {
@@ -210,8 +236,8 @@
 }
 
 .addlPhotoSize {
-  width: 200px;
-  height: 200px;
+  width: 300px;
+  height: 300px;
   margin-left: 5px;
   margin-right: 5px;
   margin-bottom: 5px;
