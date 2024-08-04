@@ -207,7 +207,7 @@ const UpdateSpot = () => {
 
         </div>
 
-         <button className={!validate() ? 'activeButtonDesign' : 'inactiveButtonDesign'} type='submit' onClick={() => {console.log("click")}}>Update your Spot</button> 
+         <button className={!validate() ? 'activeButtonDesign' : 'inactiveButtonDesign'} type='submit'>Update your Spot</button> 
 
       </form>
     </div>

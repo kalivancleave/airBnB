@@ -63,10 +63,8 @@ function ReviewModal(spot) {
             stars === 0
   }
   
-
   return(
     <div>
-      {console.log(JSON.stringify(errors))}
       <h1 className='leftPageBorder rightPageBorder blackText sans largeFont extraTopMargin'>How was your stay?</h1>
       <form onSubmit={handleSubmit} className='leftPageBorder rightPageBorder bottomPageBorder'>
         <textarea className='fullPadding blackText sans mediumFont fullSize averageHeight' placeholder='Leave your review here...' value={review} onChange={(e) => setReview(e.target.value)}/>

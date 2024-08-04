@@ -1,19 +1,20 @@
 import { useDispatch } from "react-redux";
+import { fetchReviewsForSpot } from "../../store/review";
 import { useModal } from "../../context/Modal";
 import { deleteReview } from "../../store/review";
 
-function DeleteReview(id) {
+function DeleteReview(props) {
   const dispatch = useDispatch();
   const {closeModal} = useModal();
 
-  const reviewId = id //double check that it is returning the number of the id and not the object
- 
-  const deleteReviewFunction = async(id) => {
-    await dispatch(deleteReview(id))
+
+  const deleteReviewFunction = async() => {
+    await dispatch(deleteReview(props.id))
       .then(closeModal)
-      .then(window.location.reload())
+      .then(dispatch(fetchReviewsForSpot(props.spotInfo.id)))
       .catch(
         async (res) => {
+          console.log(res)
           const data = await res.json();
           if(data) {
             console.log(data)
@@ -31,7 +32,7 @@ function DeleteReview(id) {
         <p className='blackText sans mediumFont littleTopMargin littlebottomBorder'>Are you sure you want to remove this review?</p>
       </div>
       <div className='displayFlex flexColumn justifyCenter littleBottomBorder leftAndRightMargin'>
-        <button className="activeButtonDesign blur" onClick={() => deleteReviewFunction([reviewId.id])}>Yes (Delete Review)</button>
+        <button className="activeButtonDesign blur" onClick={() => deleteReviewFunction()}>Yes (Delete Review)</button>
         <button className="inactiveButtonDesignOnly blur" onClick={doNotDelete}>No (Keep Review)</button>
       </div>
     </div>

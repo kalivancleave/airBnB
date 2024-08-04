@@ -188,7 +188,7 @@ const CreateSpot = () => {
     setIsLoading5(false)
   } 
   
-  console.log(...imagesToUpload)
+  // console.log(...imagesToUpload)
 
   //end of photo upload code
 
@@ -227,8 +227,7 @@ const CreateSpot = () => {
           } else {
             newImage.preview = false
           }
-          console.log (newImage + " each one should be a new Image")
-          console.log(newSpot.id + " does new spot.id exist yet?")
+          // console.log (newImage + " each one should be a new Image")
         dispatch(createImage(newImage, id))
       }
       await wait();

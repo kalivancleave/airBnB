@@ -60,7 +60,7 @@ export const createReview = (reviewDetails) => async (dispatch) => {
     if (data.errors) return data.errors;
   } else {
     const data = await result.json();
-    data.errors.puch(['A server error occurred.'])
+    data.errors.push(['A server error occurred.'])
     return data.errors;
   }
 }

@@ -91,7 +91,6 @@ const SingleSpot = () => {
     imageURLs.push(spotURL)
   })
 
-  console.log(imageURLs)
   if(imageURLs[1]){
     addlImage1 = imageURLs[1]
   }
@@ -232,7 +231,7 @@ const SingleSpot = () => {
              <div className={User.id === user?.id ? "" : "visibilityHidden"}>
               <OpenModalButton 
                 buttonText="Delete"
-                modalComponenet={<DeleteReview id={id}/>}
+                modalComponenet={<DeleteReview id={id} spotInfo={singleSpot}/>}
                 />
              </div>
               

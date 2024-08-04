@@ -36,16 +36,12 @@ const UploadImage = (spotId) => {
     const imageData =  await response.json()
     imageURL = imageData.url.toString() //this gets stored to image database
     
-    console.log(imageData)
     setPreviewImage(imageURL) 
     setIsLoading(true);
     setUploadPhoto(true);     
   } 
 
   const submitNewImage = () => {
-    
-
-    console.log(newImage)
 
     return (dispatch(createImage(newImage, spotId.spotId)))
     .then(setIsLoading(false))
