@@ -7,11 +7,17 @@ function DeleteReview(props) {
   const dispatch = useDispatch();
   const {closeModal} = useModal();
 
+  async function wait() {
+    await new Promise((resolve) => setTimeout(resolve))
+  }
 
   const deleteReviewFunction = async() => {
     await dispatch(deleteReview(props.id))
+      .then(async function reviewRefresh() {
+        dispatch(fetchReviewsForSpot(props.spotInfo.id))
+        await wait();
+      })
       .then(closeModal)
-      .then(dispatch(fetchReviewsForSpot(props.spotInfo.id)))
       .catch(
         async (res) => {
           const data = await res.json();
