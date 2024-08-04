@@ -354,7 +354,7 @@ body {
   background-color: #333333;
   font-size: 16px;
   text-align: center;
-  cursor: pointer;
+  cursor: not-allowed;
   font-family: sans-serif;
   color: white;
   border: solid, 1px, black;
@@ -369,7 +369,7 @@ body {
   font-size: 16px;
   font-weight: bold;
   text-align: center;
-  cursor: pointer;
+  cursor: not-allowed;
   font-family: sans-serif;
   color: rgb(48, 47, 47);
   border: solid, 1px, black;
