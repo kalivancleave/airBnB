@@ -44,6 +44,7 @@ export const fetchSpots = () => async (dispatch) => {
   if(response.ok) {
     const spots = await response.json();
     dispatch(getSpots(spots));
+    return spots.Spots
   } else if (response.status < 500) {
     const data = await response.json();
     if (data.errors) return data.errors;

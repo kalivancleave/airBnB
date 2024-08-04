@@ -21,10 +21,6 @@ const CreateSpot = () => {
   const [imageSelected, setImageSelected] = useState("");
   //question to check if the photo has been uploaded
   const [uploadPhoto, setUploadPhoto] = useState(false);
-  const [uploadPhoto2, setUploadPhoto2] = useState(false);
-  const [uploadPhoto3, setUploadPhoto3] = useState(false);
-  const [uploadPhoto4, setUploadPhoto4] = useState(false);
-  const [uploadPhoto5, setUploadPhoto5] = useState(false);
   const [readyToSubmit, setReadyToSubmit] = useState(false);
   const [isLoading, setIsLoading] = useState(false) //button specific
   const [isLoading2, setIsLoading2] = useState(false) //button specific
@@ -37,6 +33,7 @@ const CreateSpot = () => {
 
   const user = useSelector(state => state.session.user)
   const spotsList = useSelector(state => state.spots.spots);
+
 
 
 
@@ -215,7 +212,8 @@ const CreateSpot = () => {
       lastName: user.lastName
     }
 
-    return dispatch(createSpot(newSpot))
+    await dispatch(createSpot(newSpot))
+
     .then(async function uploadImages() {
       let newImage = {}
       //console.log (imagesToUpload.length + " hello from in the .then statment")
@@ -241,11 +239,6 @@ const CreateSpot = () => {
     });
   }
 
-  const hideMeUploadButton = "visibility" + (uploadPhoto === true ? "Hidden" : "")
-  const hideMeUploadButton2 = "visibility" + (uploadPhoto2 === true ? "Hidden" : "")
-  const hideMeUploadButton3 = "visibility" + (uploadPhoto3 === true ? "Hidden" : "")
-  const hideMeUploadButton4 = "visibility" + (uploadPhoto4 === true ? "Hidden" : "")
-  const hideMeUploadButton5 = "visibility" + (uploadPhoto5 === true ? "Hidden" : "")
   const hideMeLoadingText = 'noMargin noPadding visibility' + (isLoading === true ? "" : "Hidden")
   const hideMeLoadingText2 = 'noMargin noPadding visibility' + (isLoading2 === true ? "" : "Hidden")
   const hideMeLoadingText3 = 'noMargin noPadding visibility' + (isLoading3 === true ? "" : "Hidden")
@@ -401,46 +394,46 @@ const CreateSpot = () => {
               accept='.jpeg, .png, .jpg'
               className='blackBorder'
               required='required'
-              onChange={(e) => {setImageSelected(e.target.files[0])}}
+              onInput={(e) => {setImageSelected(e.target.files[0])}}
+              onChange={uploadImage}
             />
             <p className={hideMeLoadingText}>...Loading</p>
-            <button className={hideMeUploadButton} onClick={uploadImage}>Upload</button>
 
             <input 
               type='file'
               accept='.jpeg, .png, .jpg'
               className='blackBorder'
-              onChange={(e) => {setImageSelected(e.target.files[0])}}
+              onInput={(e) => {setImageSelected(e.target.files[0])}}
+              onChange={uploadImage2}
             />
             <p className={hideMeLoadingText2}>...Loading</p>
-            <button className={hideMeUploadButton2} onClick={uploadImage2}>Upload</button>
 
             <input 
               type='file'
               accept='.jpeg, .png, .jpg'
               className='blackBorder'
-              onChange={(e) => {setImageSelected(e.target.files[0])}}
+              onInput={(e) => {setImageSelected(e.target.files[0])}}
+              onChange={uploadImage3}
             />
             <p className={hideMeLoadingText3}>...Loading</p>
-            <button className={hideMeUploadButton3} onClick={uploadImage3}>Upload</button>
 
             <input 
               type='file'
               accept='.jpeg, .png, .jpg'
               className='blackBorder'
-              onChange={(e) => {setImageSelected(e.target.files[0])}}
+              onInput={(e) => {setImageSelected(e.target.files[0])}}
+              onChange={uploadImage4}
             />
             <p className={hideMeLoadingText4}>...Loading</p>
-            <button className={hideMeUploadButton4} onClick={uploadImage4}>Upload</button>
 
             <input 
               type='file'
               accept='.jpeg, .png, .jpg'
               className='blackBorder'
-              onChange={(e) => {setImageSelected(e.target.files[0])}}
+              onInput={(e) => {setImageSelected(e.target.files[0])}}
+              onChange={uploadImage5}
             />
             <p className={hideMeLoadingText5}>...Loading</p>
-            <button className={hideMeUploadButton5} onClick={uploadImage5}>Upload</button>
 
 
     {/* end of photo upload code */}
