@@ -21,6 +21,10 @@ const CreateSpot = () => {
   const [imageSelected, setImageSelected] = useState("");
   //question to check if the photo has been uploaded
   const [uploadPhoto, setUploadPhoto] = useState(false);
+  const [, setUploadPhoto2] = useState(false);
+  const [, setUploadPhoto3] = useState(false);
+  const [, setUploadPhoto4] = useState(false);
+  const [, setUploadPhoto5] = useState(false);
   const [readyToSubmit, setReadyToSubmit] = useState(false);
   const [isLoading, setIsLoading] = useState(false) //button specific
   const [isLoading2, setIsLoading2] = useState(false) //button specific
