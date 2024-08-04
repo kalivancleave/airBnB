@@ -130,10 +130,10 @@ const SingleSpot = () => {
 
   const hideMeReviews = "displayFlex alignCenter visibility" + (spotReviews?.length === 0 ? "Hidden" : "");
   const hideMeReviewButton = "leftPageBorder visibility" + (user?.id === undefined || user?.id === spotOwnerDetails?.id || reviewCreatorCheck(reviewCreatorIds) === true ? "Hidden" : "")
-  const hideMeUnusedPhotos1 = 'addlPhotoSize blur visibility' + (addlImage1 === null ? "Hidden" : "")
-  const hideMeUnusedPhotos2 = 'addlPhotoSize blur visibility' + (addlImage2 === null ? "Hidden" : "")
-  const hideMeUnusedPhotos3 = 'addlPhotoSize blur visibility' + (addlImage3 === null ? "Hidden" : "")
-  const hideMeUnusedPhotos4 = 'addlPhotoSize blur visibility' + (addlImage4 === null ? "Hidden" : "")
+  const hideMeUnusedPhotos1 = 'innerPhotoSize blur visibility' + (addlImage1 === null ? "Hidden" : "")
+  const hideMeUnusedPhotos2 = 'innerPhotoSize blur visibility' + (addlImage2 === null ? "Hidden" : "")
+  const hideMeUnusedPhotos3 = 'innerPhotoSize blur visibility' + (addlImage3 === null ? "Hidden" : "")
+  const hideMeUnusedPhotos4 = 'innerPhotoSize blur visibility' + (addlImage4 === null ? "Hidden" : "")
   // const hideMeUnusedPhotos5 = 'addlPhotoSize blur visibility' + (addlImage5 === null ? "Hidden" : "")
   // const hideMeUnusedPhotos6 = 'addlPhotoSize blur visibility' + (addlImage6 === null ? "Hidden" : "")
   // const hideMeUnusedPhotos7 = 'addlPhotoSize blur visibility' + (addlImage7 === null ? "Hidden" : "")
@@ -150,8 +150,8 @@ const SingleSpot = () => {
 
         <div className="displayFlex flexRow rowWrap">
           <div className="displayFlex">
-            <div className="largeSize rightMargin littleRoundedCorners blur">
-              <img className="fullSize" src={singleSpot?.previewImage} alt="preview image"/>
+            <div className="largePhotoSize rightMargin littleRoundedCorners blur">
+              <img className="largePhotoSize littleRoundedCorners" src={singleSpot?.previewImage} alt="preview image"/>
             </div>
 
             <div className="displayFlex flexRow fullSize flexWrap">

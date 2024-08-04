@@ -244,6 +244,15 @@
   border-radius: 10px;
 }
 
+.innerPhotoSize {
+  width: 200px;
+  height: 200px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  border-radius: 10px;
+}
+
 .averageHeight {
   height: 100px;
 }
