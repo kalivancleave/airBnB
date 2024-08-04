@@ -67,6 +67,7 @@ function ReviewModal(spot) {
   
   return(
     <div>
+      {console.log(errors)}
       <h1 className='leftPageBorder rightPageBorder blackText sans largeFont extraTopMargin'>How was your stay?</h1>
       <form onSubmit={(e) => e.preventDefault()} className='leftPageBorder rightPageBorder bottomPageBorder'>
         <textarea className='fullPadding blackText sans mediumFont fullSize averageHeight' placeholder='Leave your review here...' value={review} onChange={(e) => setReview(e.target.value)}/>
@@ -88,7 +89,9 @@ function ReviewModal(spot) {
           <label className="blackText largeFont sans littleLeftMargin">Stars</label>
         </div>
         </div>
-        <button onClick={handleSubmit} className={!validate() ? "activeButtonDesign" : 'inactiveButtonDesign'}>Submit Your Review</button>
+        <div className='displayFlex flexColumn justifyCenter littleBottomBorder leftAndRightMargin'>
+          <button onClick={handleSubmit} className={!validate() ? "activeButtonDesign" : 'inactiveButtonDesign'}>Submit Your Review</button>
+        </div>
       </form>
     </div>
   )  
