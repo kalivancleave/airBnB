@@ -79,10 +79,10 @@ const SingleSpot = () => {
   let addlImage2 =null;
   let addlImage3 =null;
   let addlImage4 =null;
-  let addlImage5 =null;
-  let addlImage6 =null;
-  let addlImage7 =null;
-  let addlImage8 =null;
+  // let addlImage5 =null;
+  // let addlImage6 =null;
+  // let addlImage7 =null;
+  // let addlImage8 =null;
 
   let imageURLs = []
 
@@ -107,21 +107,21 @@ const SingleSpot = () => {
     addlImage4 = imageURLs[4]
   }
 
-  if(imageURLs[5]){
-    addlImage5 = imageURLs[5]
-  }
+  // if(imageURLs[5]){
+  //   addlImage5 = imageURLs[5]
+  // }
 
-  if(imageURLs[6]){
-    addlImage6 = imageURLs[6]
-  }
+  // if(imageURLs[6]){
+  //   addlImage6 = imageURLs[6]
+  // }
 
-  if(imageURLs[7]){
-    addlImage7 = imageURLs[7]
-  }
+  // if(imageURLs[7]){
+  //   addlImage7 = imageURLs[7]
+  // }
 
-  if(imageURLs[8]){
-    addlImage8 = imageURLs[8]
-  }
+  // if(imageURLs[8]){
+  //   addlImage8 = imageURLs[8]
+  // }
 
   
   //end of image standardization logic
@@ -132,10 +132,10 @@ const SingleSpot = () => {
   const hideMeUnusedPhotos2 = 'addlPhotoSize blur visibility' + (addlImage2 === null ? "Hidden" : "")
   const hideMeUnusedPhotos3 = 'addlPhotoSize blur visibility' + (addlImage3 === null ? "Hidden" : "")
   const hideMeUnusedPhotos4 = 'addlPhotoSize blur visibility' + (addlImage4 === null ? "Hidden" : "")
-  const hideMeUnusedPhotos5 = 'addlPhotoSize blur visibility' + (addlImage5 === null ? "Hidden" : "")
-  const hideMeUnusedPhotos6 = 'addlPhotoSize blur visibility' + (addlImage6 === null ? "Hidden" : "")
-  const hideMeUnusedPhotos7 = 'addlPhotoSize blur visibility' + (addlImage7 === null ? "Hidden" : "")
-  const hideMeUnusedPhotos8 = 'addlPhotoSize blur visibility' + (addlImage8 === null ? "Hidden" : "")
+  // const hideMeUnusedPhotos5 = 'addlPhotoSize blur visibility' + (addlImage5 === null ? "Hidden" : "")
+  // const hideMeUnusedPhotos6 = 'addlPhotoSize blur visibility' + (addlImage6 === null ? "Hidden" : "")
+  // const hideMeUnusedPhotos7 = 'addlPhotoSize blur visibility' + (addlImage7 === null ? "Hidden" : "")
+  // const hideMeUnusedPhotos8 = 'addlPhotoSize blur visibility' + (addlImage8 === null ? "Hidden" : "")
   
   return (
     <>
@@ -158,10 +158,10 @@ const SingleSpot = () => {
                 <img className={hideMeUnusedPhotos2} src={addlImage2} alt='addl image'></img>
                 <img className={hideMeUnusedPhotos3} src={addlImage3} alt='addl image'></img>
                 <img className={hideMeUnusedPhotos4} src={addlImage4} alt='addl image'></img>
-                <img className={hideMeUnusedPhotos5} src={addlImage5} alt='addl image'></img>
+                {/* <img className={hideMeUnusedPhotos5} src={addlImage5} alt='addl image'></img>
                 <img className={hideMeUnusedPhotos6} src={addlImage6} alt='addl image'></img>
                 <img className={hideMeUnusedPhotos7} src={addlImage7} alt='addl image'></img>
-                <img className={hideMeUnusedPhotos8} src={addlImage8} alt='addl image'></img>
+                <img className={hideMeUnusedPhotos8} src={addlImage8} alt='addl image'></img> */}
               </div>
             </div> 
           </div>
