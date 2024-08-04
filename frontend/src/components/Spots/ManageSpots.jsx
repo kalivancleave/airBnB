@@ -34,7 +34,7 @@ const ManageSpots = () => {
           </NavLink>
         </div>
       ) : (
-        <ol className="displayFlex flexWrap noPadding fullSize justifyLeft">
+        <ol className="displayFlex flexWrap flexRow noPadding fullSize justifyLeft">
         <Tooltip id='my-tooltip' />
         
           {userSpots.map(({id, name, previewImage, city, state, avgRating, price}) => (
@@ -43,7 +43,7 @@ const ManageSpots = () => {
               <NavLink to={`/${id}`} className="noDecoration" >
                 <div className="displayFlex flexColumn alignCenter">
 
-                  <img src={previewImage} className="addlPhotoSize blur" />
+                  <img src={previewImage} className="addlPhotoSize blur fullSize" />
 
                   <div className="displayFlex flexRow topAndBottomPadding spaceBetween fullSize">
                     <div className="extraLeftMargin">

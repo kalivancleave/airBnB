@@ -332,6 +332,12 @@ body {
   }
 }
 
+@media only screen and (min-width: 800px) and (max-width: 1300px) {
+  .photoBox {
+    flex-basis: 50%;
+  }
+}
+
 .bringToFront {
   z-index: 1;
 }
