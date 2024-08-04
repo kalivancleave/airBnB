@@ -4,6 +4,7 @@ import { csrfFetch } from "./csrf";
 const GET_SPOTS = 'spots/GET_SPOTS';
 const GET_SPOT_IMAGE_DETAILS = 'spots/GET_SPOT_IMAGE_DETAILS';
 const GET_SPOT_OWNER_DETAILS = 'spots/GET_SPOT_OWNER_DETAILS';
+const GET_USER_SPOTS = 'spots/GET_USER_SPOTS';
 const DELETE_SPOT = 'spots/DELETE_SPOT'
 
 //action creator
@@ -21,6 +22,11 @@ const getSpotOwnerDetails = (spotDetails) => ({
   type: GET_SPOT_OWNER_DETAILS,
   payload: spotDetails
 });
+
+const getUserSpots = (spots) => ({
+  type: GET_USER_SPOTS,
+  payload: spots
+})
 
 const destroySpot = (id) => {
   return {
@@ -45,6 +51,16 @@ export const fetchSpots = () => async (dispatch) => {
     const data = await response.json();
     data.errors.puch(['A server error occurred.'])
     return data.errors;
+  }
+}
+
+//get all spots owned by a logged in user
+export const fetchUserSpots = () => async (dispatch) => {
+  const response = await fetch(`api/spots/current`);
+
+  if(response.ok) {
+    const spots = await response.json();
+    dispatch(getUserSpots(spots));
   }
 }
 
@@ -159,6 +175,8 @@ const spotReducer = (state = initialState, action) => {
   let newState = Object.assign({}, state)
   switch(action.type) {
     case GET_SPOTS:
+      return {...state, spots: [...action.payload.Spots]}
+    case GET_USER_SPOTS:
       return {...state, spots: [...action.payload.Spots]}
     case GET_SPOT_IMAGE_DETAILS:
       return {...state, spotImageDetails: [...action.payload.SpotImages]}

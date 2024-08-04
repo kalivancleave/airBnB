@@ -1,18 +1,24 @@
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { deleteSpot } from "../../store/spots";
+import { fetchUserSpots } from "../../store/spots";
 
 
 function DeleteSpot(props) {
   const dispatch = useDispatch();
   const {closeModal} = useModal();
 
-  // const spotId = [spot.id]
+  async function wait() {
+    await new Promise((resolve) => setTimeout(resolve))
+  }
  
   const deleteSpotFunction = async () => {
     await dispatch(deleteSpot(props.id))
+    .then (async function refreshUserSpots() {
+      dispatch(fetchUserSpots())
+      await wait();
+    })
     .then(closeModal)
-    .then(window.location.reload())
     .catch(
       async (res) => {
         console.log(res) //debugging
