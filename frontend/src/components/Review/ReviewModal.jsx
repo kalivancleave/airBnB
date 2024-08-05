@@ -40,7 +40,7 @@ function ReviewModal(spot) {
         console.log(res)
         const data = await res.json();
         if (data) {
-          setErrors(data);
+          setErrors(data.errors);
         }
       }
     )
@@ -66,9 +66,16 @@ function ReviewModal(spot) {
   const starImages = Array(5).fill(0);
 
   const validate = () => {
-    return  review.length < 10 ||
-            stars === 0
+    if(review.length < 10) {
+      return true
+    } else if (stars === Number(0)) {
+      return true
+    } else {
+      return false
+    }         
   }
+
+  console.log(validate())
   
   return(
     <div>
@@ -76,6 +83,7 @@ function ReviewModal(spot) {
       <h1 className='leftPageBorder rightPageBorder blackText sans largeFont extraTopMargin'>How was your stay?</h1>
       <form onSubmit={(e) => e.preventDefault()} className='leftPageBorder rightPageBorder bottomPageBorder'>
         <textarea className='fullPadding blackText sans mediumFont fullSize averageHeight' placeholder='Leave your review here...' value={review} onChange={(e) => setReview(e.target.value)}/>
+        {errors.review && <p className="redText mediumFont whiteBackground fullMargin">{errors.review}</p>}
         <div className="reviewsModalForcedWidth littleTopMargin littleBottomBorder">
         <div className="displayFlex flexRow justifyCenter alignCenter">
           {starImages.map((_, index) => {
@@ -93,9 +101,10 @@ function ReviewModal(spot) {
           })}
           <label className="blackText largeFont sans littleLeftMargin">Stars</label>
         </div>
+        {errors.stars && <p className="redText mediumFont whiteBackground fullMargin">{errors.stars}</p>}
         </div>
         <div className='displayFlex flexColumn justifyCenter littleBottomBorder leftAndRightMargin'>
-          <button onClick={handleSubmit} className={!validate() ? "activeButtonDesign" : 'inactiveButtonDesign'}>Submit Your Review</button>
+          <button onClick={handleSubmit} className={validate() !== true ? "activeButtonDesign" : 'inactiveButtonDesign'}>Submit Your Review</button>
         </div>
       </form>
     </div>

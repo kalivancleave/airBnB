@@ -183,7 +183,7 @@ const SingleSpot = () => {
   {/* reserve box with price per night, average rating, and reserve COMING SOON */}
           <div className="displayFlex fullPadding flexColumn whiteBackground roundedCorners blackBorder mediumSize">
             <div className="fullMargin displayFlex flexRow spaceBetween">
-              <li className="blackText largeFont leftAndRightPadding sans"> ${singleSpot?.price} night</li>
+              <li className="blackText largeFont leftAndRightPadding sans"> ${singleSpot?.price.toFixed(2)} night</li>
               
               <div className="displayFlex alignCenter">
                 <FontAwesomeIcon icon={faStar} className="redText largeFont" /> 
