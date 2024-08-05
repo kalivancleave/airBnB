@@ -246,23 +246,25 @@ const CreateSpot = () => {
 
   const submitNewSpot = async () => {
     setErrors({})
-      
-    await dispatch(createSpot({
-      address : address,
-      city : city,
-      state : state,
-      country : country,
-      lng : lng,
-      lat : lat,
-      name : name,
-      description : description,
-      price : price,
-      Owner : {
+    let newSpot = {}
+    
+      newSpot.id = id
+      newSpot.address = address
+      newSpot.city = city
+      newSpot.state = state
+      newSpot.country = country
+      newSpot.lng = lng
+      newSpot.lat = lat
+      newSpot.name = name
+      newSpot.description = description
+      newSpot.price = price
+      newSpot.Owner = {
         id: user.id,
         firstName: user.firstName,
         lastName: user.lastName
       }
-    }))
+      
+    await dispatch(createSpot(newSpot))
     .then(async function uploadImages() {
       let newImage = {}
       //console.log (imagesToUpload.length + " hello from in the .then statment")
