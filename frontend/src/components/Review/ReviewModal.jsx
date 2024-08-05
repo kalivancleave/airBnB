@@ -5,6 +5,7 @@ import { createReview } from "../../store/review";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { fetchReviewsForSpot } from "../../store/review";
+import { fetchSpots } from "../../store/spots";
 
 
 function ReviewModal(spot) {
@@ -34,10 +35,13 @@ function ReviewModal(spot) {
       dispatch(fetchReviewsForSpot(spotId))
       await wait();
     })
+    .then(async function refreshSpotDeets() {
+      dispatch(fetchSpots())
+      await wait();
+    })
     .then(closeModal)
     .catch(
       async (res) => {
-        console.log(res)
         const data = await res.json();
         if (data) {
           setErrors(data.errors);

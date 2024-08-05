@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import { fetchReviewsForSpot } from "../../store/review";
 import { useModal } from "../../context/Modal";
 import { deleteReview } from "../../store/review";
+import { fetchSpots } from "../../store/spots";
 
 function DeleteReview(props) {
   const dispatch = useDispatch();
@@ -15,6 +16,10 @@ function DeleteReview(props) {
     await dispatch(deleteReview(props.id))
       .then(async function reviewRefresh() {
         dispatch(fetchReviewsForSpot(props.spotInfo.id))
+        await wait();
+      })
+      .then(async function refreshSpotDeets() {
+        dispatch(fetchSpots())
         await wait();
       })
       .then(closeModal)

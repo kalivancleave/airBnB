@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { createSpot } from '../../store/spots';
+import { createSpot, fetchSpotDetails } from '../../store/spots';
 import { useNavigate } from 'react-router-dom';
 import { fetchSpots } from '../../store/spots';
 import { createImage } from '../../store/images';
@@ -39,8 +39,6 @@ const CreateSpot = () => {
   const spotsList = useSelector(state => state.spots.spots);
 
 
-
-
   useEffect(() => {
     dispatch(fetchSpots()); 
   }, [dispatch])
@@ -56,7 +54,7 @@ const CreateSpot = () => {
             descriptionValidation() === true &&
             nameValidation() === true &&
             priceValidation() === true &&
-            country.length === 0 ||
+            country.length !== 0 ||
             address.length === 0 ||
             city.length === 0 ||
             state.length === 0 ||
@@ -247,27 +245,25 @@ const CreateSpot = () => {
   }
 
   const submitNewSpot = async () => {
-    const newSpot = {}
     setErrors({})
-    newSpot.id = id
-    newSpot.address = address
-    newSpot.city = city
-    newSpot.state = state
-    newSpot.country = country
-    newSpot.lng = lng
-    newSpot.lat = lat
-    newSpot.name = name
-    newSpot.description = description
-    newSpot.price = price
-    newSpot.Owner = {
-      id: user.id,
-      firstName: user.firstName,
-      lastName: user.lastName
-    }
-
-    await dispatch(createSpot(newSpot))
-    .then(async function uploadImages() {
       
+    await dispatch(createSpot({
+      address : address,
+      city : city,
+      state : state,
+      country : country,
+      lng : lng,
+      lat : lat,
+      name : name,
+      description : description,
+      price : price,
+      Owner : {
+        id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName
+      }
+    }))
+    .then(async function uploadImages() {
       let newImage = {}
       //console.log (imagesToUpload.length + " hello from in the .then statment")
       for (let i = 0; i < imagesToUpload.length; i++) {
@@ -286,7 +282,7 @@ const CreateSpot = () => {
     .then(navigate(`/${id}`))
     .catch(async (res) => {
       const data = await res.json();
-      if(data?.errors) {
+      if(data) {
         setErrors(data.errors)
       }
     });
@@ -301,6 +297,7 @@ const CreateSpot = () => {
   
   return(
     <div className='displayFlex justifyCenter bottomPageBorder'>
+      {console.log(errors)}
     
       <form className="largeSize topMargin" onSubmit={(e) => {e.preventDefault(); submitNewSpot()}}>
         <h1 className='blackText xlargeFont sans'>Create a new Spot</h1>

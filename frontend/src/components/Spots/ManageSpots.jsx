@@ -51,7 +51,7 @@ const ManageSpots = () => {
                     </div>
                     <div className="extraRightMargin">
                       <FontAwesomeIcon icon={faStar} className="redText mediumFont" /> 
-                      <li className="displayInline topAndBottomPadding blackText mediumFont sans">{typeof avgRating === 'number' ? avgRating : 'New'}</li>
+                      <li className="displayInline topAndBottomPadding blackText mediumFont sans">{typeof avgRating === 'number' ? avgRating.toFixed(1) : 'New'}</li>
                     </div>
                   </div>
                   <li className="blackText leftPageBorder mediumFont fullSize sans"> ${price.toFixed(2)} night</li>

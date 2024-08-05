@@ -21,8 +21,6 @@ const SingleSpot = () => {
   const spotOwnerDetails = useSelector(state => state.spots.spotOwnerDetails);
   const spotReviews = useSelector(state => state.reviews.reviews);
 
-  console.log(spotReviews + " in get spot all spot reviews")
-
   const user = useSelector(state => state.session.user)
   
   useEffect(() => {
