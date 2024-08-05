@@ -51,13 +51,64 @@ const UpdateSpot = () => {
   }
 
   const validate = () => {
-    return  ucountry.length === 0 ||
+    return  countryValidation() === true &&
+            addressValidation() === true &&
+            cityValidation() === true &&
+            stateValidation() === true &&
+            descriptionValidation() === true &&
+            nameValidation() === true &&
+            priceValidation() === true &&
+            ucountry.length === 0 ||
             uaddress.length === 0 ||
             ucity.length === 0 ||
             ustate.length === 0 ||
             udescription.length < 30 ||
             uname.length === 0 ||
             uprice < 0
+  }
+  
+  const countryValidation = () => {
+    return  ucountry?.length > 4 && 
+            ucountry?.length < 250
+  } 
+
+  const addressValidation = () => {
+    return  uaddress?.length > 4 && 
+            uaddress?.length < 250
+  }
+
+  const cityValidation = () => {
+    return  ucity?.length > 4 && 
+            ucity?.length < 250
+  }
+
+  const stateValidation = () => {
+    return  ustate?.length > 4 && 
+            ustate?.length < 250
+  }
+
+  const descriptionValidation = () => {
+    return  udescription?.length > 4 && 
+            udescription?.length < 250
+  }
+
+  const nameValidation = () => {
+    return  uaddress?.length > 4 && 
+            uaddress?.length < 250
+  }
+
+  const priceValidation = () => {
+    if(isNaN(Number(uprice))){
+      return false
+    } else if (uprice?.length < 4) {
+      return false
+    } else if (uprice?.length > 250) {
+      return false
+    } else if (uprice === null) {
+      return false
+    } else {
+      return true
+    }
   }
 
   return(

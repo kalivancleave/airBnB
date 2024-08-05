@@ -117,6 +117,7 @@ export const createSpot = (spot) => async (dispatch) => {
   if(result.ok) {
     const data = await result.json();
     dispatch(fetchSpotDetails(data.id))
+    return data.id
   } else if (result.status < 500) {
     const data = await result.json();
     if (data.errors) return data.errors;

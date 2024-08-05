@@ -17,7 +17,7 @@ const CreateSpot = () => {
   const [lng, setLng] = useState();
   const [description, setDescription] = useState("");
   const [name, setName] = useState("");
-  const [price, setPrice] = useState(null);
+  const [price, setPrice] = useState();
   const [imageSelected, setImageSelected] = useState("");
   //question to check if the photo has been uploaded
   const [uploadPhoto, setUploadPhoto] = useState(false);
@@ -42,14 +42,21 @@ const CreateSpot = () => {
 
 
   useEffect(() => {
-    dispatch(fetchSpots());
+    dispatch(fetchSpots()); 
   }, [dispatch])
 
     
   const id = spotsList[spotsList.length - 1]?.id + 1
   
   const validate = () => {
-    return  country.length === 0 ||
+    return  countryValidation() === true &&
+            addressValidation() === true &&
+            cityValidation() === true &&
+            stateValidation() === true &&
+            descriptionValidation() === true &&
+            nameValidation() === true &&
+            priceValidation() === true &&
+            country.length === 0 ||
             address.length === 0 ||
             city.length === 0 ||
             state.length === 0 ||
@@ -58,6 +65,50 @@ const CreateSpot = () => {
             price < 0 ||
             uploadPhoto === false ||
             readyToSubmit === false
+  }
+  
+  const countryValidation = () => {
+    return  country?.length > 4 && 
+            country?.length < 250
+  } 
+
+  const addressValidation = () => {
+    return  address?.length > 4 && 
+            address?.length < 250
+  }
+
+  const cityValidation = () => {
+    return  city?.length > 4 && 
+            city?.length < 250
+  }
+
+  const stateValidation = () => {
+    return  state?.length > 4 && 
+            state?.length < 250
+  }
+
+  const descriptionValidation = () => {
+    return  description?.length > 4 && 
+            description?.length < 250
+  }
+
+  const nameValidation = () => {
+    return  address?.length > 4 && 
+            address?.length < 250
+  }
+
+  const priceValidation = () => {
+    if(isNaN(Number(price))){
+      return false
+    } else if (price?.length < 4) {
+      return false
+    } else if (price?.length > 250) {
+      return false
+    } else if (price === null) {
+      return false
+    } else {
+      return true
+    }
   }
 
   //photo upload code
@@ -189,8 +240,6 @@ const CreateSpot = () => {
     setIsLoading5(false)
   } 
   
-  // console.log(...imagesToUpload)
-
   //end of photo upload code
 
   async function wait() {
@@ -217,8 +266,8 @@ const CreateSpot = () => {
     }
 
     await dispatch(createSpot(newSpot))
-
     .then(async function uploadImages() {
+      
       let newImage = {}
       //console.log (imagesToUpload.length + " hello from in the .then statment")
       for (let i = 0; i < imagesToUpload.length; i++) {
