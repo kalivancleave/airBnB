@@ -247,7 +247,7 @@ const CreateSpot = () => {
   const submitNewSpot = async () => {
     setErrors({})
     let newSpot = {}
-    
+
       newSpot.id = id
       newSpot.address = address
       newSpot.city = city
@@ -267,7 +267,7 @@ const CreateSpot = () => {
     await dispatch(createSpot(newSpot))
     .then(async function uploadImages() {
       let newImage = {}
-      //console.log (imagesToUpload.length + " hello from in the .then statment")
+      
       for (let i = 0; i < imagesToUpload.length; i++) {
         let imageToUpload = imagesToUpload[i]
           newImage.url = imageToUpload
@@ -276,7 +276,7 @@ const CreateSpot = () => {
           } else {
             newImage.preview = false
           }
-          // console.log (newImage + " each one should be a new Image")
+          
         dispatch(createImage(newImage, id))
       }
       await wait();
@@ -299,8 +299,7 @@ const CreateSpot = () => {
   
   return(
     <div className='displayFlex justifyCenter bottomPageBorder'>
-      {console.log(errors)}
-    
+          
       <form className="largeSize topMargin" onSubmit={(e) => {e.preventDefault(); submitNewSpot()}}>
         <h1 className='blackText xlargeFont sans'>Create a new Spot</h1>
 
@@ -491,7 +490,7 @@ const CreateSpot = () => {
     {/* end of photo upload code */}
           </div> 
 
-         <button className={!validate() ? 'activeButtonDesign' : 'inactiveButtonDesign'} type='submit' onClick={() => {console.log("click")}}>Create Spot</button> 
+         <button className={!validate() ? 'activeButtonDesign' : 'inactiveButtonDesign'} type='submit'>Create Spot</button> 
 
       </form>
     </div>

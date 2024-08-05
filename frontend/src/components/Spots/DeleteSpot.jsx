@@ -21,7 +21,6 @@ function DeleteSpot(props) {
     .then(closeModal)
     .catch(
       async (res) => {
-        console.log(res) //debugging
         const data = await res.json();
         if(data) {
           console.log(data);
