@@ -88,7 +88,7 @@ const CreateSpot = () => {
   }
 
   const descriptionValidation = () => {
-    return  description?.length > 4 && 
+    return  description?.length > 30 && 
             description?.length < 250
   }
 
@@ -100,7 +100,7 @@ const CreateSpot = () => {
   const priceValidation = () => {
     if(isNaN(Number(price))){
       return false
-    } else if (price?.length < 4) {
+    } else if (price?.length < 1) {
       return false
     } else if (price?.length > 250) {
       return false

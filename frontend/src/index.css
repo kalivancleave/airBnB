@@ -453,19 +453,6 @@ body {
   border: #CCCCCC 2px solid;
 }
 
-.inputBad {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
-  background-color: #ffffff;
-  border-radius: 30px;
-  border-color: rgb(196, 68, 68);
-}
-
-
-
-
 input {
   width: 100%;
   padding: 12px 20px;

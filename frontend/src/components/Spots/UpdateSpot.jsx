@@ -88,7 +88,7 @@ const UpdateSpot = () => {
   }
 
   const descriptionValidation = () => {
-    return  udescription?.length > 4 && 
+    return  udescription?.length > 30 && 
             udescription?.length < 250
   }
 
@@ -100,7 +100,7 @@ const UpdateSpot = () => {
   const priceValidation = () => {
     if(isNaN(Number(uprice))){
       return false
-    } else if (uprice?.length < 4) {
+    } else if (uprice?.length < 1) {
       return false
     } else if (uprice?.length > 250) {
       return false
