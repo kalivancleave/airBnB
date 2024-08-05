@@ -95,6 +95,21 @@ const spotImages = [
     spotId: 5,
     url: 'https://res.cloudinary.com/djnfjzocb/image/upload/v1722607585/Cozy_Casa_gni6cn.jpg',
     preview: false
+  },
+  {
+    spotId: 6,
+    url: 'https://res.cloudinary.com/djnfjzocb/image/upload/v1721880630/image-placeholder_xsvyni.png',
+    preview: false
+  },
+  {
+    spotId: 7,
+    url: 'https://res.cloudinary.com/djnfjzocb/image/upload/v1721880630/image-placeholder_xsvyni.png',
+    preview: false
+  },
+  {
+    spotId: 8,
+    url: 'https://res.cloudinary.com/djnfjzocb/image/upload/v1721880630/image-placeholder_xsvyni.png',
+    preview: false
   }
 ]
 

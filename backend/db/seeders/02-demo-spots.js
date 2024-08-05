@@ -70,6 +70,42 @@ const spots = [
     name: 'Coziest of Casas',
     description: 'So adorable and sweet it will make even the grumpiest of humans happy.',
     price: 78.50
+  },
+  {
+    ownerId: 6,
+    address: '1254 Address Ave.',
+    city: 'SimCity',
+    state: 'Florida',
+    country: 'United States of America',
+    lat: 77.7645358,
+    lng: -100.4730327,
+    name: 'Simply Sims House',
+    description: 'It may or may not exist in a videogame.',
+    price: 45.58
+  },
+  {
+    ownerId: 5,
+    address: '321 Address Ct.',
+    city: 'Triangle',
+    state: 'New York',
+    country: 'United States of America',
+    lat: 77.7645358,
+    lng: -100.4730327,
+    name: 'The Triangle House',
+    description: 'Sure the top floor loft is very pointed but talk about a vaulted ceiling from the main floor.',
+    price: 12.21
+  },
+  {
+    ownerId: 4,
+    address: '154B TravelBus Bus.',
+    city: 'Bus Stop',
+    state: 'Down The Street',
+    country: 'United States of America',
+    lat: 77.7645358,
+    lng: -100.4730327,
+    name: 'Bus',
+    description: 'It is a bus. That is it. And no it does not move.',
+    price: 13.00
   }
 ]
 

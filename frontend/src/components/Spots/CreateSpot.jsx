@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { createSpot, fetchSpotDetails } from '../../store/spots';
+import { createSpot } from '../../store/spots';
 import { useNavigate } from 'react-router-dom';
 import { fetchSpots } from '../../store/spots';
 import { createImage } from '../../store/images';

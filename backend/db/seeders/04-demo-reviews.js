@@ -19,7 +19,7 @@ const reviews = [
   },
   {
     spotId: 1,
-    userId: 1,
+    userId: 3,
     review: "Some MORE words about a space.",
     stars: 4
   },
@@ -28,6 +28,48 @@ const reviews = [
     userId: 2,
     review: "Here is everything I have to say about this space.",
     stars: 5
+  },
+  {
+    spotId: 3,
+    userId: 2,
+    review: "Some words about a space.",
+    stars: 5
+  },
+  {
+    spotId: 3,
+    userId: 2,
+    review: "Some different words about a space.",
+    stars: 4
+  },
+  {
+    spotId: 3,
+    userId: 5,
+    review: "Some words differently about a space.",
+    stars: 2
+  },
+  {
+    spotId: 4,
+    userId: 6,
+    review: "Some words about a space.",
+    stars: 5
+  },
+  {
+    spotId: 4,
+    userId: 3,
+    review: "Some review words about a space.",
+    stars: 5
+  },
+  {
+    spotId: 1,
+    userId: 5,
+    review: "Some words about a space.",
+    stars: 5
+  },
+  {
+    spotId: 2,
+    userId: 7,
+    review: "Review words about a space.",
+    stars: 2
   },
 ]
 

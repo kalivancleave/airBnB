@@ -38,6 +38,27 @@ const users = [
     username: 'JohnSmith',
     hashedPassword: bcrypt.hashSync('secret password'),
     email: 'john.smith@gmail.com'
+  },
+  {
+    firstName: 'Erin',
+    lastName: 'Carter',
+    username: 'ErinCarter',
+    hashedPassword: bcrypt.hashSync('erinpassword'),
+    email: 'erin.carter@gmail.com'
+  },
+  {
+    firstName: 'Mark',
+    lastName: 'Jones',
+    username: 'MarkJones',
+    hashedPassword: bcrypt.hashSync('markpassword'),
+    email: 'mark.jones@gmail.com'
+  },
+  {
+    firstName: 'Herbert',
+    lastName: 'Howard',
+    username: 'HerbertHoward',
+    hashedPassword: bcrypt.hashSync('herbertpassword'),
+    email: 'herbert.howard@gmail.com'
   }
 ]
 
