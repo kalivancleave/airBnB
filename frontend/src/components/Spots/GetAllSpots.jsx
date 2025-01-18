@@ -18,7 +18,7 @@ const GetAllSpots = () => {
   
   return (
     <>
-      <ol className="displayFlex flexWrap noMargin noPadding fullSize justifyLeft darkGreyBorder">
+      <ol className="displayFlex flexWrap noMargin noPadding fullSize justifyLeft darkGreyBorder littleRoundedCorners">
       <Tooltip id='my-tooltip' />
 
         {spotsList.map(({id, name, previewImage, city, state, avgRating, price}) => (
