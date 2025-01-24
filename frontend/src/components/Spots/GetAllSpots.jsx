@@ -22,7 +22,7 @@ const GetAllSpots = () => {
       <Tooltip id='my-tooltip' />
 
         {spotsList.map(({id, name, previewImage, city, state, avgRating, price}) => (
-          <div key={id} className="displayFlex frontPageSize topMargin littleBottomBorder justifyCenter photoBox littleRoundedCorners" data-tooltip-id="my-tooltip" data-tooltip-content={name} data-tooltip-place="top">
+          <div key={id} className="displayFlex frontPageSize topMargin littleBottomBorder justifyCenter photoBox" data-tooltip-id="my-tooltip" data-tooltip-content={name} data-tooltip-place="top">
             
             <NavLink to={`/${id}`} className="noDecoration" >
               <div className="displayFlex flexColumn alignCenter">
