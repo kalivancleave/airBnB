@@ -23,7 +23,7 @@ const GetAllSpots = () => {
 
         {spotsList.map(({id, name, previewImage, city, state, avgRating, price}) => (
 .darkGreyBorder {
-          <div key={id} className="displayFlex frontPageSize topMargin littleBottomBorder justifyCenter photoBox" data-tooltip-id="my-tooltip" data-tooltip-content={name} data-tooltip-place="top">
+          <div key={id} className="displayFlex frontPageSize topMargin littleBottomBorder justifyCenter photoBox darkGreyBorder" data-tooltip-id="my-tooltip" data-tooltip-content={name} data-tooltip-place="top">
             
             <NavLink to={`/${id}`} className="noDecoration" >
               <div className="displayFlex flexColumn alignCenter">
